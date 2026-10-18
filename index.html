@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quant - US Domestic Infrastructure Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h1>Quant</h1>
+            </div>
+            <div class="nav-search">
+                <input type="text" placeholder="Cari saham (SO, ED, O, WTRG)..." id="searchInput">
+                <button onclick="searchStock()"><i class="search-icon">🔍</i></button>
+            </div>
+            <div class="nav-account">
+                <span>US Market</span>
+            </div>
+        </div>
+    </header>
+
+    <nav class="subnav">
+        <div class="subnav-container">
+            <button class="subnav-btn active" data-filter="all">Semua Saham</button>
+            <button class="subnav-btn" data-filter="swing">Swing Trading</button>
+            <button class="subnav-btn" data-filter="dividend">Dividend Play</button>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <div class="content-wrapper">
+            <div class="section-header">
+                <h2>Rekomendasi Saham Infrastruktur Domestik AS</h2>
+                <p class="last-update" id="lastUpdate">Update: -</p>
+            </div>
+            
+            <div class="stock-grid" id="stockGrid">
+                <!-- Kartu saham dirender di sini -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal Detail -->
+    <div class="modal" id="stockModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="modal-close" onclick="closeModal()">×</button>
+                <h2 id="modalTicker">-</h2>
+                <p id="modalName">-</p>
+                <div class="modal-price" id="modalPrice">-</div>
+            </div>
+            
+            <div class="modal-tabs">
+                <button class="tab-btn active" data-tab="overview">Overview</button>
+                <button class="tab-btn" data-tab="swing">Swing Trading</button>
+                <button class="tab-btn" data-tab="dividend">Dividend</button>
+            </div>
+            
+            <div class="modal-body">
+                <div class="tab-content active" id="tab-overview"></div>
+                <div class="tab-content" id="tab-swing"></div>
+                <div class="tab-content" id="tab-dividend"></div>
+            </div>
+            
+            <div class="modal-footer">
+                <button class="btn-primary" onclick="closeModal()">Tutup</button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>Quant Dashboard - US Domestic Infrastructure Focus</p>
+        <p class="disclaimer">Data untuk tujuan informasi saja. Bukan saran finansial.</p>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
