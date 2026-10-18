@@ -6,16 +6,13 @@ from config import SWING_PARAMS, DIVIDEND_PARAMS
 def calculate_swing(hist, info):
     if hist.empty or len(hist) < 50:
         return {
-            "status": "WAIT",
-            "entry_zone": [0, 0],
-            "target_price": 0,
-            "stop_loss": 0,
-            "timeframe": "N/A",
-            "accumulation_score": 0,
-            "current_rsi": 0
+            "status": "WAIT", "entry_zone": [0, 0], "target_price": 0,
+            "stop_loss": 0, "timeframe": "N/A", "accumulation_score": 0, "current_rsi": 0
         }
     
     df = hist.copy()
+    # Stooq menggunakan 'Close' dan 'Volume' (huruf besar), aman digunakan
+    
     df['MA20'] = df['Close'].rolling(window=SWING_PARAMS['ma_short']).mean()
     df['MA50'] = df['Close'].rolling(window=SWING_PARAMS['ma_long']).mean()
     
@@ -47,16 +44,13 @@ def calculate_swing(hist, info):
         "current_rsi": round(rsi_val, 2)
     }
 
+# (Fungsi calculate_dividend tetap sama seperti sebelumnya)
 def calculate_dividend(info, hist):
     if hist.empty:
         return {
-            "status": "HOLD",
-            "safe_entry": 0,
-            "dividend_yield": 0,
-            "payout_ratio": 0,
-            "ex_dividend_date": "N/A",
-            "frequency": "N/A",
-            "is_safe_from_trap": False
+            "status": "HOLD", "safe_entry": 0, "dividend_yield": 0,
+            "payout_ratio": 0, "ex_dividend_date": "N/A", 
+            "frequency": "N/A", "is_safe_from_trap": False
         }
     
     yield_pct = (info.get('dividendYield') or 0) * 100
