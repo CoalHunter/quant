@@ -3,6 +3,8 @@
 Dasbor analisis kuantitatif saham infrastruktur domestik Amerika Serikat. Fokus pada analisis teknikal (Swing Trading) dan fundamental (Dividend Play) dengan deteksi akumulasi institusional.
 
 🔗 **Live Demo:** https://CoalHunter.github.io/quant/
+jalankan workflows:
+https://github.com/CoalHunter/quant/actions/workflows/update-data.yml
 
 ---
 
