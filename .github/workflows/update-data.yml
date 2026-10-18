@@ -2,9 +2,8 @@ name: Update Stock Data
 
 on:
   schedule:
-    # Jalankan setiap hari jam 09:00 UTC (sekitar jam 16:00 WIB, setelah market AS buka)
     - cron: '0 9 * * 1-5'
-  workflow_dispatch: # Bisa juga dijalankan manual
+  workflow_dispatch:
 
 jobs:
   update-data:
@@ -15,26 +14,34 @@ jobs:
         uses: actions/checkout@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
       
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+          cache: 'pip'
       
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r engine/requirements.txt
+          pip install --no-cache-dir -r engine/requirements.txt
       
       - name: Run Python Engine
         run: |
           cd engine
           python main.py
+        env:
+          PYTHONUNBUFFERED: 1
       
       - name: Commit and push data.json
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           git add output/data.json
-          git diff --staged --quiet || git commit -m "📊 Auto-update: data saham $(date +'%Y-%m-%d %H:%M UTC')"
-          git push
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "📊 Auto-update: data saham $(date +'%Y-%m-%d %H:%M UTC')"
+            git push
+          fi
