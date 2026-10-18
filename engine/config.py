@@ -1,19 +1,17 @@
 # engine/config.py
 import sys
 
-# ENTITAS SAHAM FOKUS (Murni Domestik AS: Utilities & REITs)
+# FILTER GEOPOLITIK & ENTITAS FOKUS
 TICKERS = ['SO', 'ED', 'O', 'WTRG']
-
-# Validasi Ketat: Mencegah injeksi ticker eksternal
 ALLOWED_SECTORS = ['Utilities', 'Real Estate']
 
 def validate_tickers(tickers):
     for t in tickers:
         if t not in TICKERS:
-            print(f"ERROR: Ticker {t} tidak diizinkan. Hanya {TICKERS} yang valid.")
+            print(f"ERROR: Ticker {t} ditolak. Hanya {TICKERS} yang diizinkan.")
             sys.exit(1)
 
-# Parameter Strategi
+# PARAMETER STRATEGI
 SWING_PARAMS = {
     'ma_short': 20,
     'ma_long': 50,
@@ -22,7 +20,11 @@ SWING_PARAMS = {
 }
 
 DIVIDEND_PARAMS = {
-    'max_payout_utility': 0.80,
-    'max_payout_reit': 0.90,
-    'discount_to_intrinsic': 0.05 # 5% discount untuk safe entry
+    'max_payout_utility': 0.85,
+    'max_payout_reit': 0.95,
+    'discount_safe_entry': 0.03 
 }
+
+# API KEYS (Gratis, daftar di bawah)
+# Alpha Vantage: https://www.alphavantage.co/support/#api-key (gratis 25 req/hari)
+ALPHA_VANTAGE_KEY = 'F5K003VO8YN1EAPP'  # Ganti dengan API key gratis kamu
