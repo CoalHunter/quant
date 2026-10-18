@@ -12,10 +12,10 @@ def fetch_market_data():
         print(f"Fetching {ticker}...")
         stock = yf.Ticker(ticker)
         
-        # Ambil data historis (lebih stabil)
+        # Ambil data historis
         hist = stock.history(period="1y")
         
-        # Ambil info dengan retry mechanism
+        # Ambil info dengan retry
         info = {}
         max_retries = 3
         for attempt in range(max_retries):
@@ -24,30 +24,25 @@ def fetch_market_data():
                 if info and len(info) > 5:
                     break
             except Exception as e:
-                print(f"  Retry {attempt+1}/{max_retries} for {ticker} info: {e}")
+                print(f"  Retry {attempt+1}/{max_retries} for {ticker}: {e}")
                 time.sleep(3)
         
-        # Fallback: gunakan fast_info jika stock.info gagal total
+        # Fallback jika info gagal
         if not info or len(info) <= 5:
-            print(f"  Using fast_info fallback for {ticker}")
-            try:
-                fi = stock.fast_info
-                info = {
-                    'shortName': ticker,
-                    'sector': 'Utilities',
-                    'dividendYield': getattr(fi, 'last_dividend_date', 0),
-                    'payoutRatio': 0.7,
-                    'exDividendDate': None
-                }
-            except:
-                info = {'shortName': ticker, 'sector': 'Utilities'}
+            print(f"  Using fallback for {ticker}")
+            info = {
+                'shortName': ticker,
+                'sector': 'Utilities',
+                'dividendYield': 0.05,
+                'payoutRatio': 0.70,
+                'exDividendDate': None
+            }
         
         market_data[ticker] = {
             'history': hist,
             'info': info
         }
         
-        # Delay antar ticker untuk hindari rate limit
-        time.sleep(2)
+        time.sleep(2)  # Delay hindari rate limit
     
     return market_data
