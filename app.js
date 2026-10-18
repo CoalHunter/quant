@@ -1,5 +1,5 @@
 let stockData = [];
-let currentFilter = 'all';
+let currentFilter = 'swing';
 
 async function loadData() {
     try {
@@ -11,7 +11,7 @@ async function loadData() {
     } catch (error) {
         console.error('Error loading data:', error);
         document.getElementById('stockGrid').innerHTML = 
-            '<div style="padding:40px;text-align:center;color:#B12704;">' +
+            '<div style="padding:40px;text-align:center;color:#B12704;grid-column:1/-1;">' +
             '<h3>Gagal memuat data</h3>' +
             '<p>Pastikan file output/data.json sudah diupload ke GitHub</p>' +
             '</div>';
@@ -28,6 +28,11 @@ function renderCards() {
         filtered = stockData.filter(s => s.swing_strategy?.status === 'BUY');
     } else if (currentFilter === 'dividend') {
         filtered = stockData.filter(s => s.dividend_strategy?.status === 'ACCUMULATE');
+    }
+    
+    if (filtered.length === 0) {
+        grid.innerHTML = '<div style="padding:40px;text-align:center;color:#565959;grid-column:1/-1;"><h3>Tidak ada rekomendasi aktif</h3><p>Tidak ada saham yang memenuhi kriteria ' + (currentFilter === 'swing' ? 'Swing Trading' : 'Dividend Play') + ' saat ini.</p></div>';
+        return;
     }
     
     filtered.forEach(stock => {
@@ -83,31 +88,57 @@ function formatVolume(vol) {
 function searchStock() {
     const input = document.getElementById('searchInput').value.toUpperCase();
     if (!input) {
-        currentFilter = 'all';
         renderCards();
         return;
     }
     
-    const filtered = stockData.filter(s => s.ticker.includes(input));
+    const filtered = stockData.filter(s => s.ticker.includes(input) || s.name.toUpperCase().includes(input));
     const grid = document.getElementById('stockGrid');
     grid.innerHTML = '';
     
+    if (filtered.length === 0) {
+        grid.innerHTML = '<div style="padding:40px;text-align:center;color:#565959;grid-column:1/-1;"><h3>Tidak ditemukan</h3></div>';
+        return;
+    }
+    
     filtered.forEach(stock => {
-        // Same card rendering as above
-        const card = createStockCard(stock);
+        const card = document.createElement('div');
+        card.className = 'stock-card';
+        card.onclick = () => openModal(stock);
+        
+        const accScore = stock.swing_strategy?.accumulation_score || 0;
+        
+        card.innerHTML = `
+            <div class="card-image">
+                <div class="card-ticker-large">${stock.ticker}</div>
+            </div>
+            <div class="card-body">
+                <div class="card-ticker">${stock.ticker}</div>
+                <div class="card-name">${stock.name}</div>
+                <div class="card-price-section">
+                    <div class="price-label">Harga Saat Ini</div>
+                    <div class="price-value">$${stock.current_price}</div>
+                </div>
+                <div class="card-badges">
+                    <span class="badge badge-swing">Swing</span>
+                    <span class="badge badge-dividend">Dividen</span>
+                </div>
+                <div class="card-volume">Volume: ${formatVolume(stock.daily_volume)}</div>
+                <div class="accumulation-section">
+                    <div class="accumulation-label">
+                        <span>Akumulasi Bandar</span>
+                        <span>${accScore}%</span>
+                    </div>
+                    <div class="accumulation-bar">
+                        <div class="accumulation-fill" style="width: ${accScore}%"></div>
+                    </div>
+                </div>
+            </div>
+        `;
         grid.appendChild(card);
     });
 }
 
-function createStockCard(stock) {
-    const card = document.createElement('div');
-    card.className = 'stock-card';
-    card.onclick = () => openModal(stock);
-    // ... same as renderCards
-    return card;
-}
-
-// Filter buttons
 document.querySelectorAll('.subnav-btn').forEach(btn => {
     btn.addEventListener('click', (e) => {
         document.querySelectorAll('.subnav-btn').forEach(b => b.classList.remove('active'));
@@ -117,13 +148,11 @@ document.querySelectorAll('.subnav-btn').forEach(btn => {
     });
 });
 
-// Modal functions
 function openModal(stock) {
     document.getElementById('modalTicker').textContent = stock.ticker;
     document.getElementById('modalName').textContent = stock.name;
     document.getElementById('modalPrice').textContent = '$' + stock.current_price;
     
-    // Tab Overview
     document.getElementById('tab-overview').innerHTML = `
         <div class="info-grid">
             <div class="info-item">
@@ -153,7 +182,6 @@ function openModal(stock) {
         </div>
     `;
     
-    // Tab Swing
     const swing = stock.swing_strategy || {};
     document.getElementById('tab-swing').innerHTML = `
         <div class="info-grid">
@@ -190,7 +218,6 @@ function openModal(stock) {
         </div>
     `;
     
-    // Tab Dividend
     const div = stock.dividend_strategy || {};
     document.getElementById('tab-dividend').innerHTML = `
         <div class="info-grid">
@@ -230,12 +257,10 @@ function closeModal() {
     document.getElementById('stockModal').classList.remove('active');
 }
 
-// Close modal on outside click
 document.getElementById('stockModal').addEventListener('click', (e) => {
     if (e.target.id === 'stockModal') closeModal();
 });
 
-// Tab switching
 document.querySelectorAll('.tab-btn').forEach(btn => {
     btn.addEventListener('click', (e) => {
         document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
@@ -245,5 +270,4 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
     });
 });
 
-// Initialize
 loadData();
