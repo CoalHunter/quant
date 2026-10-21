@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
 """
-Script untuk menganalisa harga entry saham Amerika
-Ticker: SO, ED, O, WRTG
-Strategi: Swing Trading + Dividen Investing
+Analisa Saham — Swing & Dividen
+Ticker: SO, ED, O, WTRG
 Output: ../output/hasil_analisa.json
 """
 
@@ -10,96 +9,89 @@ import yfinance as yf
 import pandas as pd
 import numpy as np
 import json
+import time
 from datetime import datetime, timedelta
 from pathlib import Path
 
-# Daftar saham yang akan dianalisa
+# ✅ Sudah diperbaiki: WRTG → WTRG
 TICKERS = ["SO", "ED", "O", "WTRG"]
 
-# Path output — ke folder output di atas
+# Path ke folder output
 OUTPUT_FILE = Path(__file__).parent.parent / "output" / "hasil_analisa.json"
-
-# Buat folder output jika belum ada
 OUTPUT_FILE.parent.mkdir(parents=True, exist_ok=True)
 
-# === Fungsi Hitung Indikator Teknis ===
+# Fungsi hitung RSI
 def hitung_rsi(data, periode=14):
-    """Relative Strength Index: 0-30 = Oversold, 70-100 = Overbought"""
     delta = data['Close'].diff()
     gain = delta.where(delta > 0, 0).rolling(window=periode).mean()
     loss = (-delta.where(delta < 0, 0)).rolling(window=periode).mean()
     rs = gain / loss
     return 100 - (100 / (1 + rs))
 
+# Fungsi hitung MACD
 def hitung_macd(data):
-    """Moving Average Convergence Divergence"""
     ema12 = data['Close'].ewm(span=12, adjust=False).mean()
     ema26 = data['Close'].ewm(span=26, adjust=False).mean()
     macd_line = ema12 - ema26
     signal_line = macd_line.ewm(span=9, adjust=False).mean()
     return macd_line.iloc[-1], signal_line.iloc[-1]
 
+# Fungsi Bollinger Bands
 def hitung_bollinger(data, periode=20):
-    """Bollinger Bands untuk zona support/resistance"""
     sma = data['Close'].rolling(window=periode).mean()
     std = data['Close'].rolling(window=periode).std()
     upper = sma + (2 * std)
     lower = sma - (2 * std)
     return upper.iloc[-1], sma.iloc[-1], lower.iloc[-1]
 
-# === Fungsi Analisa Saham ===
+# Analisa per saham
 def analisa_saham(simbol):
     print(f"🔍 Menganalisa {simbol}...")
+    time.sleep(0.3)  # Jeda kecil agar tidak diblokir
     
     try:
         ticker = yf.Ticker(simbol)
         
-        # Ambil data harga 1 tahun terakhir
         end_date = datetime.now()
         start_date = end_date - timedelta(days=365)
-        hist = ticker.history(start=start_date, end=end_date, auto_adjust=True)
+        
+        hist = ticker.history(
+            start=start_date,
+            end=end_date,
+            auto_adjust=True,
+            timeout=20
+        )
         
         if len(hist) < 60:
             print(f"⚠️ Data tidak cukup untuk {simbol}")
             return None
         
-        # Info dasar & dividen
         info = ticker.info
         nama = info.get('longName', simbol)
-        dividen_yield = info.get('dividendYield', 0) * 100  # %
+        dividen_yield = info.get('dividendYield', 0) * 100
         payout_ratio = info.get('payoutRatio', 0) * 100 if info.get('payoutRatio') else None
+        
         ex_div_date = info.get('exDividendDate', '')
         if isinstance(ex_div_date, (int, float)):
             ex_div_date = datetime.fromtimestamp(ex_div_date).strftime('%Y-%m-%d')
         
-        # Harga saat ini & statistik
         harga_sekarang = round(hist['Close'].iloc[-1], 2)
         harga_tertinggi_52w = round(hist['High'].max(), 2)
         harga_terendah_52w = round(hist['Low'].min(), 2)
         
-        # MA
         ma20 = round(hist['Close'].rolling(20).mean().iloc[-1], 2)
         ma50 = round(hist['Close'].rolling(50).mean().iloc[-1], 2)
         ma200 = round(hist['Close'].rolling(200).mean().iloc[-1], 2) if len(hist)>=200 else None
         
-        # RSI
         rsi = round(hitung_rsi(hist).iloc[-1], 1)
-        
-        # MACD
         macd, signal = hitung_macd(hist)
-        
-        # Bollinger Bands
         bb_atas, bb_tengah, bb_bawah = hitung_bollinger(hist)
         
-        # === Rekomendasi Entry ===
         zona_entry = round(bb_bawah * 1.01, 2)
         zona_aman_bawah = round(harga_terendah_52w * 1.02, 2)
         resistance = round(min(bb_atas, harga_tertinggi_52w * 0.95), 2)
-        
-        # Hitung potensi keuntungan
         potensi_gain = round(((resistance - zona_entry) / zona_entry) * 100, 2)
         
-        # Penilaian kondisi
         kondisi = "NETRAL"
         alasan = []
         
@@ -115,13 +107,12 @@ def analisa_saham(simbol):
         
         if harga_sekarang <= ma20 and ma50 > ma20:
             alasan.append("Harga di bawah MA20, potensi pantul")
-        elif harga_sekarang > ma50 and ma50 > ma200:
+        elif harga_sekarang > ma50 and (ma200 is not None and ma50 > ma200):
             alasan.append("Tren naik terkonfirmasi")
         
-        # Dividen
         dividen_cat = "Kurang Menarik"
         if dividen_yield > 6:
-            dividen_cat = "SANGAT TINGGI ⚠️ (periksa keberlanjutan)"
+            dividen_cat = "SANGAT TINGGI ⚠️"
         elif 4 <= dividen_yield <= 6:
             dividen_cat = "IDEAL ✅"
         elif 2 <= dividen_yield < 4:
@@ -129,7 +120,7 @@ def analisa_saham(simbol):
         elif dividen_yield > 0:
             dividen_cat = "Rendah"
         
-        hasil = {
+        return {
             "simbol": simbol,
             "nama": nama,
             "analisa_di": datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
@@ -162,17 +153,14 @@ def analisa_saham(simbol):
                 "potensi_gain_persen": potensi_gain,
                 "kondisi_saat_ini": kondisi,
                 "alasan": alasan,
-                "saran": f"Target beli di ${zona_entry}, target jual di ${resistance} (+{potensi_gain}%). "
-                         f"Dividen yield: {round(dividen_yield,2)}% — {dividen_cat}"
+                "saran": f"Target beli di ${zona_entry}, target jual di ${resistance} (+{potensi_gain}%). Dividen yield: {round(dividen_yield,2)}% — {dividen_cat}"
             }
         }
-        return hasil
     
     except Exception as e:
-        print(f"❌ Error analisa {simbol}: {e}")
+        print(f"❌ Error {simbol}: {e}")
         return None
 
-# === Fungsi Utama ===
 def main():
     print("=" * 50)
     print("📊 ANALISA SAHAM AMERIKA — SWING & DIVIDEN")
@@ -184,7 +172,6 @@ def main():
         if res:
             semua_hasil.append(res)
     
-    # Simpan ke JSON
     output = {
         "dibuat_pada": datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
         "jumlah_saham": len(semua_hasil),
@@ -194,8 +181,8 @@ def main():
     with open(OUTPUT_FILE, 'w', encoding='utf-8') as f:
         json.dump(output, f, ensure_ascii=False, indent=2)
     
-    print(f"\n✅ Selesai! Hasil disimpan di: {OUTPUT_FILE.resolve()}")
-    print(f"📋 Total dianalisa: {len(semua_hasil)} saham")
+    print(f"\n✅ Selesai! File disimpan di: {OUTPUT_FILE.resolve()}")
+    print(f"📋 Total: {len(semua_hasil)} saham")
 
 if __name__ == "__main__":
     main()
