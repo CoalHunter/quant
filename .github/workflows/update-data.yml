@@ -1,47 +1,38 @@
-name: Update Stock Data
+name: Perbarui Data Saham
 
 on:
+  # Jalankan otomatis setiap hari pukul 09.00 WIB (01:00 UTC)
   schedule:
-    - cron: '0 9 * * 1-5'
+    - cron: '0 1 * * *'
+  # Izinkan jalankan manual dari halaman GitHub
   workflow_dispatch:
 
 jobs:
-  update-data:
+  update:
     runs-on: ubuntu-latest
-    
     steps:
-      - name: Checkout repository
+      - name: 📂 Checkout Kode
         uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          fetch-depth: 0
-      
-      - name: Setup Python
+
+      - name: 🐍 Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-          cache: 'pip'
-      
-      - name: Install dependencies
+
+      - name: 📦 Install Dependensi
         run: |
           python -m pip install --upgrade pip
-          pip install --no-cache-dir -r engine/requirements.txt
-      
-      - name: Run Python Engine
+          pip install -r requirements.txt
+
+      - name: 🚀 Jalankan Analisa
         run: |
-          cd engine
-          python main.py
-        env:
-          PYTHONUNBUFFERED: 1
-      
-      - name: Commit and push data.json
+          cd py-engine
+          python analisa_saham.py
+
+      - name: 📝 Commit & Push Hasil
         run: |
-          git config --global user.name 'github-actions[bot]'
-          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          git add output/data.json
-          if git diff --staged --quiet; then
-            echo "No changes to commit"
-          else
-            git commit -m "📊 Auto-update: data saham $(date +'%Y-%m-%d %H:%M UTC')"
-            git push
-          fi
+          git config --local user.name "github-actions[bot]"
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git add output/hasil_analisa.json
+          git commit -m "🤖 Update data: $(date +'%Y-%m-%d %H:%M:%S')" || echo "Tidak ada perubahan"
+          git push
