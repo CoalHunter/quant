@@ -84,26 +84,35 @@
         .card-header {
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
+            align-items: flex-start;
+            margin-bottom: 18px;
             flex-wrap: wrap;
             gap: 10px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #e2e8f0;
         }
         .simbol {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: #2563eb;
+            font-size: 1px;
+            background: #dbeafe;
+            color: #1e40af;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 6px;
         }
-        .nama {
-            font-size: 0.95rem;
-            color: #64748b;
-            margin-top: 3px;
+        .nama-perusahaan {
+            font-size: 1.15rem;
+            color: #0f172a;
+            font-weight: 600;
+            line-height: 1.4;
         }
         .status {
             padding: 6px 12px;
             border-radius: 20px;
             font-weight: 600;
             font-size: 0.85rem;
+            white-space: nowrap;
         }
         .status.KESMPATAN-ENTRY, .status.SANGAT-BAGUS {
             background: #dcfce7;
@@ -227,7 +236,6 @@ async function muatData(lewatCache = false) {
     const loading = document.getElementById('loading');
     const content = document.getElementById('content');
     
-    // Tampilkan status loading
     btn.classList.add('loading');
     btn.innerHTML = '<span class="spinner"></span> Memuat...';
     loading.style.display = 'block';
@@ -235,7 +243,6 @@ async function muatData(lewatCache = false) {
     loading.innerHTML = '<span class="spinner"></span> Sedang mengambil data terbaru...';
 
     try {
-        // Tambah timestamp untuk BYPASS cache browser
         const url = lewatCache 
             ? `./hasil_analisa.json?t=${Date.now()}` 
             : './hasil_analisa.json';
@@ -253,7 +260,6 @@ async function muatData(lewatCache = false) {
             </div>
         `;
     } finally {
-        // Kembalikan tombol ke keadaan semula
         sedangMemuat = false;
         btn.classList.remove('loading');
         btn.innerHTML = '🔄 Refresh Data';
@@ -288,8 +294,8 @@ function buatKartu(s) {
     <div class="card">
         <div class="card-header">
             <div>
-                <div class="simbol">${s.simbol}</div>
-                <div class="nama">${s.nama}</div>
+                <span class="simbol">${s.simbol}</span>
+                <div class="nama-perusahaan">${s.nama}</div>
             </div>
             <span class="status ${statusClass}">${s.rekomendasi.kondisi_saat_ini}</span>
         </div>
