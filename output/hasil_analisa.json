@@ -1,11 +1,11 @@
 {
-  "dibuat_pada": "2026-10-21 23:46:16",
-  "jumlah_saham": 3,
+  "dibuat_pada": "2026-10-21 23:52:22",
+  "jumlah_saham": 4,
   "daftar_saham": [
     {
       "simbol": "SO",
       "nama": "The Southern Company",
-      "analisa_di": "2026-10-21 23:46:14",
+      "analisa_di": "2026-10-21 23:52:21",
       "harga_sekarang": 90.39,
       "harga_52minggu": {
         "terendah": 81.69,
@@ -43,7 +43,7 @@
     {
       "simbol": "ED",
       "nama": "Consolidated Edison, Inc.",
-      "analisa_di": "2026-10-21 23:46:15",
+      "analisa_di": "2026-10-21 23:52:22",
       "harga_sekarang": 111.82,
       "harga_52minggu": {
         "terendah": 92.43,
@@ -81,7 +81,7 @@
     {
       "simbol": "O",
       "nama": "Realty Income Corporation",
-      "analisa_di": "2026-10-21 23:46:15",
+      "analisa_di": "2026-10-21 23:52:22",
       "harga_sekarang": 55.35,
       "harga_52minggu": {
         "terendah": 53.15,
@@ -112,6 +112,44 @@
         "kondisi_saat_ini": "NETRAL",
         "alasan": [],
         "saran": "Target beli di $53.69, target jual di $56.41 (+5.07%). Dividen yield: 578.0% — SANGAT TINGGI ⚠️ (periksa keberlanjutan)"
+      }
+    },
+    {
+      "simbol": "WTRG",
+      "nama": "Essential Utilities, Inc.",
+      "analisa_di": "2026-10-21 23:52:22",
+      "harga_sekarang": 40.74,
+      "harga_52minggu": {
+        "terendah": 35.71,
+        "tertinggi": 42.51
+      },
+      "indikator": {
+        "ma20": 39.5,
+        "ma50": 40.39,
+        "ma200": 38.8,
+        "rsi": 69.1,
+        "macd": 0.0947,
+        "signal_line": -0.1592,
+        "bollinger_bawah": 37.95,
+        "bollinger_tengah": 39.5,
+        "bollinger_atas": 41.04
+      },
+      "dividen": {
+        "yield_persen": 352.0,
+        "kategori": "SANGAT TINGGI ⚠️ (periksa keberlanjutan)",
+        "payout_ratio_persen": 69.9,
+        "ex_div_date": "2026-08-11"
+      },
+      "rekomendasi": {
+        "zona_entry": 38.33,
+        "zona_aman_bawah": 36.42,
+        "zona_resistance": 40.38,
+        "potensi_gain_persen": 5.35,
+        "kondisi_saat_ini": "NETRAL",
+        "alasan": [
+          "Tren naik terkonfirmasi"
+        ],
+        "saran": "Target beli di $38.33, target jual di $40.38 (+5.35%). Dividen yield: 352.0% — SANGAT TINGGI ⚠️ (periksa keberlanjutan)"
       }
     }
   ]
