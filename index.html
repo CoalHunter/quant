@@ -92,7 +92,7 @@
             border-bottom: 1px solid #e2e8f0;
         }
         .simbol {
-            font-size: 1px;
+            font-size: 1rem;
             background: #dbeafe;
             color: #1e40af;
             padding: 4px 10px;
@@ -243,20 +243,24 @@ async function muatData(lewatCache = false) {
     loading.innerHTML = '<span class="spinner"></span> Sedang mengambil data terbaru...';
 
     try {
+        // ✅ Path ke folder output
         const url = lewatCache 
-            ? `./hasil_analisa.json?t=${Date.now()}` 
-            : './hasil_analisa.json';
+            ? `./output/hasil_analisa.json?t=${Date.now()}` 
+            : './output/hasil_analisa.json';
         
         const res = await fetch(url, { cache: 'no-store' });
         
-        if (!res.ok) throw new Error('File tidak ditemukan');
+        if (!res.ok) throw new Error('File tidak ditemukan<br>Jalankan script py-engine/analisa_saham.py dulu');
         const data = await res.json();
         tampilkanData(data);
     } catch (err) {
         loading.innerHTML = `
             <div class="error">
-                ❌ Gagal memuat data: ${err.message}<br>
-                Pastikan file <strong>hasil_analisa.json</strong> ada di folder yang sama dengan index.html
+                ❌ Gagal memuat data: ${err.message}<br><br>
+                <strong>Langkah yang perlu dilakukan:</strong><br>
+                1. Buka terminal, masuk ke folder <code>py-engine</code><br>
+                2. Jalankan: <code>python analisa_saham.py</code><br>
+                3. File hasil akan tersimpan di <code>output/hasil_analisa.json</code>
             </div>
         `;
     } finally {
@@ -309,45 +313,4 @@ function buatKartu(s) {
                 <h4>Zona Entry Beli ✅</h4>
                 <p class="harga-beli">$${s.rekomendasi.zona_entry}</p>
             </div>
-            <div class="box">
-                <h4>Target Resistance</h4>
-                <p class="harga-jual">$${s.rekomendasi.zona_resistance}</p>
-            </div>
-            <div class="box">
-                <h4>Potensi Gain</h4>
-                <p class="gain">${s.rekomendasi.potensi_gain_persen}%</p>
-            </div>
-        </div>
-
-        <div class="grid">
-            <div class="box">
-                <h4>Dividen Yield</h4>
-                <p><span class="dividen-badge">${s.dividen.yield_persen}% &nbsp; ${s.dividen.kategori}</span></p>
-            </div>
-            <div class="box">
-                <h4>RSI Saat Ini</h4>
-                <p>${s.indikator.rsi}</p>
-            </div>
-            <div class="box">
-                <h4>52W Terendah / Tertinggi</h4>
-                <p>$${s.harga_52minggu.terendah} — $${s.harga_52minggu.tertinggi}</p>
-            </div>
-            <div class="box">
-                <h4>Ex-Dividen Date</h4>
-                <p>${s.dividen.ex_div_date || '—'}</p>
-            </div>
-        </div>
-
-        <div class="alasan">
-            <strong>📝 Catatan:</strong><br>${alasanList}<br><br>
-            ${s.rekomendasi.saran}
-        </div>
-    </div>
-    `;
-}
-
-document.addEventListener('DOMContentLoaded', () => muatData(false));
-</script>
-
-</body>
-</html>
+            <div class="box
