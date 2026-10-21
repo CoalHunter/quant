@@ -3,75 +3,345 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quant - US Domestic Infrastructure Dashboard</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Analisa Saham — Swing & Dividen</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, sans-serif;
+        }
+        body {
+            background: #f0f4f8;
+            color: #1e293b;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+            color: #0f172a;
+            margin-bottom: 5px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #64748b;
+            margin-bottom: 15px;
+        }
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .btn-refresh {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+            box-shadow: 0 2px 6px rgba(37, 99, 235, 0.25);
+        }
+        .btn-refresh:hover {
+            background: #1d4ed8;
+            transform: translateY(-1px);
+        }
+        .btn-refresh:active {
+            transform: translateY(0);
+        }
+        .btn-refresh.loading {
+            opacity: 0.7;
+            pointer-events: none;
+        }
+        .info-bar {
+            background: #e0f2fe;
+            border-left: 4px solid #0ea5e9;
+            padding: 12px 16px;
+            border-radius: 6px;
+            margin-bottom: 25px;
+            font-size: 0.95rem;
+        }
+        .card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            padding: 22px;
+            margin-bottom: 20px;
+            transition: transform 0.2s;
+        }
+        .card:hover {
+            transform: translateY(-2px);
+        }
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .simbol {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #2563eb;
+        }
+        .nama {
+            font-size: 0.95rem;
+            color: #64748b;
+            margin-top: 3px;
+        }
+        .status {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+        .status.KESMPATAN-ENTRY, .status.SANGAT-BAGUS {
+            background: #dcfce7;
+            color: #166534;
+        }
+        .status.NETRAL {
+            background: #fef3c7;
+            color: #92400e;
+        }
+        .status.HINDARI {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 16px;
+            margin-bottom: 15px;
+        }
+        .box h4 {
+            font-size: 0.8rem;
+            color: #94a3b8;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+        .box p {
+            font-size: 1rem;
+            font-weight: 500;
+        }
+        .harga-beli {
+            color: #16a34a;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        .harga-jual {
+            color: #2563eb;
+        }
+        .gain {
+            color: #16a34a;
+            font-weight: bold;
+        }
+        .dividen-badge {
+            display: inline-block;
+            background: #ede9fe;
+            color: #4338ca;
+            padding: 4px 10px;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        .alasan {
+            background: #f8fafc;
+            padding: 12px;
+            border-radius: 6px;
+            border-left: 3px solid #94a3b8;
+            font-size: 0.9rem;
+            color: #47556b;
+        }
+        .loading {
+            text-align: center;
+            padding: 60px 20px;
+            font-size: 1.1rem;
+            color: #64748b;
+        }
+        .spinner {
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            border: 3px solid #bfdbfe;
+            border-top-color: #2563eb;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        .error {
+            background: #fee2e2;
+            border-left: 4px solid #dc2626;
+            padding: 15px;
+            border-radius: 6px;
+            color: #991b1b;
+        }
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 0.85rem;
+            color: #94a3b8;
+        }
+    </style>
 </head>
 <body>
-    <header class="navbar">
-        <div class="nav-container">
-            <div class="nav-logo">
-                <h1>Quant</h1>
-            </div>
-            <div class="nav-search">
-                <input type="text" placeholder="Cari saham (SO, ED, O, WTRG)..." id="searchInput">
-                <button onclick="searchStock()"><i class="search-icon">🔍</i></button>
-            </div>
-            <div class="nav-account">
-                <span>US Market</span>
-            </div>
-        </div>
-    </header>
 
-    <nav class="subnav">
-        <div class="subnav-container">
-            <button class="subnav-btn active" data-filter="swing">Swing Trading</button>
-            <button class="subnav-btn" data-filter="dividend">Dividend Play</button>
-        </div>
-    </nav>
+    <h1>📈 Analisa Saham Amerika — Swing & Dividen</h1>
+    <p class="subtitle">Ticker: SO • ED • O • WRTG</p>
 
-    <main class="main-content">
-        <div class="content-wrapper">
-            <div class="section-header">
-                <h2>Rekomendasi Saham Infrastruktur Domestik AS</h2>
-                <p class="last-update" id="lastUpdate">Update: -</p>
-            </div>
-            
-            <div class="stock-grid" id="stockGrid"></div>
-        </div>
-    </main>
-
-    <div class="modal" id="stockModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button class="modal-close" onclick="closeModal()">×</button>
-                <h2 id="modalTicker">-</h2>
-                <p id="modalName">-</p>
-                <div class="modal-price" id="modalPrice">-</div>
-            </div>
-            
-            <div class="modal-tabs">
-                <button class="tab-btn active" data-tab="overview">Overview</button>
-                <button class="tab-btn" data-tab="swing">Swing Trading</button>
-                <button class="tab-btn" data-tab="dividend">Dividend</button>
-            </div>
-            
-            <div class="modal-body">
-                <div class="tab-content active" id="tab-overview"></div>
-                <div class="tab-content" id="tab-swing"></div>
-                <div class="tab-content" id="tab-dividend"></div>
-            </div>
-            
-            <div class="modal-footer">
-                <button class="btn-primary" onclick="closeModal()">Tutup</button>
-            </div>
-        </div>
+    <div class="top-bar">
+        <span></span>
+        <button class="btn-refresh" id="btnRefresh" onclick="muatData(true)">
+            🔄 Refresh Data
+        </button>
     </div>
 
-    <footer class="footer">
-        <p>Quant Dashboard - US Domestic Infrastructure Focus</p>
-        <p class="disclaimer">Data untuk tujuan informasi saja. Bukan saran finansial.</p>
+    <div id="loading" class="loading">⏳ Memuat data...</div>
+    <div id="content" style="display: none;"></div>
+
+    <footer>
+        ⚠️ Bukan saran investasi — hanya alat bantu analisis.
     </footer>
 
-    <script src="app.js"></script>
+<script>
+let sedangMemuat = false;
+
+async function muatData(lewatCache = false) {
+    if (sedangMemuat) return;
+    sedangMemuat = true;
+
+    const btn = document.getElementById('btnRefresh');
+    const loading = document.getElementById('loading');
+    const content = document.getElementById('content');
+    
+    // Tampilkan status loading
+    btn.classList.add('loading');
+    btn.innerHTML = '<span class="spinner"></span> Memuat...';
+    loading.style.display = 'block';
+    content.style.display = 'none';
+    loading.innerHTML = '<span class="spinner"></span> Sedang mengambil data terbaru...';
+
+    try {
+        // Tambah timestamp untuk BYPASS cache browser
+        const url = lewatCache 
+            ? `./hasil_analisa.json?t=${Date.now()}` 
+            : './hasil_analisa.json';
+        
+        const res = await fetch(url, { cache: 'no-store' });
+        
+        if (!res.ok) throw new Error('File tidak ditemukan');
+        const data = await res.json();
+        tampilkanData(data);
+    } catch (err) {
+        loading.innerHTML = `
+            <div class="error">
+                ❌ Gagal memuat data: ${err.message}<br>
+                Pastikan file <strong>hasil_analisa.json</strong> ada di folder yang sama dengan index.html
+            </div>
+        `;
+    } finally {
+        // Kembalikan tombol ke keadaan semula
+        sedangMemuat = false;
+        btn.classList.remove('loading');
+        btn.innerHTML = '🔄 Refresh Data';
+    }
+}
+
+function tampilkanData(data) {
+    document.getElementById('loading').style.display = 'none';
+    const konten = document.getElementById('content');
+    konten.style.display = 'block';
+    
+    konten.innerHTML = `
+        <div class="info-bar">
+            📅 Diperbarui: <strong>${data.dibuat_pada}</strong> &nbsp;|&nbsp; 
+            📊 Total saham dianalisa: <strong>${data.jumlah_saham}</strong>
+        </div>
+        ${data.daftar_saham.map(saham => buatKartu(saham)).join('')}
+    `;
+}
+
+function buatKartu(s) {
+    let statusClass = 'NETRAL';
+    if (s.rekomendasi.kondisi_saat_ini.includes('ENTRY')) statusClass = 'KESMPATAN-ENTRY';
+    if (s.rekomendasi.kondisi_saat_ini.includes('SANGAT')) statusClass = 'SANGAT-BAGUS';
+    if (s.rekomendasi.kondisi_saat_ini.includes('HINDARI')) statusClass = 'HINDARI';
+
+    const alasanList = s.rekomendasi.alasan.length > 0
+        ? s.rekomendasi.alasan.map(a => `✅ ${a}`).join('<br>')
+        : '—';
+
+    return `
+    <div class="card">
+        <div class="card-header">
+            <div>
+                <div class="simbol">${s.simbol}</div>
+                <div class="nama">${s.nama}</div>
+            </div>
+            <span class="status ${statusClass}">${s.rekomendasi.kondisi_saat_ini}</span>
+        </div>
+
+        <div class="grid">
+            <div class="box">
+                <h4>Harga Sekarang</h4>
+                <p>$${s.harga_sekarang}</p>
+            </div>
+            <div class="box">
+                <h4>Zona Entry Beli ✅</h4>
+                <p class="harga-beli">$${s.rekomendasi.zona_entry}</p>
+            </div>
+            <div class="box">
+                <h4>Target Resistance</h4>
+                <p class="harga-jual">$${s.rekomendasi.zona_resistance}</p>
+            </div>
+            <div class="box">
+                <h4>Potensi Gain</h4>
+                <p class="gain">${s.rekomendasi.potensi_gain_persen}%</p>
+            </div>
+        </div>
+
+        <div class="grid">
+            <div class="box">
+                <h4>Dividen Yield</h4>
+                <p><span class="dividen-badge">${s.dividen.yield_persen}% &nbsp; ${s.dividen.kategori}</span></p>
+            </div>
+            <div class="box">
+                <h4>RSI Saat Ini</h4>
+                <p>${s.indikator.rsi}</p>
+            </div>
+            <div class="box">
+                <h4>52W Terendah / Tertinggi</h4>
+                <p>$${s.harga_52minggu.terendah} — $${s.harga_52minggu.tertinggi}</p>
+            </div>
+            <div class="box">
+                <h4>Ex-Dividen Date</h4>
+                <p>${s.dividen.ex_div_date || '—'}</p>
+            </div>
+        </div>
+
+        <div class="alasan">
+            <strong>📝 Catatan:</strong><br>${alasanList}<br><br>
+            ${s.rekomendasi.saran}
+        </div>
+    </div>
+    `;
+}
+
+document.addEventListener('DOMContentLoaded', () => muatData(false));
+</script>
+
 </body>
 </html>
