@@ -1,12 +1,16 @@
 # engine/main.py
 import json
 import os
+import pandas as pd
 from datetime import datetime
 from data_fetcher import fetch_market_data
 from quant_logic import calculate_swing, calculate_dividend
 
 def generate_dashboard_data():
-    print("Memulai proses kuantitatif...")
+    print("=" * 60)
+    print("QUANT ENGINE - US DOMESTIC INFRASTRUCTURE")
+    print("=" * 60)
+    
     market_data = fetch_market_data()
     recommendations = []
     
@@ -14,7 +18,7 @@ def generate_dashboard_data():
         hist = data['history']
         info = data['info']
         
-        print(f"Memproses {ticker}...")
+        print(f"\nMemproses {ticker}...")
         
         swing_data = calculate_swing(hist, info)
         div_data = calculate_dividend(info, hist)
@@ -24,7 +28,8 @@ def generate_dashboard_data():
             # Pastikan index adalah datetime
             if not isinstance(hist.index, pd.DatetimeIndex):
                 hist.index = pd.to_datetime(hist.index)
-                
+            
+            # Sampling setiap 5 hari untuk performa frontend
             chart_dates = [d.strftime('%Y-%m-%d') for d in hist.index[::5]]
             chart_prices = [round(float(p), 2) for p in hist['Close'].iloc[::5].tolist()]
             chart_vols = [int(v) for v in hist['Volume'].iloc[::5].tolist()]
@@ -61,12 +66,14 @@ def generate_dashboard_data():
         "recommendations": recommendations
     }
     
+    # Simpan ke output/data.json
     os.makedirs('../output', exist_ok=True)
-    with open('../output/data.json', 'w') as f:
-        json.dump(output, f, indent=2, default=str)
-        
-    print("Selesai! Data disimpan di output/data.json")
+    with open('../output/data.json', 'w', encoding='utf-8') as f:
+        json.dump(output, f, indent=2, default=str, ensure_ascii=False)
+    
+    print("\n" + "=" * 60)
+    print("✅ SELESAI! Data disimpan di output/data.json")
+    print("=" * 60)
 
 if __name__ == "__main__":
-    import pandas as pd # Tambahkan import ini di main.py
     generate_dashboard_data()
