@@ -1,0 +1,118 @@
+{
+  "dibuat_pada": "2026-10-21 23:46:16",
+  "jumlah_saham": 3,
+  "daftar_saham": [
+    {
+      "simbol": "SO",
+      "nama": "The Southern Company",
+      "analisa_di": "2026-10-21 23:46:14",
+      "harga_sekarang": 90.39,
+      "harga_52minggu": {
+        "terendah": 81.69,
+        "tertinggi": 98.45
+      },
+      "indikator": {
+        "ma20": 86.19,
+        "ma50": 87.66,
+        "ma200": 91.21,
+        "rsi": 79.4,
+        "macd": 0.9822,
+        "signal_line": 0.2325,
+        "bollinger_bawah": 80.19,
+        "bollinger_tengah": 86.19,
+        "bollinger_atas": 92.2
+      },
+      "dividen": {
+        "yield_persen": 335.0,
+        "kategori": "SANGAT TINGGI ⚠️ (periksa keberlanjutan)",
+        "payout_ratio_persen": 71.8,
+        "ex_div_date": "2026-11-16"
+      },
+      "rekomendasi": {
+        "zona_entry": 80.99,
+        "zona_aman_bawah": 83.32,
+        "zona_resistance": 92.2,
+        "potensi_gain_persen": 13.84,
+        "kondisi_saat_ini": "HINDARI / TUNGGU",
+        "alasan": [
+          "RSI > 70, jenuh beli"
+        ],
+        "saran": "Target beli di $80.99, target jual di $92.2 (+13.84%). Dividen yield: 335.0% — SANGAT TINGGI ⚠️ (periksa keberlanjutan)"
+      }
+    },
+    {
+      "simbol": "ED",
+      "nama": "Consolidated Edison, Inc.",
+      "analisa_di": "2026-10-21 23:46:15",
+      "harga_sekarang": 111.82,
+      "harga_52minggu": {
+        "terendah": 92.43,
+        "tertinggi": 114.33
+      },
+      "indikator": {
+        "ma20": 106.33,
+        "ma50": 106.63,
+        "ma200": 107.27,
+        "rsi": 77.8,
+        "macd": 1.5594,
+        "signal_line": 0.7238,
+        "bollinger_bawah": 99.42,
+        "bollinger_tengah": 106.33,
+        "bollinger_atas": 113.23
+      },
+      "dividen": {
+        "yield_persen": 317.0,
+        "kategori": "SANGAT TINGGI ⚠️ (periksa keberlanjutan)",
+        "payout_ratio_persen": 57.2,
+        "ex_div_date": "2026-11-18"
+      },
+      "rekomendasi": {
+        "zona_entry": 100.42,
+        "zona_aman_bawah": 94.28,
+        "zona_resistance": 108.61,
+        "potensi_gain_persen": 8.16,
+        "kondisi_saat_ini": "HINDARI / TUNGGU",
+        "alasan": [
+          "RSI > 70, jenuh beli"
+        ],
+        "saran": "Target beli di $100.42, target jual di $108.61 (+8.16%). Dividen yield: 317.0% — SANGAT TINGGI ⚠️ (periksa keberlanjutan)"
+      }
+    },
+    {
+      "simbol": "O",
+      "nama": "Realty Income Corporation",
+      "analisa_di": "2026-10-21 23:46:15",
+      "harga_sekarang": 55.35,
+      "harga_52minggu": {
+        "terendah": 53.15,
+        "tertinggi": 66.25
+      },
+      "indikator": {
+        "ma20": 54.79,
+        "ma50": 58.04,
+        "ma200": 60.46,
+        "rsi": 62.2,
+        "macd": -0.5707,
+        "signal_line": -0.9821,
+        "bollinger_bawah": 53.16,
+        "bollinger_tengah": 54.79,
+        "bollinger_atas": 56.41
+      },
+      "dividen": {
+        "yield_persen": 578.0,
+        "kategori": "SANGAT TINGGI ⚠️ (periksa keberlanjutan)",
+        "payout_ratio_persen": 234.7,
+        "ex_div_date": "2026-10-30"
+      },
+      "rekomendasi": {
+        "zona_entry": 53.69,
+        "zona_aman_bawah": 54.21,
+        "zona_resistance": 56.41,
+        "potensi_gain_persen": 5.07,
+        "kondisi_saat_ini": "NETRAL",
+        "alasan": [],
+        "saran": "Target beli di $53.69, target jual di $56.41 (+5.07%). Dividen yield: 578.0% — SANGAT TINGGI ⚠️ (periksa keberlanjutan)"
+      }
+    }
+  ]
+}
