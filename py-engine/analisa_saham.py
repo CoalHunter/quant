@@ -14,7 +14,7 @@ from datetime import datetime, timedelta
 from pathlib import Path
 
 # Daftar saham yang akan dianalisa
-TICKERS = ["SO", "ED", "O", "WRTG"]
+TICKERS = ["SO", "ED", "O", "WTRG"]
 
 # Path output — ke folder output di atas
 OUTPUT_FILE = Path(__file__).parent.parent / "output" / "hasil_analisa.json"
