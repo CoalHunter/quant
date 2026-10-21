@@ -1,7 +1,7 @@
 # engine/config.py
 import sys
 
-# FILTER GEOPOLITIK & ENTITAS FOKUS
+# FILTER GEOPOLITIK & ENTITAS FOKUS (Murni Domestik AS)
 TICKERS = ['SO', 'ED', 'O', 'WTRG']
 ALLOWED_SECTORS = ['Utilities', 'Real Estate']
 
@@ -22,9 +22,5 @@ SWING_PARAMS = {
 DIVIDEND_PARAMS = {
     'max_payout_utility': 0.85,
     'max_payout_reit': 0.95,
-    'discount_safe_entry': 0.03 
+    'discount_safe_entry': 0.03
 }
-
-# API KEYS (Gratis, daftar di bawah)
-# Alpha Vantage: https://www.alphavantage.co/support/#api-key (gratis 25 req/hari)
-ALPHA_VANTAGE_KEY = 'F5K003VO8YN1EAPP'  # Ganti dengan API key gratis kamu
