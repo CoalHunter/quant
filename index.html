@@ -2,143 +2,94 @@
 <html lang="en">
 <head>
     <!-- ═══════════════════════════════════════════════
-         🎯 SEO & META TAGS — Google & Adsense Requirement
+         🎯 SEO META TAGS — Dioptimasi untuk Page One
          ═══════════════════════════════════════════════ -->
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <!-- ✅ JUDUL & DESKRIPSI — Sangat Penting untuk SEO -->
     <title>Stock Analysis Tool — Swing Trading & Dividend Strategy | SO ED O WTRG</title>
-    <meta name="description" content="Free stock analysis tool focusing on Swing Trading technical analysis and Dividend Strategy to find best buy price for maximum yield. Covers SO, ED, O, WTRG stocks.">
+    <meta name="description" content="Free stock analysis tool focusing on Swing Trading technical analysis and Dividend Strategy. Calculate best buy price for maximum yield. Covers SO, ED, O, WTRG.">
     <meta name="keywords" content="stock analysis, swing trading, dividend strategy, best buy price, high yield stocks, technical analysis, SO stock, ED stock, O stock, WTRG stock">
     <meta name="author" content="Coalhunter">
-    
-    <!-- ✅ PEMILIKAN & INDEKSING -->
-    <link rel="canonical" href="https://coalhunter.github.io/quant/">
     <meta name="robots" content="index, follow, max-image-preview:large">
     <meta name="googlebot" content="index, follow">
     <meta name="google" content="notranslate">
+    <meta name="theme-color" content="#7c3aed">
     
-    <!-- ✅ OPEN GRAPH — Untuk Sosial Media & Tampilan Google -->
+    <link rel="canonical" href="https://coalhunter.github.io/quant/">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- Open Graph -->
     <meta property="og:type" content="website">
     <meta property="og:title" content="Stock Analysis Tool — Swing & Dividend Strategy">
     <meta property="og:description" content="Free tool: Technical analysis for Swing Trading + find lowest price for maximum Dividend Yield.">
     <meta property="og:url" content="https://coalhunter.github.io/quant/">
-    <meta property="og:site_name" content="Stock Analysis — Swing & Dividend">
+    <meta property="og:site_name" content="Stock Analysis Tool">
     <meta property="og:locale" content="en_US">
     <meta property="og:locale:alternate" content="id_ID">
     
-    <!-- ✅ TWITTER CARD -->
+    <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Stock Analysis Tool — Swing & Dividend Strategy">
     <meta name="twitter:description" content="Free tool: Technical analysis for Swing Trading + best buy price for maximum Dividend Yield.">
     
-    <!-- ✅ FAVICON -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+    <!-- Preload & Performance -->
+    <link rel="dns-prefetch" href="//pagead2.googlesyndication.com">
+    <link rel="preconnect" href="https://pagead2.googlesyndication.com">
     
-    <!-- ✅ GOOGLE SITE VERIFICATION — Isi kode verifikasi Google Webmaster kamu di sini -->
-    <meta name="google-site-verification" content="ISI_KODE_VERIFIKASI_GOOGLE_KAMU">
-    
-    <!-- ✅ ADSENSE META — Wajib untuk pengajuan Adsense -->
-    <meta name="adsense" content="ca-pub-XXXXXXXXXXXXXXXX">
-    
-    <!-- ✅ CACHE CONTROL -->
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
     
-    <!-- ═══════════════════════════════════════════════
-         📐 STYLE
-         ═══════════════════════════════════════════════ -->
     <style>
         * {margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;}
         body {background:#f0f4f8; color:#1e293b; padding:16px; max-width:768px; margin:0 auto; line-height:1.5;}
         
-        /* 🔝 HEADER BAR — Bahasa + Hapus Cache berdampingan di pojok atas */
-        .header-bar {
-            display:flex; justify-content:space-between; align-items:center;
-            position:relative; margin-bottom:16px;
-        }
+        .header-bar {display:flex; justify-content:space-between; align-items:center; position:relative; margin-bottom:16px;}
         
-        /* 🌐 PENGGANTI BAHASA */
         .lang-switcher {position:relative; z-index:50;}
-        .lang-btn {
-            background:transparent; border:1px solid #cbd5e1; border-radius:6px;
-            padding:6px 12px; cursor:pointer; font-size:0.85rem; font-weight:500; color:#47556b;
-        }
+        .lang-btn {background:transparent; border:1px solid #cbd5e1; border-radius:6px; padding:6px 12px; cursor:pointer; font-size:0.85rem; font-weight:500; color:#47556b;}
         .lang-btn:hover {background:#e2e8f0;}
-        .lang-dropdown {
-            position:absolute; left:0; top:42px; background:white; border-radius:8px;
-            box-shadow:0 4px 12px rgba(0,0,0,0.12); min-width:140px; display:none; overflow:hidden;
-        }
+        .lang-dropdown {position:absolute; left:0; top:42px; background:white; border-radius:8px; box-shadow:0 4px 12px rgba(0,0,0,0.12); min-width:140px; display:none; overflow:hidden;}
         .lang-dropdown.show {display:block;}
         .lang-option {padding:10px 14px; cursor:pointer; font-size:0.9rem;}
         .lang-option:hover {background:#f1f5f9;}
         .lang-option.active {background:#e0f2fe; color:#1e40af; font-weight:600;}
         
-        /* 🧹 TOMBOL HAPUS CACHE — Dipindah ke kanan atas */
-        .btn-clear-cache {
-            background:#7c3aed; color:white; border:none; padding:6px 12px; border-radius:6px;
-            font-size:0.85rem; font-weight:500; cursor:pointer; display:inline-flex; align-items:center; gap:4px;
-        }
+        .btn-clear-cache {background:#7c3aed; color:white; border:none; padding:6px 12px; border-radius:6px; font-size:0.85rem; font-weight:500; cursor:pointer; display:inline-flex; align-items:center; gap:4px;}
         .btn-clear-cache:hover {background:#6d28d9;}
         .btn-clear-cache.loading {opacity:0.6;}
         
-        /* 📢 AREA IKLAN ADSENSE — Sebelumnya posisi tombol hapus cache */
-        .ad-container {
-            background:var(--ad-bg, #f8fafc); border-radius:var(--ad-radius, 8px);
-            padding:var(--ad-padding, 8px); margin:var(--ad-margin, 12px 0);
-            text-align:center; overflow:hidden;
-        }
-        .ad-label {
-            font-size:var(--ad-label-size, 11px); color:var(--ad-label-color, #94a3b8);
-            text-align:left; margin-bottom:4px;
-        }
-        .ad-placeholder {
-            border:1px dashed #cbd5e1; padding:20px; text-align:center; color:#94a3b8;
-            font-size:0.85rem; border-radius:6px;
-        }
+        /* ⭐ WADAH IKLAN — gaya diatur dari config.js */
+        .ad-container {display:none; margin:12px 0; text-align:left; overflow:hidden;}
+        .ad-label {font-size:11px; color:#94a3b8; margin-bottom:4px;}
         
         h1 {text-align:center; color:#0f172a; margin-bottom:4px; font-size:1.4rem; margin-top:8px;}
         .subtitle {text-align:center; color:#64748b; margin-bottom:8px; font-size:0.9rem;}
         
         .tabs {display:flex; background:#e2e8f0; border-radius:8px; padding:3px; margin-bottom:12px;}
-        .tab {
-            flex:1; padding:10px; text-align:center; border:none; background:transparent;
-            font-size:0.9rem; font-weight:600; color:#64748b; border-radius:6px; cursor:pointer;
-            transition:all 0.2s;
-        }
+        .tab {flex:1; padding:10px; text-align:center; border:none; background:transparent; font-size:0.9rem; font-weight:600; color:#64748b; border-radius:6px; cursor:pointer; transition:all 0.2s;}
         .tab.active {background:white; color:#1e293b; box-shadow:0 1px 3px rgba(0,0,0,0.08);}
         .tab.swing.active {color:#2563eb;}
         .tab.dividen.active {color:#16a34a;}
         
-        .info-bar {
-            background:#e0f2fe; border-left:3px solid #0ea5e9; padding:10px 14px;
-            border-radius:6px; margin-bottom:12px; font-size:0.85rem;
-        }
+        .info-bar {background:#e0f2fe; border-left:3px solid #0ea5e9; padding:10px 14px; border-radius:6px; margin-bottom:12px; font-size:0.85rem;}
         
         .tab-content {display:none;}
         .tab-content.active {display:block;}
         
         .saham-list {display:grid; gap:10px;}
-        .card {
-            background:white; border-radius:10px; padding:14px;
-            box-shadow:0 1px 4px rgba(0,0,0,0.06); cursor:pointer;
-            transition:all 0.2s;
-        }
+        .card {background:white; border-radius:10px; padding:14px; box-shadow:0 1px 4px rgba(0,0,0,0.06); cursor:pointer; transition:all 0.2s;}
         .card:hover {transform:translateY(-2px);}
         
         .card-header {display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;}
-        .simbol {
-            background:#dbeafe; color:#1e40af; padding:3px 8px; border-radius:4px;
-            font-weight:700; font-size:0.9rem;
-        }
+        .simbol {background:#dbeafe; color:#1e40af; padding:3px 8px; border-radius:4px; font-weight:700; font-size:0.9rem;}
         .nama {font-size:0.85rem; color:#64748b; margin-top:2px;}
         .status {padding:3px 8px; border-radius:10px; font-size:0.75rem; font-weight:600;}
         .status.ENTRY {background:#dcfce7; color:#166534;}
         .status.TUNGGU {background:#fef3c7; color:#92400e;}
-        .status.HINDARI {background:#fee2e2; color:#991b1b;}
         .status.BAGUS {background:#dcfce7; color:#166534;}
         .status.KURANG {background:#fee2e2; color:#991b1b;}
         
@@ -151,21 +102,12 @@
         
         .click-hint {text-align:center; font-size:0.75rem; color:#94a3b8; margin-top:6px;}
         
-        .popup-overlay {
-            position:fixed; inset:0; background:rgba(0,0,0,0.5); display:none;
-            align-items:center; justify-content:center; padding:16px; z-index:100;
-        }
+        .popup-overlay {position:fixed; inset:0; background:rgba(0,0,0,0.5); display:none; align-items:center; justify-content:center; padding:16px; z-index:100;}
         .popup-overlay.show {display:flex;}
-        .popup {
-            background:white; border-radius:12px; width:100%; max-width:480px;
-            max-height:85vh; overflow-y:auto; padding:20px;
-        }
+        .popup {background:white; border-radius:12px; width:100%; max-width:480px; max-height:85vh; overflow-y:auto; padding:20px;}
         .popup-head {display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:14px;}
         .popup-head h3 {font-size:1.1rem;}
-        .close-btn {
-            width:30px; height:30px; border-radius:50%; border:none; background:#f1f5f9;
-            font-size:1rem; cursor:pointer; color:#64748b;
-        }
+        .close-btn {width:30px; height:30px; border-radius:50%; border:none; background:#f1f5f9; font-size:1rem; cursor:pointer; color:#64748b;}
         .section-title {font-size:0.85rem; font-weight:700; margin:14px 0 8px; padding-bottom:4px;}
         .swing-title {color:#2563eb; border-bottom:2px solid #bfdbfe;}
         .dividen-title {color:#16a34a; border-bottom:2px solid #bbf7d0;}
@@ -175,24 +117,15 @@
         .alasan {background:#f0fdf4; padding:10px; border-radius:6px; font-size:0.85rem; line-height:1.6; margin-top:8px;}
         
         .loading {text-align:center; padding:40px 20px; color:#64748b;}
-        .spinner {
-            display:inline-block; width:22px; height:22px; border:3px solid #ddd6fe;
-            border-top-color:#7c3aed; border-radius:50%; animation:spin 0.8s linear infinite;
-            margin-right:8px; vertical-align:middle;
-        }
+        .spinner {display:inline-block; width:22px; height:22px; border:3px solid #ddd6fe; border-top-color:#7c3aed; border-radius:50%; animation:spin 0.8s linear infinite; margin-right:8px; vertical-align:middle;}
         @keyframes spin {to {transform:rotate(360deg);}}
         .error {background:#fee2e2; border-left:3px solid #dc2626; padding:12px; border-radius:6px; color:#991b1b; font-size:0.9rem;}
         
-        /* 📄 FOOTER — Wajib untuk Adsense: Tentang, Kebijakan, Kontak */
-        footer {
-            margin-top:32px; padding-top:20px; border-top:1px solid #e2e8f0;
-            text-align:center; font-size:0.8rem; color:#64748b; line-height:1.8;
-        }
-        .footer-links {margin:10px 0;}
+        footer {margin-top:32px; padding-top:20px; border-top:1px solid #e2e8f0; text-align:center; font-size:0.8rem; color:#64748b; line-height:1.8;}
+        .footer-links {margin:12px 0;}
         .footer-links a {color:#47556b; text-decoration:none; margin:0 8px;}
         .footer-links a:hover {color:#7c3aed; text-decoration:underline;}
         
-        /* Responsive */
         @media (max-width: 480px) {
             body {padding:12px;}
             .card-body {grid-template-columns:repeat(2,1fr);}
@@ -201,9 +134,7 @@
 </head>
 <body>
 
-    <!-- ═══════════════════════════════════════════════
-         🔝 HEADER: Bahasa & Hapus Cache di Pojok Atas
-         ═══════════════════════════════════════════════ -->
+    <!-- HEADER: Bahasa & Clear Cache di Pojok Atas -->
     <div class="header-bar">
         <div class="lang-switcher">
             <button class="lang-btn" onclick="toggleLangDropdown()">
@@ -214,29 +145,20 @@
                 <div class="lang-option" data-lang="en" onclick="ubahBahasa('en')">🇺🇸 English</div>
             </div>
         </div>
-        
         <button class="btn-clear-cache" id="btnCache" onclick="muatUlang()">
             🧹 <span data-txt="clearCache">Clear Cache</span>
         </button>
     </div>
 
-    <!-- ═══════════════════════════════════════════════
-         📢 BANNER ADSENSE — Posisi Baru: Di Bawah Judul
-         ═══════════════════════════════════════════════ -->
     <h1 data-txt="title">📊 Stock Analysis Tool</h1>
     <p class="subtitle" data-txt="subtitle">Swing Trading & Dividend Strategy — SO • ED • O • WTRG</p>
-    
-    <!-- 📍 POSISI 1: Banner Atas → Sebelumnya tombol hapus cache -->
-    <div id="adTopBanner" class="ad-container" style="display:none;">
+
+    <!-- ⭐ WADAH IKLAN 1: Atur tampilan & kode dari config.js saja -->
+    <div id="adTopBanner" class="ad-container">
         <div class="ad-label" data-txt="adLabel">Ad</div>
-        <div id="adTopBannerContent">
-            <!-- Adsense script akan dimuat di sini jika diaktifkan di config.js -->
-        </div>
+        <div id="adTopBannerContent"></div>
     </div>
 
-    <!-- ═══════════════════════════════════════════════
-         📑 NAVIGASI TAB
-         ═══════════════════════════════════════════════ -->
     <div class="tabs">
         <button class="tab swing active" onclick="bukaTab('swing')">
             📈 <span data-txt="tabSwing">Swing Trading</span>
@@ -246,74 +168,56 @@
         </button>
     </div>
 
-    <!-- 📍 POSISI 2: Banner Antara Tab & Konten -->
-    <div id="adBetween" class="ad-container" style="display:none;">
+    <!-- ⭐ WADAH IKLAN 2 -->
+    <div id="adBetween" class="ad-container">
         <div class="ad-label" data-txt="adLabel">Ad</div>
         <div id="adBetweenContent"></div>
     </div>
 
-    <!-- ═══════════════════════════════════════════════
-         📋 KONTEN UTAMA
-         ═══════════════════════════════════════════════ -->
     <div id="infoBar" class="info-bar" style="display:none;"></div>
     <div id="loading" class="loading"><span class="spinner"></span> <span data-txt="loading">Loading data...</span></div>
 
-    <div id="swingTab" class="tab-content active">
-        <div id="swingContent"></div>
-    </div>
+    <div id="swingTab" class="tab-content active"><div id="swingContent"></div></div>
+    <div id="dividenTab" class="tab-content"><div id="dividenContent"></div></div>
 
-    <div id="dividenTab" class="tab-content">
-        <div id="dividenContent"></div>
-    </div>
-
-    <!-- 📍 POSISI 3: Banner Bawah → Sebelum Footer -->
-    <div id="adBottomBanner" class="ad-container" style="display:none; margin-top:20px;">
+    <!-- ⭐ WADAH IKLAN 3 -->
+    <div id="adBottomBanner" class="ad-container" style="margin-top:20px;">
         <div class="ad-label" data-txt="adLabel">Ad</div>
         <div id="adBottomBannerContent"></div>
     </div>
 
-    <!-- ═══════════════════════════════════════════════
-         📄 FOOTER — Wajib untuk Adsense & SEO
-         ═══════════════════════════════════════════════ -->
     <footer>
         <p data-txt="footerAbout">
-            <strong>About This Tool:</strong> Free stock analysis tool providing technical indicators for Swing Trading and calculating optimal buy prices for maximum Dividend Yield. Data provided for educational purposes only.
+            <strong>About:</strong> Free stock analysis tool providing technical indicators for Swing Trading and optimal buy prices for Dividend investing. For educational purposes only.
         </p>
         <div class="footer-links">
-            <a href="#privacy" data-txt="linkPrivacy">Privacy Policy</a> •
-            <a href="#terms" data-txt="linkTerms">Terms of Use</a> •
-            <a href="#contact" data-txt="linkContact">Contact</a>
+            <a href="privacy.html" data-txt="linkPrivacy">Privacy Policy</a> •
+            <a href="terms.html" data-txt="linkTerms">Terms of Use</a> •
+            <a href="contact.html" data-txt="linkContact">Contact Us</a>
         </div>
-        <p data-txt="disclaimer">⚠️ Not investment advice — for educational purposes only. Always do your own research.</p>
+        <p data-txt="disclaimer">⚠️ Not investment advice — analysis tool only. Always do your own research.</p>
         <p>© <span id="year"></span> Coalhunter. All rights reserved.</p>
     </footer>
 
-    <!-- ═══════════════════════════════════════════════
-         🪟 POPUP DETAIL
-         ═══════════════════════════════════════════════ -->
+    <!-- POPUP DETAIL -->
     <div class="popup-overlay" id="popupOverlay" onclick="tutupPopupDariLuar(event)">
         <div class="popup" onclick="event.stopPropagation()">
             <div class="popup-head">
-                <div>
-                    <h3 id="popSimbol"></h3>
-                    <p style="font-size:0.8rem; color:#64748b;" id="popNama"></p>
-                </div>
+                <div><h3 id="popSimbol"></h3><p style="font-size:0.8rem; color:#64748b;" id="popNama"></p></div>
                 <button class="close-btn" onclick="tutupPopup()">✕</button>
             </div>
-
             <div id="popSwingDetail">
                 <p class="section-title swing-title" data-txt="swingTitle">📈 SWING TRADING — Technical Focus</p>
                 <div class="grid2">
                     <div class="box"><label data-txt="lblHargaSekarang">Current Price</label><strong id="swHarga"></strong></div>
                     <div class="box"><label>RSI</label><strong id="swRsi"></strong></div>
-                    <div class="box" style="background:#dbeafe;"><label data-txt="lblEntry">✅ Entry Zone</label><strong id="swEntry"></strong></div>
+                    <div class="box" style="background:#dbeafe;"><label data-txt="lblEntry">✅ Buy Zone</label><strong id="swEntry"></strong></div>
                     <div class="box"><label data-txt="lblTargetJual">🎯 Sell Target</label><strong id="swTarget"></strong></div>
                     <div class="box" style="background:#dcfce7;"><label data-txt="lblPotensiGain">Potential Gain</label><strong id="swGain"></strong></div>
                     <div class="box"><label>MA20 / MA50</label><strong id="swMa"></strong></div>
                 </div>
                 <div class="alasan" id="swAlasan"></div>
             </div>
-
             <div id="popDividenDetail" style="display:none;">
                 <p class="section-title dividen-title" data-txt="dividenTitle">💰 DIVIDEND STRATEGY — Best Price & Max Yield</p>
                 <div class="grid2">
@@ -323,291 +227,120 @@
                     <div class="box"><label data-txt="lblYieldMaks">Max Yield</label><strong id="dvYieldMaks"></strong></div>
                     <div class="box"><label data-txt="lblTargetPanjang">🎯 Long-Term Target</label><strong id="dvTarget"></strong></div>
                     <div class="box"><label data-txt="lblPotensiNaik">Upside Potential</label><strong id="dvNaik"></strong></div>
-                    <div class="box"><label data-txt="lbl52WTerendah">52W Low</label><strong id="dvLow52"></strong></div>
-                    <div class="box"><label data-txt="lblExDiv">Ex-Dividend</label><strong id="dvExDiv"></strong></div>
+                    <div class="box"><label data-txt="lbl52WTerendah">52-Week Low</label><strong id="dvLow52"></strong></div>
+                    <div class="box"><label data-txt="lblExDiv">Ex-Dividend Date</label><strong id="dvExDiv"></strong></div>
                 </div>
                 <div class="alasan" id="dvAlasan"></div>
             </div>
         </div>
     </div>
 
-    <!-- ═══════════════════════════════════════════════
-         🔧 SCRIPT: Config + Bahasa + Adsense + Data
-         ═══════════════════════════════════════════════ -->
-    
-    <!-- ✅ ADSENSE CONFIG — File Terpisah, mudah diubah -->
+    <!-- ⭐ PUSAT PENGATURAN: config.js DIPANGGIL PERTAMA -->
     <script src="config.js"></script>
-    
-    <!-- ✅ GOOGLE ADSENSE HEAD CODE — Wajib untuk Adsense -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
-
     <script>
     // ═══════════════════════════════════════════════
-    // 🌐 SISTEM BAHASA OTOMATIS
+    // 🌐 SISTEM BAHASA
     // ═══════════════════════════════════════════════
     const TERJEMAHAN = {
         id: {
-            title: '📊 Analisa Saham',
-            subtitle: 'Strategi Swing Trading & Dividen — SO • ED • O • WTRG',
-            clearCache: 'Bersihkan Cache',
-            loading: 'Memuat data...',
-            tabSwing: 'Swing Trading',
-            tabDividen: 'Dividen Maksimal',
-            swingTitle: '📈 SWING TRADING — Fokus Teknikal',
-            dividenTitle: '💰 STRATEGI DIVIDEN — Harga Terbaik & Yield Maksimal',
-            lblHargaSekarang: 'Harga Sekarang',
-            lblEntry: '✅ Zona Beli',
-            lblTargetJual: '🎯 Target Jual',
-            lblPotensiGain: 'Potensi Untung',
-            lblYieldSaatIni: 'Yield Saat Ini',
-            lblBeliTerbaik: '🌟 Zona Beli Terbaik',
-            lblYieldMaks: 'Yield Maksimal',
-            lblTargetPanjang: '🎯 Target Jangka Panjang',
-            lblPotensiNaik: 'Potensi Naik',
-            lbl52WTerendah: 'Terendah 52 Minggu',
-            lblExDiv: 'Tanggal Ex-Dividen',
-            clickHint: '👆 Klik untuk detail lengkap',
-            clickHintDividen: '👆 Klik untuk detail — cari harga TERENDAH agar yield maksimal',
-            diperbarui: 'Terakhir diperbarui',
-            totalSaham: 'Total Saham',
-            errorLoad: 'Gagal memuat data',
-            fileNotReady: 'File data belum tersedia',
-            adLabel: 'Iklan',
-            footerAbout: '<strong>Tentang:</strong> Alat analisa saham gratis untuk membantu analisis teknikal Swing Trading dan mencari harga terbaik untuk strategi Dividen. Hanya untuk tujuan edukasi.',
-            linkPrivacy: 'Kebijakan Privasi',
-            linkTerms: 'Syarat Penggunaan',
-            linkContact: 'Hubungi Kami',
-            disclaimer: '⚠️ Bukan saran investasi — hanya alat bantu analisis. Lakukan riset sendiri sebelum berinvestasi.',
-            ENTRY: '✅ MASUK',
-            ENTRY_KUAT: '🔥 MASUK KUAT',
-            TUNGGU: '⏳ TUNGGU',
-            SANGAT_MENARIK: '🌟 SANGAT BAGUS',
-            BAGUS: '✅ BAGUS',
-            CUKUP: '⚠️ CUKUP',
-            KURANG: '⏳ KURANG MENARIK'
+            title: '📊 Analisis Saham', subtitle: 'Strategi Swing Trading & Dividen — SO • ED • O • WTRG',
+            clearCache: 'Bersihkan Cache', loading: 'Memuat data...',
+            tabSwing: 'Swing Trading', tabDividen: 'Dividen Maksimal',
+            swingTitle: '📈 SWING TRADING — Fokus Teknikal', dividenTitle: '💰 STRATEGI DIVIDEN — Harga Terbaik & Yield Maksimal',
+            lblHargaSekarang: 'Harga Saat Ini', lblEntry: '✅ Zona Beli', lblTargetJual: '🎯 Target Jual', lblPotensiGain: 'Potensi Keuntungan',
+            lblYieldSaatIni: 'Yield Saat Ini', lblBeliTerbaik: '🌟 Zona Beli Terbaik', lblYieldMaks: 'Yield Maksimal',
+            lblTargetPanjang: '🎯 Target Jangka Panjang', lblPotensiNaik: 'Potensi Kenaikan', lbl52WTerendah: 'Terendah 52 Minggu', lblExDiv: 'Tanggal Ex-Dividen',
+            clickHint: '👆 Klik untuk melihat detail lengkap', clickHintDividen: '👆 Klik untuk detail — cari harga TERENDAH untuk yield MAKSIMAL',
+            diperbarui: 'Terakhir Diperbarui', totalSaham: 'Jumlah Saham', errorLoad: 'Gagal memuat data', fileNotReady: 'File data belum tersedia',
+            adLabel: 'Iklan', footerAbout: '<strong>Tentang:</strong> Alat analisis saham gratis untuk Swing Trading dan strategi Dividen. Hanya untuk tujuan edukasi.',
+            linkPrivacy: 'Kebijakan Privasi', linkTerms: 'Syarat Penggunaan', linkContact: 'Hubungi Kami',
+            disclaimer: '⚠️ Bukan saran investasi — analisis alat saja. Selalu lakukan riset mandiri.',
+            ENTRY: '✅ BELI', ENTRY_KUAT: '🔥 BELI KUAT', TUNGGU: '⏳ TUNGGU', BAGUS: '✅ BAGUS', KURANG: '⏳ KURANG MENARIK'
         },
         en: {
-            title: '📊 Stock Analysis Tool',
-            subtitle: 'Swing Trading & Dividend Strategy — SO • ED • O • WTRG',
-            clearCache: 'Clear Cache',
-            loading: 'Loading data...',
-            tabSwing: 'Swing Trading',
-            tabDividen: 'Max Dividend',
-            swingTitle: '📈 SWING TRADING — Technical Focus',
-            dividenTitle: '💰 DIVIDEND STRATEGY — Best Price & Max Yield',
-            lblHargaSekarang: 'Current Price',
-            lblEntry: '✅ Buy Zone',
-            lblTargetJual: '🎯 Sell Target',
-            lblPotensiGain: 'Potential Gain',
-            lblYieldSaatIni: 'Current Yield',
-            lblBeliTerbaik: '🌟 Best Buy Zone',
-            lblYieldMaks: 'Max Yield',
-            lblTargetPanjang: '🎯 Long-Term Target',
-            lblPotensiNaik: 'Upside Potential',
-            lbl52WTerendah: '52-Week Low',
-            lblExDiv: 'Ex-Dividend Date',
-            clickHint: '👆 Click for full details',
-            clickHintDividen: '👆 Click for details — find LOWEST price for MAX yield',
-            diperbarui: 'Last Updated',
-            totalSaham: 'Total Stocks',
-            errorLoad: 'Failed to load data',
-            fileNotReady: 'Data file not available',
-            adLabel: 'Ad',
-            footerAbout: '<strong>About:</strong> Free stock analysis tool providing technical indicators for Swing Trading and optimal buy prices for Dividend investing. For educational purposes only.',
-            linkPrivacy: 'Privacy Policy',
-            linkTerms: 'Terms of Use',
-            linkContact: 'Contact Us',
-            disclaimer: '⚠️ Not investment advice — analysis tool only. Always do your own research before investing.',
-            ENTRY: '✅ BUY',
-            ENTRY_KUAT: '🔥 STRONG BUY',
-            TUNGGU: '⏳ WAIT',
-            SANGAT_MENARIK: '🌟 EXCELLENT',
-            BAGUS: '✅ GOOD',
-            CUKUP: '⚠️ FAIR',
-            KURANG: '⏳ LESS ATTRACTIVE'
+            title: '📊 Stock Analysis Tool', subtitle: 'Swing Trading & Dividend Strategy — SO • ED • O • WTRG',
+            clearCache: 'Clear Cache', loading: 'Loading data...',
+            tabSwing: 'Swing Trading', tabDividen: 'Max Dividend',
+            swingTitle: '📈 SWING TRADING — Technical Focus', dividenTitle: '💰 DIVIDEND STRATEGY — Best Price & Max Yield',
+            lblHargaSekarang: 'Current Price', lblEntry: '✅ Buy Zone', lblTargetJual: '🎯 Sell Target', lblPotensiGain: 'Potential Gain',
+            lblYieldSaatIni: 'Current Yield', lblBeliTerbaik: '🌟 Best Buy Zone', lblYieldMaks: 'Max Yield',
+            lblTargetPanjang: '🎯 Long-Term Target', lblPotensiNaik: 'Upside Potential', lbl52WTerendah: '52-Week Low', lblExDiv: 'Ex-Dividend Date',
+            clickHint: '👆 Click for full details', clickHintDividen: '👆 Click for details — find LOWEST price for MAX yield',
+            diperbarui: 'Last Updated', totalSaham: 'Total Stocks', errorLoad: 'Failed to load data', fileNotReady: 'Data file not available',
+            adLabel: 'Ad', footerAbout: '<strong>About:</strong> Free stock analysis tool for Swing Trading and Dividend strategy. For educational purposes only.',
+            linkPrivacy: 'Privacy Policy', linkTerms: 'Terms of Use', linkContact: 'Contact Us',
+            disclaimer: '⚠️ Not investment advice — analysis tool only. Always do your own research.',
+            ENTRY: '✅ BUY', ENTRY_KUAT: '🔥 STRONG BUY', TUNGGU: '⏳ WAIT', BAGUS: '✅ GOOD', KURANG: '⏳ LESS ATTRACTIVE'
         }
     };
 
-    let bahasaSaatIni = 'en';
-    let dataSaham = [];
-    let tabAktif = 'swing';
+    let bahasaSaatIni = 'en', dataSaham = [], tabAktif = 'swing';
 
-    // ═══════════════════════════════════════════════
-    // 📢 FUNGSI IKLAN ADSENSE — Memuat dari config.js
-    // ═══════════════════════════════════════════════
-    function muatIklan() {
-        if (typeof ADSENSE_CONFIG === 'undefined') return;
-        
-        const labelText = ADSENSE_CONFIG.display.show_label 
-            ? (bahasaSaatIni === 'id' ? ADSENSE_CONFIG.display.label_text_id : ADSENSE_CONFIG.display.label_text_en)
-            : null;
-        
-        // Terapkan gaya dari config
-        document.documentElement.style.setProperty('--ad-bg', ADSENSE_CONFIG.display.background);
-        document.documentElement.style.setProperty('--ad-radius', ADSENSE_CONFIG.display.border_radius);
-        document.documentElement.style.setProperty('--ad-padding', ADSENSE_CONFIG.display.padding);
-        document.documentElement.style.setProperty('--ad-margin', ADSENSE_CONFIG.display.margin_vertical);
-        document.documentElement.style.setProperty('--ad-label-size', ADSENSE_CONFIG.display.label_font_size);
-        document.documentElement.style.setProperty('--ad-label-color', ADSENSE_CONFIG.display.label_color);
-        
-        // Tampilkan iklan yang diaktifkan di config
-        const slots = [
-            {id: 'adTopBanner', key: 'top_banner'},
-            {id: 'adBetween', key: 'between_tab_and_content'},
-            {id: 'adBottomBanner', key: 'bottom_banner'}
-        ];
-        
-        slots.forEach(slot => {
-            const el = document.getElementById(slot.id);
-            if (isAdEnabled(slot.key)) {
-                el.style.display = 'block';
-                // Ganti label bahasa
-                const labelEl = el.querySelector('.ad-label');
-                if (labelEl && labelText) labelEl.textContent = labelText;
-            } else {
-                el.style.display = 'none';
-            }
-        });
-    }
+    function t(kunci) { return TERJEMAHAN[bahasaSaatIni][kunci] || kunci; }
+    function toggleLangDropdown() { document.getElementById('langDropdown').classList.toggle('show'); }
+    document.addEventListener('click', e => { if (!e.target.closest('.lang-switcher')) document.getElementById('langDropdown').classList.remove('show'); });
 
-    // ═══════════════════════════════════════════════
-    // 🌐 DETEKSI BAHASA OTOMATIS
-    // ═══════════════════════════════════════════════
-    async function deteksiLokasiOtomatis() {
-        const simpanPilihan = localStorage.getItem('preferredLang');
-        if (simpanPilihan) {
-            ubahBahasa(simpanPilihan, false);
-            return;
-        }
-        
-        const browserLang = navigator.language || navigator.userLanguage;
-        if (browserLang) {
-            const kode = browserLang.split('-')[0].toLowerCase();
-            if (kode === 'id') {
-                ubahBahasa('id', false);
-                return;
-            }
-        }
-        
-        try {
-            const res = await fetch('https://ipapi.co/json/', { cache: 'no-store' });
-            if (res.ok) {
-                const geo = await res.json();
-                ubahBahasa(geo.country_code === 'ID' ? 'id' : 'en', false);
-                return;
-            }
-        } catch (e) {
-            console.log('Geolocation failed, using default: EN');
-        }
-        
-        ubahBahasa('en', false);
+    async function deteksiBahasa() {
+        const simpan = localStorage.getItem('preferredLang');
+        if (simpan) return ubahBahasa(simpan, false);
+        const bLang = (navigator.language || 'en').split('-')[0];
+        ubahBahasa(bLang === 'id' ? 'id' : 'en', false);
     }
 
     function ubahBahasa(kode, simpan = true) {
         bahasaSaatIni = kode;
         if (simpan) localStorage.setItem('preferredLang', kode);
         document.documentElement.lang = kode;
-        
         document.getElementById('currentLangLabel').innerHTML = kode === 'id' ? '🇮🇩 ID' : '🇺🇸 EN';
-        
-        document.querySelectorAll('[data-txt]').forEach(el => {
-            const kunci = el.getAttribute('data-txt');
-            if (TERJEMAHAN[kode][kunci]) el.textContent = TERJEMAHAN[kode][kunci];
-        });
-        
+        document.querySelectorAll('[data-txt]').forEach(el => { const k = el.getAttribute('data-txt'); if (TERJEMAHAN[kode][k]) el.textContent = TERJEMAHAN[kode][k]; });
         document.getElementById('langDropdown').classList.remove('show');
-        
-        muatIklan(); // Perbarui label iklan
-        
-        if (dataSaham.length > 0) renderKartu();
+        if (dataSaham.length) renderKartu();
     }
 
-    function t(kunci) {
-        return TERJEMAHAN[bahasaSaatIni][kunci] || kunci;
-    }
-
-    function toggleLangDropdown() {
-        document.getElementById('langDropdown').classList.toggle('show');
-    }
-
-    document.addEventListener('click', (e) => {
-        if (!e.target.closest('.lang-switcher')) {
-            document.getElementById('langDropdown').classList.remove('show');
-        }
-    });
-
-    // ═══════════════════════════════════════════════
-    // 📑 TAB NAVIGATION
-    // ═══════════════════════════════════════════════
-    function bukaTab(tabName) {
-        tabAktif = tabName;
+    function bukaTab(tab) {
+        tabAktif = tab;
         document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
         event.target.closest('.tab').classList.add('active');
-        
         document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-        document.getElementById(tabName+'Tab').classList.add('active');
-        
+        document.getElementById(tab+'Tab').classList.add('active');
         renderKartu();
     }
 
-    // ═══════════════════════════════════════════════
-    // 📊 MUAT DATA
-    // ═══════════════════════════════════════════════
     async function muatUlang() {
-        const btn = document.getElementById('btnCache');
-        const loading = document.getElementById('loading');
-        const infoBar = document.getElementById('infoBar');
-        
-        btn.classList.add('loading');
-        btn.innerHTML = '<span class="spinner"></span>';
-        loading.style.display = 'block';
-        loading.innerHTML = '<span class="spinner"></span> ' + t('loading');
+        const btn = document.getElementById('btnCache'), loading = document.getElementById('loading'), infoBar = document.getElementById('infoBar');
+        btn.classList.add('loading'); btn.innerHTML = '<span class="spinner"></span>';
+        loading.style.display = 'block'; loading.innerHTML = '<span class="spinner"></span> ' + t('loading');
         infoBar.style.display = 'none';
-        document.getElementById('swingContent').innerHTML = '';
-        document.getElementById('dividenContent').innerHTML = '';
+        document.getElementById('swingContent').innerHTML = ''; document.getElementById('dividenContent').innerHTML = '';
         
         try {
-            const url = `/quant/output/hasil_analisa.json?v=${Date.now()}&r=${Math.random()}`;
-            const res = await fetch(url, { cache: 'no-store' });
+            const res = await fetch(`output/hasil_analisa.json?v=${Date.now()}`, { cache: 'no-store' });
             if (!res.ok) throw new Error(t('fileNotReady'));
-            
             const data = await res.json();
             dataSaham = data.daftar_saham;
-            
             loading.style.display = 'none';
             infoBar.style.display = 'block';
             infoBar.innerHTML = `📅 ${t('diperbarui')}: <strong>${data.dibuat_pada}</strong> &nbsp;|&nbsp; 📊 ${t('totalSaham')}: <strong>${data.jumlah_saham}</strong>`;
-            
             renderKartu();
         } catch (err) {
             loading.innerHTML = `<div class="error">❌ ${t('errorLoad')}: ${err.message}</div>`;
         } finally {
-            btn.classList.remove('loading');
-            btn.innerHTML = '🧹 ' + t('clearCache');
+            btn.classList.remove('loading'); btn.innerHTML = '🧹 ' + t('clearCache');
         }
     }
 
-    function renderKartu() {
-        if (tabAktif === 'swing') renderSwing();
-        else renderDividen();
-    }
+    function renderKartu() { tabAktif === 'swing' ? renderSwing() : renderDividen(); }
 
-    // ═══════════════════════════════════════════════
-    // 📈 RENDER SWING
-    // ═══════════════════════════════════════════════
     function renderSwing() {
-        const konten = document.getElementById('swingContent');
-        konten.innerHTML = `<div class="saham-list">${dataSaham.map((s,i) => kartuSwing(s,i)).join('')}</div>
-            <p class="click-hint">${t('clickHint')}</p>`;
+        document.getElementById('swingContent').innerHTML = 
+            `<div class="saham-list">${dataSaham.map((s,i) => kartuSwing(s,i)).join('')}</div><p class="click-hint">${t('clickHint')}</p>`;
     }
 
     function kartuSwing(s, i) {
         const sw = s.swing;
-        let stClass = 'TUNGGU';
-        let stLabel = t('TUNGGU');
+        let stClass = 'TUNGGU', stLabel = t('TUNGGU');
         if (sw.kondisi.includes('ENTRY KUAT')) { stClass = 'ENTRY'; stLabel = t('ENTRY_KUAT'); }
         else if (sw.kondisi.includes('ENTRY')) { stClass = 'ENTRY'; stLabel = t('ENTRY'); }
-        
         return `
         <div class="card" onclick="bukaPopupSwing(${i})">
             <div class="card-header">
@@ -625,26 +358,21 @@
         </div>`;
     }
 
-    // ═══════════════════════════════════════════════
-    // 💰 RENDER DIVIDEN
-    // ═══════════════════════════════════════════════
     function renderDividen() {
-        const konten = document.getElementById('dividenContent');
-        konten.innerHTML = `<div class="saham-list">${dataSaham.map((s,i) => kartuDividen(s,i)).join('')}</div>
-            <p class="click-hint">${t('clickHintDividen')}</p>`;
+        document.getElementById('dividenContent').innerHTML = 
+            `<div class="saham-list">${dataSaham.map((s,i) => kartuDividen(s,i)).join('')}</div><p class="click-hint">${t('clickHintDividen')}</p>`;
     }
 
     function kartuDividen(s, i) {
         const dv = s.dividen;
-        let stClass = 'TUNGGU';
-        if (dv.penilaian.includes('MENARIK') || dv.penilaian.includes('BAGUS')) stClass = 'BAGUS';
-        if (dv.penilaian.includes('KURANG')) stClass = 'KURANG';
-        
+        let stClass = 'TUNGGU', stLabel = t('TUNGGU');
+        if (dv.penilaian.includes('MENARIK') || dv.penilaian.includes('BAGUS')) { stClass = 'BAGUS'; stLabel = t('BAGUS'); }
+        if (dv.penilaian.includes('KURANG')) { stClass = 'KURANG'; stLabel = t('KURANG'); }
         return `
         <div class="card" onclick="bukaPopupDividen(${i})">
             <div class="card-header">
                 <div><span class="simbol">${s.simbol}</span><div class="nama">${s.nama}</div></div>
-                <span class="status ${stClass}">${dv.penilaian}</span>
+                <span class="status ${stClass}">${stLabel}</span>
             </div>
             <div class="card-body">
                 <div class="item"><label>${t('lblHargaSekarang')}</label><strong>$${s.harga_sekarang}</strong></div>
@@ -657,16 +385,12 @@
         </div>`;
     }
 
-    // ═══════════════════════════════════════════════
-    // 🪟 POPUP
-    // ═══════════════════════════════════════════════
     function bukaPopupSwing(i) {
         const s = dataSaham[i];
         document.getElementById('popSimbol').textContent = s.simbol + ' — ' + t('tabSwing');
         document.getElementById('popNama').textContent = s.nama;
         document.getElementById('popSwingDetail').style.display = 'block';
         document.getElementById('popDividenDetail').style.display = 'none';
-        
         document.getElementById('swHarga').textContent = '$' + s.harga_sekarang;
         document.getElementById('swRsi').textContent = s.indikator.rsi;
         document.getElementById('swEntry').textContent = '$' + s.swing.zona_entry;
@@ -674,7 +398,6 @@
         document.getElementById('swGain').textContent = s.swing.potensi_gain_persen + '%';
         document.getElementById('swMa').textContent = s.indikator.ma20 + ' / ' + s.indikator.ma50;
         document.getElementById('swAlasan').innerHTML = s.swing.alasan.map(a=>'✅ '+a).join('<br>') + '<br><br><strong>' + s.swing.saran + '</strong>';
-        
         document.getElementById('popupOverlay').classList.add('show');
     }
 
@@ -684,7 +407,6 @@
         document.getElementById('popNama').textContent = s.nama;
         document.getElementById('popSwingDetail').style.display = 'none';
         document.getElementById('popDividenDetail').style.display = 'block';
-        
         document.getElementById('dvHarga').textContent = '$' + s.harga_sekarang;
         document.getElementById('dvYield').textContent = s.dividen.yield_saat_ini_persen + '%';
         document.getElementById('dvBeliTerbaik').textContent = '$' + s.dividen.zona_beli_terbaik;
@@ -694,27 +416,46 @@
         document.getElementById('dvLow52').textContent = '$' + s.harga_52minggu.terendah;
         document.getElementById('dvExDiv').textContent = s.dividen_info.ex_div_date || '—';
         document.getElementById('dvAlasan').innerHTML = s.dividen.alasan.map(a=>'💡 '+a).join('<br>') + '<br><br><strong>' + s.dividen.saran + '</strong>';
-        
         document.getElementById('popupOverlay').classList.add('show');
     }
 
-    function tutupPopup() {
-        document.getElementById('popupOverlay').classList.remove('show');
-    }
-    function tutupPopupDariLuar(e) {
-        if (e.target.id === 'popupOverlay') tutupPopup();
-    }
+    function tutupPopup() { document.getElementById('popupOverlay').classList.remove('show'); }
+    function tutupPopupDariLuar(e) { if (e.target.id === 'popupOverlay') tutupPopup(); }
 
     // ═══════════════════════════════════════════════
-    // 🚀 INISIALISASI
+    // 🚀 INISIALISASI — Muat Iklan dari config.js
     // ═══════════════════════════════════════════════
     window.onload = async function() {
         document.getElementById('year').textContent = new Date().getFullYear();
-        await deteksiLokasiOtomatis();
-        muatIklan();
+        
+        // Terapkan verifikasi Google dari config.js
+        if (typeof applyMetaConfig === 'function') applyMetaConfig();
+        
+        await deteksiBahasa();
+        
+        // ⭐ MUAT IKLAN HANYA DARI config.js
+        if (typeof SITE_CONFIG !== 'undefined' && SITE_CONFIG.adsense.enabled) {
+            const pubId = SITE_CONFIG.adsense.publisherId;
+            if (pubId && pubId !== "ca-pub-XXXXXXXXXXXXXXXX") {
+                const script = document.createElement('script');
+                script.src = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${pubId}`;
+                script.async = true;
+                script.crossOrigin = "anonymous";
+                document.head.appendChild(script);
+            }
+            
+            // Muat setiap slot iklan
+            setTimeout(() => {
+                loadAdCode('topBanner', 'adTopBanner');
+                loadAdCode('betweenTabContent', 'adBetween');
+                loadAdCode('bottomBanner', 'adBottomBanner');
+                // Aktifkan iklan yang sudah dimuat
+                if (window.adsbygoogle) (adsbygoogle = window.adsbygoogle || []).push({});
+            }, 100);
+        }
+        
         muatUlang();
     };
     </script>
-
 </body>
 </html>
