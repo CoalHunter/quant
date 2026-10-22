@@ -1,41 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- ═══════════════════════════════════════════════
-         🎯 SEO META TAGS — Dioptimasi untuk Page One
-         ═══════════════════════════════════════════════ -->
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <title>Stock Analysis Tool — Swing Trading & Dividend Strategy | SO ED O WTRG</title>
-    <meta name="description" content="Free stock analysis tool focusing on Swing Trading technical analysis and Dividend Strategy. Calculate best buy price for maximum yield. Covers SO, ED, O, WTRG.">
-    <meta name="keywords" content="stock analysis, swing trading, dividend strategy, best buy price, high yield stocks, technical analysis, SO stock, ED stock, O stock, WTRG stock">
-    <meta name="author" content="Coalhunter">
+    <title>Quant. — Stock Analysis Tool | Swing Trading & Dividend Strategy</title>
+    <meta name="description" content="Quant. — Professional stock analysis for US markets. Find best entry prices for Swing Trading and Dividend investing. SO, ED, O, WTRG.">
+    <meta name="keywords" content="Quant, stock analysis, swing trading, dividend strategy, US stocks, SO, ED, O, WTRG, best entry price, yield calculation">
+    <meta name="author" content="Quant.">
     <meta name="robots" content="index, follow, max-image-preview:large">
     <meta name="googlebot" content="index, follow">
-    <meta name="google" content="notranslate">
     <meta name="theme-color" content="#7c3aed">
-    
     <link rel="canonical" href="https://coalhunter.github.io/quant/">
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📈</text></svg>">
     <link rel="manifest" href="manifest.json">
     
-    <!-- Open Graph -->
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Stock Analysis Tool — Swing & Dividend Strategy">
-    <meta property="og:description" content="Free tool: Technical analysis for Swing Trading + find lowest price for maximum Dividend Yield.">
+    <meta property="og:title" content="Quant. — Stock Analysis Tool">
+    <meta property="og:description" content="Free tool: Swing Trading + Dividend Strategy for US Stocks">
     <meta property="og:url" content="https://coalhunter.github.io/quant/">
-    <meta property="og:site_name" content="Stock Analysis Tool">
+    <meta property="og:site_name" content="Quant.">
     <meta property="og:locale" content="en_US">
     <meta property="og:locale:alternate" content="id_ID">
-    
-    <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Stock Analysis Tool — Swing & Dividend Strategy">
-    <meta name="twitter:description" content="Free tool: Technical analysis for Swing Trading + best buy price for maximum Dividend Yield.">
+    <meta name="twitter:title" content="Quant. — Stock Analysis Tool">
+    <meta name="twitter:description" content="Free tool: Swing Trading + Dividend Strategy for US Stocks">
     
-    <!-- Preload & Performance -->
     <link rel="dns-prefetch" href="//pagead2.googlesyndication.com">
     <link rel="preconnect" href="https://pagead2.googlesyndication.com">
     
@@ -50,7 +41,7 @@
         .header-bar {display:flex; justify-content:space-between; align-items:center; position:relative; margin-bottom:16px;}
         
         .lang-switcher {position:relative; z-index:50;}
-        .lang-btn {background:transparent; border:1px solid #cbd5e1; border-radius:6px; padding:6px 12px; cursor:pointer; font-size:0.85rem; font-weight:500; color:#47556b;}
+        .lang-btn {background:transparent; border:1px solid #cbd5e1; border-radius:6px; padding:6px 12px; cursor:pointer; font-size:0.85rem; font-weight:500; color:#475569;}
         .lang-btn:hover {background:#e2e8f0;}
         .lang-dropdown {position:absolute; left:0; top:42px; background:white; border-radius:8px; box-shadow:0 4px 12px rgba(0,0,0,0.12); min-width:140px; display:none; overflow:hidden;}
         .lang-dropdown.show {display:block;}
@@ -62,16 +53,15 @@
         .btn-clear-cache:hover {background:#6d28d9;}
         .btn-clear-cache.loading {opacity:0.6;}
         
-        /* ⭐ WADAH IKLAN — gaya diatur dari config.js */
         .ad-container {display:none; margin:12px 0; text-align:left; overflow:hidden;}
         .ad-label {font-size:11px; color:#94a3b8; margin-bottom:4px;}
         
-        h1 {text-align:center; color:#0f172a; margin-bottom:4px; font-size:1.4rem; margin-top:8px;}
-        .subtitle {text-align:center; color:#64748b; margin-bottom:8px; font-size:0.9rem;}
+        h1 {text-align:center; color:#0f172a; margin-bottom:4px; font-size:1.5rem; margin-top:8px;}
+        .subtitle {text-align:center; color:#64748b; margin-bottom:12px; font-size:0.9rem;}
         
         .tabs {display:flex; background:#e2e8f0; border-radius:8px; padding:3px; margin-bottom:12px;}
         .tab {flex:1; padding:10px; text-align:center; border:none; background:transparent; font-size:0.9rem; font-weight:600; color:#64748b; border-radius:6px; cursor:pointer; transition:all 0.2s;}
-        .tab.active {background:white; color:#1e293b; box-shadow:0 1px 3px rgba(0,0,0,0.08);}
+        .tab.active {background:white; color:#1e293b; box-shadow:0 1px 3px rgba(0,0,0,0.06);}
         .tab.swing.active {color:#2563eb;}
         .tab.dividen.active {color:#16a34a;}
         
@@ -80,41 +70,41 @@
         .tab-content {display:none;}
         .tab-content.active {display:block;}
         
-        .saham-list {display:grid; gap:10px;}
-        .card {background:white; border-radius:10px; padding:14px; box-shadow:0 1px 4px rgba(0,0,0,0.06); cursor:pointer; transition:all 0.2s;}
-        .card:hover {transform:translateY(-2px);}
+        .stock-list {display:grid; gap:10px;}
+        .stock-card {background:white; border-radius:10px; padding:12px; box-shadow:0 1px 4px rgba(0,0,0,0.05); cursor:pointer; transition:all 0.2s;}
+        .stock-card:hover {transform:translateY(-2px); box-shadow:0 4px 8px rgba(0,0,0,0.08);}
         
         .card-header {display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;}
-        .simbol {background:#dbeafe; color:#1e40af; padding:3px 8px; border-radius:4px; font-weight:700; font-size:0.9rem;}
-        .nama {font-size:0.85rem; color:#64748b; margin-top:2px;}
-        .status {padding:3px 8px; border-radius:10px; font-size:0.75rem; font-weight:600;}
+        .symbol {background:#dbeafe; color:#1d4ed8; padding:3px 8px; border-radius:4px; font-weight:700; font-size:0.9rem;}
+        .company-name {font-size:0.8rem; color:#64748b; margin-top:2px;}
+        .status {padding:2px 6px; border-radius:4px; font-size:0.7rem; font-weight:600;}
         .status.ENTRY {background:#dcfce7; color:#166534;}
         .status.TUNGGU {background:#fef3c7; color:#92400e;}
         .status.BAGUS {background:#dcfce7; color:#166534;}
         .status.KURANG {background:#fee2e2; color:#991b1b;}
         
-        .card-body {display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-top:8px;}
-        .item {font-size:0.8rem;}
-        .item label {display:block; font-size:0.7rem; color:#94a3b8; margin-bottom:2px;}
-        .item strong {font-weight:600;}
+        .card-body {display:grid; grid-template-columns:repeat(3, 1fr); gap:6px;}
+        .item {font-size:0.75rem;}
+        .item label {display:block; font-size:0.65rem; color:#94a3b8; margin-bottom:2px;}
+        .item strong {font-weight:600; font-size:0.8rem;}
         .gain {color:#16a34a;}
-        .diskon {color:#2563eb;}
+        .discount {color:#2563eb;}
         
-        .click-hint {text-align:center; font-size:0.75rem; color:#94a3b8; margin-top:6px;}
+        .click-hint {text-align:center; font-size:0.7rem; color:#94a3b8; margin-top:8px;}
         
         .popup-overlay {position:fixed; inset:0; background:rgba(0,0,0,0.5); display:none; align-items:center; justify-content:center; padding:16px; z-index:100;}
         .popup-overlay.show {display:flex;}
         .popup {background:white; border-radius:12px; width:100%; max-width:480px; max-height:85vh; overflow-y:auto; padding:20px;}
-        .popup-head {display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:14px;}
-        .popup-head h3 {font-size:1.1rem;}
+        .popup-header {display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:14px;}
+        .popup-header h3 {font-size:1.1rem;}
         .close-btn {width:30px; height:30px; border-radius:50%; border:none; background:#f1f5f9; font-size:1rem; cursor:pointer; color:#64748b;}
         .section-title {font-size:0.85rem; font-weight:700; margin:14px 0 8px; padding-bottom:4px;}
         .swing-title {color:#2563eb; border-bottom:2px solid #bfdbfe;}
         .dividen-title {color:#16a34a; border-bottom:2px solid #bbf7d0;}
-        .grid2 {display:grid; grid-template-columns:1fr 1fr; gap:10px;}
-        .box {background:#f8fafc; padding:10px; border-radius:6px; font-size:0.9rem;}
+        .grid-2 {display:grid; grid-template-columns:1fr 1fr; gap:8px;}
+        .box {background:#f8fafc; padding:10px; border-radius:6px; font-size:0.85rem;}
         .box label {font-size:0.75rem; color:#94a3b8; display:block; margin-bottom:4px;}
-        .alasan {background:#f0fdf4; padding:10px; border-radius:6px; font-size:0.85rem; line-height:1.6; margin-top:8px;}
+        .reason-box {background:#f0fdf4; padding:10px; border-radius:6px; font-size:0.85rem; line-height:1.6; margin-top:8px;}
         
         .loading {text-align:center; padding:40px 20px; color:#64748b;}
         .spinner {display:inline-block; width:22px; height:22px; border:3px solid #ddd6fe; border-top-color:#7c3aed; border-radius:50%; animation:spin 0.8s linear infinite; margin-right:8px; vertical-align:middle;}
@@ -123,37 +113,35 @@
         
         footer {margin-top:32px; padding-top:20px; border-top:1px solid #e2e8f0; text-align:center; font-size:0.8rem; color:#64748b; line-height:1.8;}
         .footer-links {margin:12px 0;}
-        .footer-links a {color:#47556b; text-decoration:none; margin:0 8px;}
+        .footer-links a {color:#475569; text-decoration:none; margin:0 8px;}
         .footer-links a:hover {color:#7c3aed; text-decoration:underline;}
         
         @media (max-width: 480px) {
             body {padding:12px;}
-            .card-body {grid-template-columns:repeat(2,1fr);}
+            .card-body {grid-template-columns:repeat(2, 1fr);}
+            .grid-2 {grid-template-columns:1fr;}
         }
     </style>
 </head>
 <body>
-
-    <!-- HEADER: Bahasa & Clear Cache di Pojok Atas -->
     <div class="header-bar">
         <div class="lang-switcher">
             <button class="lang-btn" onclick="toggleLangDropdown()">
-                <span id="currentLangLabel">🇺🇸 EN</span> ▾
+                <span id="currentLangLabel">🇬🇧 EN</span> ▾
             </button>
             <div class="lang-dropdown" id="langDropdown">
                 <div class="lang-option" data-lang="id" onclick="ubahBahasa('id')">🇮🇩 Bahasa Indonesia</div>
-                <div class="lang-option" data-lang="en" onclick="ubahBahasa('en')">🇺🇸 English</div>
+                <div class="lang-option active" data-lang="en" onclick="ubahBahasa('en')">🇬🇧 English</div>
             </div>
         </div>
         <button class="btn-clear-cache" id="btnCache" onclick="muatUlang()">
-            🧹 <span data-txt="clearCache">Clear Cache</span>
+            🔄 <span data-txt="refresh">Refresh</span>
         </button>
     </div>
 
-    <h1 data-txt="title">📊 Stock Analysis Tool</h1>
-    <p class="subtitle" data-txt="subtitle">Swing Trading & Dividend Strategy — SO • ED • O • WTRG</p>
+    <h1>📈 Quant.</h1>
+    <p class="subtitle" data-txt="subtitle">Swing Trading & Dividend Strategy — US Stocks</p>
 
-    <!-- ⭐ WADAH IKLAN 1: Atur tampilan & kode dari config.js saja -->
     <div id="adTopBanner" class="ad-container">
         <div class="ad-label" data-txt="adLabel">Ad</div>
         <div id="adTopBannerContent"></div>
@@ -161,14 +149,13 @@
 
     <div class="tabs">
         <button class="tab swing active" onclick="bukaTab('swing')">
-            📈 <span data-txt="tabSwing">Swing Trading</span>
+            📊 <span data-txt="tabSwing">Swing Trading</span>
         </button>
         <button class="tab dividen" onclick="bukaTab('dividen')">
-            💰 <span data-txt="tabDividen">Max Dividend</span>
+            💰 <span data-txt="tabDividen">Dividend Strategy</span>
         </button>
     </div>
 
-    <!-- ⭐ WADAH IKLAN 2 -->
     <div id="adBetween" class="ad-container">
         <div class="ad-label" data-txt="adLabel">Ad</div>
         <div id="adBetweenContent"></div>
@@ -180,282 +167,320 @@
     <div id="swingTab" class="tab-content active"><div id="swingContent"></div></div>
     <div id="dividenTab" class="tab-content"><div id="dividenContent"></div></div>
 
-    <!-- ⭐ WADAH IKLAN 3 -->
     <div id="adBottomBanner" class="ad-container" style="margin-top:20px;">
         <div class="ad-label" data-txt="adLabel">Ad</div>
         <div id="adBottomBannerContent"></div>
     </div>
 
     <footer>
-        <p data-txt="footerAbout">
-            <strong>About:</strong> Free stock analysis tool providing technical indicators for Swing Trading and optimal buy prices for Dividend investing. For educational purposes only.
-        </p>
+        <p><strong>Quant.</strong> — Professional Stock Analysis Tool</p>
+        <p data-txt="disclaimer">⚠️ Not investment advice — for educational purposes only. Always do your own research.</p>
         <div class="footer-links">
-            <a href="privacy.html" data-txt="linkPrivacy">Privacy Policy</a> •
-            <a href="terms.html" data-txt="linkTerms">Terms of Use</a> •
-            <a href="contact.html" data-txt="linkContact">Contact Us</a>
+            <a href="privacy.html">Privacy Policy</a> ·
+            <a href="terms.html">Terms of Use</a> ·
+            <a href="contact.html">Contact</a>
         </div>
-        <p data-txt="disclaimer">⚠️ Not investment advice — analysis tool only. Always do your own research.</p>
-        <p>© <span id="year"></span> Coalhunter. All rights reserved.</p>
+        <p>© <span id="year"></span> Quant. All rights reserved.</p>
     </footer>
 
-    <!-- POPUP DETAIL -->
     <div class="popup-overlay" id="popupOverlay" onclick="tutupPopupDariLuar(event)">
         <div class="popup" onclick="event.stopPropagation()">
-            <div class="popup-head">
-                <div><h3 id="popSimbol"></h3><p style="font-size:0.8rem; color:#64748b;" id="popNama"></p></div>
-                <button class="close-btn" onclick="tutupPopup()">✕</button>
-            </div>
-            <div id="popSwingDetail">
-                <p class="section-title swing-title" data-txt="swingTitle">📈 SWING TRADING — Technical Focus</p>
-                <div class="grid2">
-                    <div class="box"><label data-txt="lblHargaSekarang">Current Price</label><strong id="swHarga"></strong></div>
-                    <div class="box"><label>RSI</label><strong id="swRsi"></strong></div>
-                    <div class="box" style="background:#dbeafe;"><label data-txt="lblEntry">✅ Buy Zone</label><strong id="swEntry"></strong></div>
-                    <div class="box"><label data-txt="lblTargetJual">🎯 Sell Target</label><strong id="swTarget"></strong></div>
-                    <div class="box" style="background:#dcfce7;"><label data-txt="lblPotensiGain">Potential Gain</label><strong id="swGain"></strong></div>
-                    <div class="box"><label>MA20 / MA50</label><strong id="swMa"></strong></div>
+            <div class="popup-header">
+                <div>
+                    <h3 id="popupSymbol"></h3>
+                    <p id="popupName" style="font-size:0.85rem; color:#64748b;"></p>
                 </div>
-                <div class="alasan" id="swAlasan"></div>
+                <button class="close-btn" onclick="tutupPopup()">×</button>
             </div>
-            <div id="popDividenDetail" style="display:none;">
-                <p class="section-title dividen-title" data-txt="dividenTitle">💰 DIVIDEND STRATEGY — Best Price & Max Yield</p>
-                <div class="grid2">
-                    <div class="box"><label data-txt="lblHargaSekarang">Current Price</label><strong id="dvHarga"></strong></div>
-                    <div class="box"><label data-txt="lblYieldSaatIni">Current Yield</label><strong id="dvYield"></strong></div>
-                    <div class="box" style="background:#bbf7d0;"><label data-txt="lblBeliTerbaik">🌟 Best Buy Zone</label><strong id="dvBeliTerbaik"></strong></div>
-                    <div class="box"><label data-txt="lblYieldMaks">Max Yield</label><strong id="dvYieldMaks"></strong></div>
-                    <div class="box"><label data-txt="lblTargetPanjang">🎯 Long-Term Target</label><strong id="dvTarget"></strong></div>
-                    <div class="box"><label data-txt="lblPotensiNaik">Upside Potential</label><strong id="dvNaik"></strong></div>
-                    <div class="box"><label data-txt="lbl52WTerendah">52-Week Low</label><strong id="dvLow52"></strong></div>
-                    <div class="box"><label data-txt="lblExDiv">Ex-Dividend Date</label><strong id="dvExDiv"></strong></div>
+            <div id="popupSwingDetail">
+                <p class="section-title swing-title" data-txt="swingTitle">📈 SWING TRADING — Analysis</p>
+                <div class="grid-2">
+                    <div class="box"><label data-txt="currentPrice">Current Price</label><strong id="swingPrice"></strong></div>
+                    <div class="box"><label>RSI</label><strong id="swingRsi"></strong></div>
+                    <div class="box"><label>MA20</label><strong id="swingMa20"></strong></div>
+                    <div class="box"><label>MA50</label><strong id="swingMa50"></strong></div>
+                    <div class="box" style="background:#dbeafe;"><label data-txt="entryZone">Entry Zone</label><strong id="swingEntry"></strong></div>
+                    <div class="box" style="background:#dcfce7;"><label data-txt="targetSell">Target Price</label><strong id="swingTarget"></strong></div>
                 </div>
-                <div class="alasan" id="dvAlasan"></div>
+                <div class="reason-box"><strong data-txt="reason">Analysis:</strong><br><span id="swingReason"></span><br><br><strong data-txt="suggestion">Suggestion:</strong><br><span id="swingAdvice"></span></div>
+            </div>
+            <div id="popupDividenDetail" style="display:none;">
+                <p class="section-title dividen-title" data-txt="dividenTitle">💰 DIVIDEND STRATEGY — Analysis</p>
+                <div class="grid-2">
+                    <div class="box"><label data-txt="currentPrice">Current Price</label><strong id="divPrice"></strong></div>
+                    <div class="box"><label data-txt="yieldNow">Current Yield</label><strong id="divYieldNow"></strong></div>
+                    <div class="box" style="background:#bbf7d0;"><label data-txt="bestBuyZone">Best Buy Zone</label><strong id="divBestZone"></strong></div>
+                    <div class="box" style="background:#bbf7d0;"><label data-txt="maxYield">Max Yield</label><strong id="divMaxYield"></strong></div>
+                    <div class="box"><label data-txt="52weekLow">52W Low</label><strong id="div52Low"></strong></div>
+                    <div class="box"><label data-txt="52weekHigh">52W High</label><strong id="div52High"></strong></div>
+                </div>
+                <div class="reason-box"><strong data-txt="reason">Analysis:</strong><br><span id="divReason"></span><br><br><strong data-txt="suggestion">Suggestion:</strong><br><span id="divAdvice"></span></div>
             </div>
         </div>
     </div>
 
-    <!-- ⭐ PUSAT PENGATURAN: config.js DIPANGGIL PERTAMA -->
     <script src="config.js"></script>
     <script>
-    // ═══════════════════════════════════════════════
-    // 🌐 SISTEM BAHASA
-    // ═══════════════════════════════════════════════
-    const TERJEMAHAN = {
+    const TEXTS = {
         id: {
-            title: '📊 Analisis Saham', subtitle: 'Strategi Swing Trading & Dividen — SO • ED • O • WTRG',
-            clearCache: 'Bersihkan Cache', loading: 'Memuat data...',
-            tabSwing: 'Swing Trading', tabDividen: 'Dividen Maksimal',
-            swingTitle: '📈 SWING TRADING — Fokus Teknikal', dividenTitle: '💰 STRATEGI DIVIDEN — Harga Terbaik & Yield Maksimal',
-            lblHargaSekarang: 'Harga Saat Ini', lblEntry: '✅ Zona Beli', lblTargetJual: '🎯 Target Jual', lblPotensiGain: 'Potensi Keuntungan',
-            lblYieldSaatIni: 'Yield Saat Ini', lblBeliTerbaik: '🌟 Zona Beli Terbaik', lblYieldMaks: 'Yield Maksimal',
-            lblTargetPanjang: '🎯 Target Jangka Panjang', lblPotensiNaik: 'Potensi Kenaikan', lbl52WTerendah: 'Terendah 52 Minggu', lblExDiv: 'Tanggal Ex-Dividen',
-            clickHint: '👆 Klik untuk melihat detail lengkap', clickHintDividen: '👆 Klik untuk detail — cari harga TERENDAH untuk yield MAKSIMAL',
-            diperbarui: 'Terakhir Diperbarui', totalSaham: 'Jumlah Saham', errorLoad: 'Gagal memuat data', fileNotReady: 'File data belum tersedia',
-            adLabel: 'Iklan', footerAbout: '<strong>Tentang:</strong> Alat analisis saham gratis untuk Swing Trading dan strategi Dividen. Hanya untuk tujuan edukasi.',
-            linkPrivacy: 'Kebijakan Privasi', linkTerms: 'Syarat Penggunaan', linkContact: 'Hubungi Kami',
-            disclaimer: '⚠️ Bukan saran investasi — analisis alat saja. Selalu lakukan riset mandiri.',
-            ENTRY: '✅ BELI', ENTRY_KUAT: '🔥 BELI KUAT', TUNGGU: '⏳ TUNGGU', BAGUS: '✅ BAGUS', KURANG: '⏳ KURANG MENARIK'
+            refresh: 'Perbarui',
+            loading: 'Memuat data...',
+            adLabel: 'Iklan',
+            subtitle: 'Strategi Swing & Dividen — Saham AS',
+            tabSwing: 'Swing Trading',
+            tabDividen: 'Dividen',
+            disclaimer: '⚠️ Bukan saran investasi — hanya untuk edukasi.',
+            swingTitle: '📈 SWING TRADING — Analisis',
+            dividenTitle: '💰 DIVIDEN — Analisis',
+            currentPrice: 'Harga Saat Ini',
+            entryZone: 'Zona Beli',
+            targetSell: 'Target Jual',
+            yieldNow: 'Yield Saat Ini',
+            bestBuyZone: 'Zona Beli Terbaik',
+            maxYield: 'Yield Maksimal',
+            52weekLow: 'Terendah 52 Minggu',
+            52weekHigh: 'Tertinggi 52 Minggu',
+            reason: 'Alasan:',
+            suggestion: 'Saran:',
+            clickHint: 'Klik kartu untuk detail lengkap',
+            lastUpdate: 'Terakhir diperbarui',
+            totalStock: 'Jumlah Saham',
+            errorLoad: 'Gagal memuat data',
+            fileNotReady: 'File JSON belum tersedia, jalankan skrip Python terlebih dahulu',
+            ENTRY: '✅ BISA BELI',
+            ENTRY_KUAT: '🔥 BELI SEKARANG',
+            TUNGGU: '⏳ TUNGGU',
+            BAGUS: '✅ MENARIK',
+            KURANG: '⚠️ TERLALU MAHAL'
         },
         en: {
-            title: '📊 Stock Analysis Tool', subtitle: 'Swing Trading & Dividend Strategy — SO • ED • O • WTRG',
-            clearCache: 'Clear Cache', loading: 'Loading data...',
-            tabSwing: 'Swing Trading', tabDividen: 'Max Dividend',
-            swingTitle: '📈 SWING TRADING — Technical Focus', dividenTitle: '💰 DIVIDEND STRATEGY — Best Price & Max Yield',
-            lblHargaSekarang: 'Current Price', lblEntry: '✅ Buy Zone', lblTargetJual: '🎯 Sell Target', lblPotensiGain: 'Potential Gain',
-            lblYieldSaatIni: 'Current Yield', lblBeliTerbaik: '🌟 Best Buy Zone', lblYieldMaks: 'Max Yield',
-            lblTargetPanjang: '🎯 Long-Term Target', lblPotensiNaik: 'Upside Potential', lbl52WTerendah: '52-Week Low', lblExDiv: 'Ex-Dividend Date',
-            clickHint: '👆 Click for full details', clickHintDividen: '👆 Click for details — find LOWEST price for MAX yield',
-            diperbarui: 'Last Updated', totalSaham: 'Total Stocks', errorLoad: 'Failed to load data', fileNotReady: 'Data file not available',
-            adLabel: 'Ad', footerAbout: '<strong>About:</strong> Free stock analysis tool for Swing Trading and Dividend strategy. For educational purposes only.',
-            linkPrivacy: 'Privacy Policy', linkTerms: 'Terms of Use', linkContact: 'Contact Us',
-            disclaimer: '⚠️ Not investment advice — analysis tool only. Always do your own research.',
-            ENTRY: '✅ BUY', ENTRY_KUAT: '🔥 STRONG BUY', TUNGGU: '⏳ WAIT', BAGUS: '✅ GOOD', KURANG: '⏳ LESS ATTRACTIVE'
+            refresh: 'Refresh',
+            loading: 'Loading data...',
+            adLabel: 'Ad',
+            subtitle: 'Swing Trading & Dividend Strategy — US Stocks',
+            tabSwing: 'Swing Trading',
+            tabDividen: 'Dividend Strategy',
+            disclaimer: '⚠️ Not investment advice — for educational purposes only.',
+            swingTitle: '📈 SWING TRADING — Analysis',
+            dividenTitle: '💰 DIVIDEND STRATEGY — Analysis',
+            currentPrice: 'Current Price',
+            entryZone: 'Entry Zone',
+            targetSell: 'Target Price',
+            yieldNow: 'Current Yield',
+            bestBuyZone: 'Best Buy Zone',
+            maxYield: 'Max Yield',
+            52weekLow: '52W Low',
+            52weekHigh: '52W High',
+            reason: 'Analysis:',
+            suggestion: 'Suggestion:',
+            clickHint: 'Click card for full details',
+            lastUpdate: 'Last Updated',
+            totalStock: 'Total Stocks',
+            errorLoad: 'Failed to load data',
+            fileNotReady: 'JSON file not ready — run Python script first',
+            ENTRY: '✅ BUY ZONE',
+            ENTRY_KUAT: '🔥 STRONG BUY',
+            TUNGGU: '⏳ WAIT',
+            BAGUS: '✅ ATTRACTIVE',
+            KURANG: '⚠️ TOO EXPENSIVE'
         }
     };
 
-    let bahasaSaatIni = 'en', dataSaham = [], tabAktif = 'swing';
+    let currentLang = localStorage.getItem('quant_lang') || 'en';
+    let stockData = [];
+    let activeTab = 'swing';
 
-    function t(kunci) { return TERJEMAHAN[bahasaSaatIni][kunci] || kunci; }
-    function toggleLangDropdown() { document.getElementById('langDropdown').classList.toggle('show'); }
-    document.addEventListener('click', e => { if (!e.target.closest('.lang-switcher')) document.getElementById('langDropdown').classList.remove('show'); });
-
-    async function deteksiBahasa() {
-        const simpan = localStorage.getItem('preferredLang');
-        if (simpan) return ubahBahasa(simpan, false);
-        const bLang = (navigator.language || 'en').split('-')[0];
-        ubahBahasa(bLang === 'id' ? 'id' : 'en', false);
+    function t(key) {
+        return TEXTS[currentLang][key] || key;
     }
 
-    function ubahBahasa(kode, simpan = true) {
-        bahasaSaatIni = kode;
-        if (simpan) localStorage.setItem('preferredLang', kode);
+    function updateAllTexts() {
+        document.querySelectorAll('[data-txt]').forEach(el => {
+            const k = el.getAttribute('data-txt');
+            el.textContent = t(k);
+        });
+        document.getElementById('currentLangLabel').innerHTML = currentLang === 'id' ? '🇮🇩 ID' : '🇬🇧 EN';
+        document.querySelectorAll('.lang-option').forEach(opt => {
+            opt.classList.toggle('active', opt.dataset.lang === currentLang);
+        });
+    }
+
+    function toggleLangDropdown() {
+        document.getElementById('langDropdown').classList.toggle('show');
+    }
+
+    document.addEventListener('click', e => {
+        if (!e.target.closest('.lang-switcher')) {
+            document.getElementById('langDropdown').classList.remove('show');
+        }
+    });
+
+    function ubahBahasa(kode) {
+        currentLang = kode;
+        localStorage.setItem('quant_lang', kode);
         document.documentElement.lang = kode;
-        document.getElementById('currentLangLabel').innerHTML = kode === 'id' ? '🇮🇩 ID' : '🇺🇸 EN';
-        document.querySelectorAll('[data-txt]').forEach(el => { const k = el.getAttribute('data-txt'); if (TERJEMAHAN[kode][k]) el.textContent = TERJEMAHAN[kode][k]; });
+        updateAllTexts();
         document.getElementById('langDropdown').classList.remove('show');
-        if (dataSaham.length) renderKartu();
+        if (stockData.length) renderCards();
     }
 
     function bukaTab(tab) {
-        tabAktif = tab;
-        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        activeTab = tab;
+        document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
         event.target.closest('.tab').classList.add('active');
         document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-        document.getElementById(tab+'Tab').classList.add('active');
-        renderKartu();
+        document.getElementById(tab + 'Tab').classList.add('active');
+        renderCards();
     }
 
     async function muatUlang() {
-        const btn = document.getElementById('btnCache'), loading = document.getElementById('loading'), infoBar = document.getElementById('infoBar');
-        btn.classList.add('loading'); btn.innerHTML = '<span class="spinner"></span>';
-        loading.style.display = 'block'; loading.innerHTML = '<span class="spinner"></span> ' + t('loading');
+        const btn = document.getElementById('btnCache');
+        const loading = document.getElementById('loading');
+        const infoBar = document.getElementById('infoBar');
+        
+        btn.classList.add('loading');
+        btn.innerHTML = '<span class="spinner" style="width:14px;height:14px;border-width:2px;"></span>';
+        loading.style.display = 'block';
+        loading.innerHTML = '<span class="spinner"></span> ' + t('loading');
         infoBar.style.display = 'none';
-        document.getElementById('swingContent').innerHTML = ''; document.getElementById('dividenContent').innerHTML = '';
+        document.getElementById('swingContent').innerHTML = '';
+        document.getElementById('dividenContent').innerHTML = '';
         
         try {
-            const res = await fetch(`output/hasil_analisa.json?v=${Date.now()}`, { cache: 'no-store' });
+            const res = await fetch('output/hasil_analisa.json?v=' + Date.now(), { cache: 'no-store' });
             if (!res.ok) throw new Error(t('fileNotReady'));
             const data = await res.json();
-            dataSaham = data.daftar_saham;
+            stockData = data.daftar_saham || [];
+            
             loading.style.display = 'none';
             infoBar.style.display = 'block';
-            infoBar.innerHTML = `📅 ${t('diperbarui')}: <strong>${data.dibuat_pada}</strong> &nbsp;|&nbsp; 📊 ${t('totalSaham')}: <strong>${data.jumlah_saham}</strong>`;
-            renderKartu();
+            infoBar.innerHTML = `📅 ${t('lastUpdate')}: <strong>${data.dibuat_pada}</strong> &nbsp;|&nbsp; 📊 ${t('totalStock')}: <strong>${data.jumlah_saham}</strong>`;
+            
+            renderCards();
+            
+            if (typeof loadAdCode !== 'undefined' && SITE_CONFIG?.adsense?.enabled) {
+                setTimeout(() => {
+                    loadAdCode('topBanner', 'adTopBanner');
+                    loadAdCode('betweenTabContent', 'adBetween');
+                    loadAdCode('bottomBanner', 'adBottomBanner');
+                    if (window.adsbygoogle) (adsbygoogle = window.adsbygoogle || []).push({});
+                }, 100);
+            }
+            
         } catch (err) {
             loading.innerHTML = `<div class="error">❌ ${t('errorLoad')}: ${err.message}</div>`;
         } finally {
-            btn.classList.remove('loading'); btn.innerHTML = '🧹 ' + t('clearCache');
+            btn.classList.remove('loading');
+            btn.innerHTML = '🔄 <span data-txt="refresh">' + t('refresh') + '</span>';
         }
     }
 
-    function renderKartu() { tabAktif === 'swing' ? renderSwing() : renderDividen(); }
-
-    function renderSwing() {
-        document.getElementById('swingContent').innerHTML = 
-            `<div class="saham-list">${dataSaham.map((s,i) => kartuSwing(s,i)).join('')}</div><p class="click-hint">${t('clickHint')}</p>`;
+    function renderCards() {
+        const swingContainer = document.getElementById('swingContent');
+        const divContainer = document.getElementById('dividenContent');
+        
+        swingContainer.innerHTML = '<div class="stock-list">' + stockData.map(s => renderSwingCard(s)).join('') + '</div><p class="click-hint">' + t('clickHint') + '</p>';
+        divContainer.innerHTML = '<div class="stock-list">' + stockData.map(s => renderDividenCard(s)).join('') + '</div><p class="click-hint">' + t('clickHint') + '</p>';
     }
 
-    function kartuSwing(s, i) {
-        const sw = s.swing;
-        let stClass = 'TUNGGU', stLabel = t('TUNGGU');
-        if (sw.kondisi.includes('ENTRY KUAT')) { stClass = 'ENTRY'; stLabel = t('ENTRY_KUAT'); }
-        else if (sw.kondisi.includes('ENTRY')) { stClass = 'ENTRY'; stLabel = t('ENTRY'); }
+    function renderSwingCard(saham) {
+        const sw = saham.swing;
+        let statusClass = 'TUNGGU';
+        if (sw.kondisi.includes('KUAT')) statusClass = 'ENTRY';
+        else if (sw.kondisi.includes('ENTRY')) statusClass = 'ENTRY';
+        
         return `
-        <div class="card" onclick="bukaPopupSwing(${i})">
+        <div class="stock-card" onclick="bukaPopupSwing(${JSON.stringify(saham).replace(/"/g, '&quot;')})">
             <div class="card-header">
-                <div><span class="simbol">${s.simbol}</span><div class="nama">${s.nama}</div></div>
-                <span class="status ${stClass}">${stLabel}</span>
+                <div>
+                    <span class="symbol">${saham.simbol}</span>
+                    <div class="company-name">${saham.nama}</div>
+                </div>
+                <span class="status ${statusClass}">${t(statusClass)}</span>
             </div>
             <div class="card-body">
-                <div class="item"><label>${t('lblHargaSekarang')}</label><strong>$${s.harga_sekarang}</strong></div>
-                <div class="item"><label>${t('lblEntry')}</label><strong class="diskon">$${sw.zona_entry}</strong></div>
-                <div class="item"><label>${t('lblPotensiGain')}</label><strong class="gain">${sw.potensi_gain_persen}%</strong></div>
-                <div class="item"><label>RSI</label><strong>${s.indikator.rsi}</strong></div>
-                <div class="item"><label>${t('lblTargetJual')}</label><strong>$${sw.target_jual}</strong></div>
-                <div class="item"><label>MA20</label><strong>$${s.indikator.ma20}</strong></div>
+                <div class="item"><label>${t('currentPrice')}</label><strong>$${saham.harga_sekarang}</strong></div>
+                <div class="item"><label>RSI</label><strong>${saham.indikator.rsi}</strong></div>
+                <div class="item"><label>${t('entryZone')}</label><strong class="discount">$${sw.zona_entry}</strong></div>
+                <div class="item"><label>${t('targetSell')}</label><strong>$${sw.target_jual}</strong></div>
+                <div class="item"><label>Gain</label><strong class="gain">${sw.potensi_gain_persen}%</strong></div>
+                <div class="item"><label>MA20</label><strong>$${saham.indikator.ma20}</strong></div>
             </div>
         </div>`;
     }
 
-    function renderDividen() {
-        document.getElementById('dividenContent').innerHTML = 
-            `<div class="saham-list">${dataSaham.map((s,i) => kartuDividen(s,i)).join('')}</div><p class="click-hint">${t('clickHintDividen')}</p>`;
-    }
-
-    function kartuDividen(s, i) {
-        const dv = s.dividen;
-        let stClass = 'TUNGGU', stLabel = t('TUNGGU');
-        if (dv.penilaian.includes('MENARIK') || dv.penilaian.includes('BAGUS')) { stClass = 'BAGUS'; stLabel = t('BAGUS'); }
-        if (dv.penilaian.includes('KURANG')) { stClass = 'KURANG'; stLabel = t('KURANG'); }
+    function renderDividenCard(saham) {
+        const dv = saham.dividen;
+        let statusClass = 'TUNGGU';
+        if (dv.penilaian.includes('MENARIK')) statusClass = 'BAGUS';
+        else if (dv.penilaian.includes('TERBAIK')) statusClass = 'BAGUS';
+        else if (dv.penilaian.includes('MAHAL')) statusClass = 'KURANG';
+        
         return `
-        <div class="card" onclick="bukaPopupDividen(${i})">
+        <div class="stock-card" onclick="bukaPopupDividen(${JSON.stringify(saham).replace(/"/g, '&quot;')})">
             <div class="card-header">
-                <div><span class="simbol">${s.simbol}</span><div class="nama">${s.nama}</div></div>
-                <span class="status ${stClass}">${stLabel}</span>
+                <div>
+                    <span class="symbol">${saham.simbol}</span>
+                    <div class="company-name">${saham.nama}</div>
+                </div>
+                <span class="status ${statusClass}">${t(statusClass)}</span>
             </div>
             <div class="card-body">
-                <div class="item"><label>${t('lblHargaSekarang')}</label><strong>$${s.harga_sekarang}</strong></div>
-                <div class="item"><label>${t('lblBeliTerbaik')}</label><strong class="diskon">$${dv.zona_beli_terbaik}</strong></div>
-                <div class="item"><label>${t('lblYieldSaatIni')}</label><strong class="gain">${dv.yield_saat_ini_persen}%</strong></div>
-                <div class="item"><label>${t('lbl52WTerendah')}</label><strong>$${s.harga_52minggu.terendah}</strong></div>
-                <div class="item"><label>${t('lblTargetPanjang')}</label><strong>$${dv.target_jangka_panjang}</strong></div>
-                <div class="item"><label>${t('lblPotensiNaik')}</label><strong>${dv.potensi_naik_harga_persen}%</strong></div>
+                <div class="item"><label>${t('currentPrice')}</label><strong>$${saham.harga_sekarang}</strong></div>
+                <div class="item"><label>${t('yieldNow')}</label><strong class="gain">${dv.yield_saat_ini_persen}%</strong></div>
+                <div class="item"><label>${t('bestBuyZone')}</label><strong class="discount">$${dv.zona_beli_terbaik}</strong></div>
+                <div class="item"><label>${t('maxYield')}</label><strong>${dv.yield_maksimal_persen}%</strong></div>
+                <div class="item"><label>52W Low</label><strong>$${saham.harga_52minggu.terendah}</strong></div>
+                <div class="item"><label>Upside</label><strong class="gain">${dv.potensi_naik_harga_persen}%</strong></div>
             </div>
         </div>`;
     }
 
-    function bukaPopupSwing(i) {
-        const s = dataSaham[i];
-        document.getElementById('popSimbol').textContent = s.simbol + ' — ' + t('tabSwing');
-        document.getElementById('popNama').textContent = s.nama;
-        document.getElementById('popSwingDetail').style.display = 'block';
-        document.getElementById('popDividenDetail').style.display = 'none';
-        document.getElementById('swHarga').textContent = '$' + s.harga_sekarang;
-        document.getElementById('swRsi').textContent = s.indikator.rsi;
-        document.getElementById('swEntry').textContent = '$' + s.swing.zona_entry;
-        document.getElementById('swTarget').textContent = '$' + s.swing.target_jual;
-        document.getElementById('swGain').textContent = s.swing.potensi_gain_persen + '%';
-        document.getElementById('swMa').textContent = s.indikator.ma20 + ' / ' + s.indikator.ma50;
-        document.getElementById('swAlasan').innerHTML = s.swing.alasan.map(a=>'✅ '+a).join('<br>') + '<br><br><strong>' + s.swing.saran + '</strong>';
+    function bukaPopupSwing(s) {
+        document.getElementById('popupSymbol').textContent = s.simbol + ' — ' + s.swing.kondisi;
+        document.getElementById('popupName').textContent = s.nama;
+        document.getElementById('swingPrice').textContent = '$' + s.harga_sekarang;
+        document.getElementById('swingRsi').textContent = s.indikator.rsi;
+        document.getElementById('swingMa20').textContent = '$' + s.indikator.ma20;
+        document.getElementById('swingMa50').textContent = '$' + s.indikator.ma50;
+        document.getElementById('swingEntry').textContent = '$' + s.swing.zona_entry;
+        document.getElementById('swingTarget').textContent = '$' + s.swing.target_jual + ' (' + s.swing.potensi_gain_persen + '%)';
+        document.getElementById('swingReason').innerHTML = s.swing.alasan.join('<br>');
+        document.getElementById('swingAdvice').textContent = s.swing.saran;
+        document.getElementById('popupSwingDetail').style.display = 'block';
+        document.getElementById('popupDividenDetail').style.display = 'none';
         document.getElementById('popupOverlay').classList.add('show');
     }
 
-    function bukaPopupDividen(i) {
-        const s = dataSaham[i];
-        document.getElementById('popSimbol').textContent = s.simbol + ' — ' + t('tabDividen');
-        document.getElementById('popNama').textContent = s.nama;
-        document.getElementById('popSwingDetail').style.display = 'none';
-        document.getElementById('popDividenDetail').style.display = 'block';
-        document.getElementById('dvHarga').textContent = '$' + s.harga_sekarang;
-        document.getElementById('dvYield').textContent = s.dividen.yield_saat_ini_persen + '%';
-        document.getElementById('dvBeliTerbaik').textContent = '$' + s.dividen.zona_beli_terbaik;
-        document.getElementById('dvYieldMaks').textContent = s.dividen.yield_maksimal_persen + '%';
-        document.getElementById('dvTarget').textContent = '$' + s.dividen.target_jangka_panjang;
-        document.getElementById('dvNaik').textContent = s.dividen.potensi_naik_harga_persen + '%';
-        document.getElementById('dvLow52').textContent = '$' + s.harga_52minggu.terendah;
-        document.getElementById('dvExDiv').textContent = s.dividen_info.ex_div_date || '—';
-        document.getElementById('dvAlasan').innerHTML = s.dividen.alasan.map(a=>'💡 '+a).join('<br>') + '<br><br><strong>' + s.dividen.saran + '</strong>';
+    function bukaPopupDividen(s) {
+        document.getElementById('popupSymbol').textContent = s.simbol + ' — ' + s.dividen.penilaian;
+        document.getElementById('popupName').textContent = s.nama;
+        document.getElementById('divPrice').textContent = '$' + s.harga_sekarang;
+        document.getElementById('divYieldNow').textContent = s.dividen.yield_saat_ini_persen + '%';
+        document.getElementById('divBestZone').textContent = '$' + s.dividen.zona_beli_terbaik;
+        document.getElementById('divMaxYield').textContent = s.dividen.yield_maksimal_persen + '%';
+        document.getElementById('div52Low').textContent = '$' + s.harga_52minggu.terendah;
+        document.getElementById('div52High').textContent = '$' + s.harga_52minggu.tertinggi;
+        document.getElementById('divReason').innerHTML = s.dividen.alasan.join('<br>');
+        document.getElementById('divAdvice').textContent = s.dividen.saran;
+        document.getElementById('popupSwingDetail').style.display = 'none';
+        document.getElementById('popupDividenDetail').style.display = 'block';
         document.getElementById('popupOverlay').classList.add('show');
     }
 
-    function tutupPopup() { document.getElementById('popupOverlay').classList.remove('show'); }
-    function tutupPopupDariLuar(e) { if (e.target.id === 'popupOverlay') tutupPopup(); }
+    function tutupPopup() {
+        document.getElementById('popupOverlay').classList.remove('show');
+    }
 
-    // ═══════════════════════════════════════════════
-    // 🚀 INISIALISASI — Muat Iklan dari config.js
-    // ═══════════════════════════════════════════════
-    window.onload = async function() {
+    function tutupPopupDariLuar(e) {
+        if (e.target.id === 'popupOverlay') tutupPopup();
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('year').textContent = new Date().getFullYear();
-        
-        // Terapkan verifikasi Google dari config.js
-        if (typeof applyMetaConfig === 'function') applyMetaConfig();
-        
-        await deteksiBahasa();
-        
-        // ⭐ MUAT IKLAN HANYA DARI config.js
-        if (typeof SITE_CONFIG !== 'undefined' && SITE_CONFIG.adsense.enabled) {
-            const pubId = SITE_CONFIG.adsense.publisherId;
-            if (pubId && pubId !== "ca-pub-XXXXXXXXXXXXXXXX") {
-                const script = document.createElement('script');
-                script.src = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${pubId}`;
-                script.async = true;
-                script.crossOrigin = "anonymous";
-                document.head.appendChild(script);
-            }
-            
-            // Muat setiap slot iklan
-            setTimeout(() => {
-                loadAdCode('topBanner', 'adTopBanner');
-                loadAdCode('betweenTabContent', 'adBetween');
-                loadAdCode('bottomBanner', 'adBottomBanner');
-                // Aktifkan iklan yang sudah dimuat
-                if (window.adsbygoogle) (adsbygoogle = window.adsbygoogle || []).push({});
-            }, 100);
-        }
-        
+        updateAllTexts();
         muatUlang();
-    };
+    });
     </script>
 </body>
 </html>
