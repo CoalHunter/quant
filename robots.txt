@@ -1,10 +1,6 @@
-# ──────────────────────────────────────────────
-# ROBOTS.TXT — Panduan untuk Mesin Pencari
-# ──────────────────────────────────────────────
 User-agent: *
 Allow: /
 Sitemap: https://coalhunter.github.io/quant/sitemap.xml
 
-# Blokir file yang tidak perlu diindeks
 Disallow: /py-engine/
 Disallow: /output/
