@@ -1,14 +1,14 @@
 {
-    "name": "Stock Analysis Tool",
-    "short_name": "StockTool",
-    "description": "Swing Trading & Dividend Strategy Analysis",
+    "name": "Quant.",
+    "short_name": "Quant",
+    "description": "Quant. — Professional Stock Analysis Tool. Swing Trading & Dividend Strategy for US Stocks.",
     "start_url": "./",
     "display": "standalone",
     "background_color": "#f0f4f8",
     "theme_color": "#7c3aed",
     "icons": [
         {
-            "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>",
+            "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📈</text></svg>",
             "sizes": "any",
             "type": "image/svg+xml"
         }
