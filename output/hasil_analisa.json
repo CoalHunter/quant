@@ -1,155 +1,181 @@
 {
-  "dibuat_pada": "2026-10-21 23:52:22",
+  "dibuat_pada": "2026-10-22 02:10:59",
   "jumlah_saham": 4,
   "daftar_saham": [
     {
       "simbol": "SO",
       "nama": "The Southern Company",
-      "analisa_di": "2026-10-21 23:52:21",
       "harga_sekarang": 90.39,
       "harga_52minggu": {
         "terendah": 81.69,
         "tertinggi": 98.45
       },
       "indikator": {
-        "ma20": 86.19,
-        "ma50": 87.66,
-        "ma200": 91.21,
         "rsi": 79.4,
-        "macd": 0.9822,
-        "signal_line": 0.2325,
-        "bollinger_bawah": 80.19,
-        "bollinger_tengah": 86.19,
-        "bollinger_atas": 92.2
+        "ma20": 86.19,
+        "ma50": 87.66
       },
-      "dividen": {
+      "dividen_info": {
         "yield_persen": 335.0,
-        "kategori": "SANGAT TINGGI ⚠️ (periksa keberlanjutan)",
-        "payout_ratio_persen": 71.8,
         "ex_div_date": "2026-11-16"
       },
-      "rekomendasi": {
-        "zona_entry": 80.99,
-        "zona_aman_bawah": 83.32,
-        "zona_resistance": 92.2,
-        "potensi_gain_persen": 13.84,
-        "kondisi_saat_ini": "HINDARI / TUNGGU",
+      "swing": {
+        "zona_entry": 84.14,
+        "target_jual": 90.57,
+        "potensi_gain_persen": 7.64,
+        "kondisi": "⏳ TUNGGU TURUN",
         "alasan": [
-          "RSI > 70, jenuh beli"
+          "RSI tinggi, jangan kejar",
+          "Harga di atas MA50 → tren naik"
         ],
-        "saran": "Target beli di $80.99, target jual di $92.2 (+13.84%). Dividen yield: 335.0% — SANGAT TINGGI ⚠️ (periksa keberlanjutan)"
+        "saran": "Beli di $84.14, jual di $90.57 → +7.64%. RSI saat ini: 79.4"
+      },
+      "dividen": {
+        "zona_beli_terbaik": 82.92,
+        "zona_beli_wajar": 73.65,
+        "target_jangka_panjang": 59.07,
+        "yield_saat_ini_persen": 335.0,
+        "yield_maksimal_persen": 365.18,
+        "dividen_tahunan_per_saham": 277.78,
+        "potensi_naik_harga_persen": -28.76,
+        "penilaian": "🌟 SANGAT MENARIK",
+        "alasan": [
+          "Saat ini terlalu mahal. Tunggu turun ~8.3% lagi",
+          "Zona terbaik di $82.92 — dekat terendah 52 minggu",
+          "Target jangka panjang: $59.07 (+-28.76%)"
+        ],
+        "saran": "✅ BELI di $82.92 → Yield ~335.0%. Tahan untuk dividen + kenaikan harga ke $59.07"
       }
     },
     {
       "simbol": "ED",
       "nama": "Consolidated Edison, Inc.",
-      "analisa_di": "2026-10-21 23:52:22",
       "harga_sekarang": 111.82,
       "harga_52minggu": {
         "terendah": 92.43,
         "tertinggi": 114.33
       },
       "indikator": {
-        "ma20": 106.33,
-        "ma50": 106.63,
-        "ma200": 107.27,
         "rsi": 77.8,
-        "macd": 1.5594,
-        "signal_line": 0.7238,
-        "bollinger_bawah": 99.42,
-        "bollinger_tengah": 106.33,
-        "bollinger_atas": 113.23
+        "ma20": 106.33,
+        "ma50": 106.63
       },
-      "dividen": {
+      "dividen_info": {
         "yield_persen": 317.0,
-        "kategori": "SANGAT TINGGI ⚠️ (periksa keberlanjutan)",
-        "payout_ratio_persen": 57.2,
         "ex_div_date": "2026-11-18"
       },
-      "rekomendasi": {
-        "zona_entry": 100.42,
-        "zona_aman_bawah": 94.28,
-        "zona_resistance": 108.61,
-        "potensi_gain_persen": 8.16,
-        "kondisi_saat_ini": "HINDARI / TUNGGU",
+      "swing": {
+        "zona_entry": 99.42,
+        "target_jual": 105.18,
+        "potensi_gain_persen": 5.79,
+        "kondisi": "⏳ TUNGGU TURUN",
         "alasan": [
-          "RSI > 70, jenuh beli"
+          "RSI tinggi, jangan kejar",
+          "Harga di atas MA50 → tren naik"
         ],
-        "saran": "Target beli di $100.42, target jual di $108.61 (+8.16%). Dividen yield: 317.0% — SANGAT TINGGI ⚠️ (periksa keberlanjutan)"
+        "saran": "Beli di $99.42, jual di $105.18 → +5.79%. RSI saat ini: 77.8"
+      },
+      "dividen": {
+        "zona_beli_terbaik": 93.82,
+        "zona_beli_wajar": 84.21,
+        "target_jangka_panjang": 68.6,
+        "yield_saat_ini_persen": 317.0,
+        "yield_maksimal_persen": 377.82,
+        "dividen_tahunan_per_saham": 297.41,
+        "potensi_naik_harga_persen": -26.88,
+        "penilaian": "🌟 SANGAT MENARIK",
+        "alasan": [
+          "Saat ini terlalu mahal. Tunggu turun ~16.1% lagi",
+          "Zona terbaik di $93.82 — dekat terendah 52 minggu",
+          "Target jangka panjang: $68.6 (+-26.88%)"
+        ],
+        "saran": "✅ BELI di $93.82 → Yield ~317.0%. Tahan untuk dividen + kenaikan harga ke $68.6"
       }
     },
     {
       "simbol": "O",
       "nama": "Realty Income Corporation",
-      "analisa_di": "2026-10-21 23:52:22",
       "harga_sekarang": 55.35,
       "harga_52minggu": {
         "terendah": 53.15,
         "tertinggi": 66.25
       },
       "indikator": {
-        "ma20": 54.79,
-        "ma50": 58.04,
-        "ma200": 60.46,
         "rsi": 62.2,
-        "macd": -0.5707,
-        "signal_line": -0.9821,
-        "bollinger_bawah": 53.16,
-        "bollinger_tengah": 54.79,
-        "bollinger_atas": 56.41
+        "ma20": 54.79,
+        "ma50": 58.04
       },
-      "dividen": {
+      "dividen_info": {
         "yield_persen": 578.0,
-        "kategori": "SANGAT TINGGI ⚠️ (periksa keberlanjutan)",
-        "payout_ratio_persen": 234.7,
         "ex_div_date": "2026-10-30"
       },
-      "rekomendasi": {
-        "zona_entry": 53.69,
-        "zona_aman_bawah": 54.21,
-        "zona_resistance": 56.41,
-        "potensi_gain_persen": 5.07,
-        "kondisi_saat_ini": "NETRAL",
+      "swing": {
+        "zona_entry": 54.74,
+        "target_jual": 56.41,
+        "potensi_gain_persen": 3.05,
+        "kondisi": "NETRAL",
         "alasan": [],
-        "saran": "Target beli di $53.69, target jual di $56.41 (+5.07%). Dividen yield: 578.0% — SANGAT TINGGI ⚠️ (periksa keberlanjutan)"
+        "saran": "Beli di $54.74, jual di $56.41 → +3.05%. RSI saat ini: 62.2"
+      },
+      "dividen": {
+        "zona_beli_terbaik": 53.95,
+        "zona_beli_wajar": 48.58,
+        "target_jangka_panjang": 39.75,
+        "yield_saat_ini_persen": 578.0,
+        "yield_maksimal_persen": 593.0,
+        "dividen_tahunan_per_saham": 311.83,
+        "potensi_naik_harga_persen": -26.32,
+        "penilaian": "🌟 SANGAT MENARIK",
+        "alasan": [
+          "Saat ini terlalu mahal. Tunggu turun ~2.5% lagi",
+          "Zona terbaik di $53.95 — dekat terendah 52 minggu",
+          "Target jangka panjang: $39.75 (+-26.32%)"
+        ],
+        "saran": "✅ BELI di $53.95 → Yield ~578.0%. Tahan untuk dividen + kenaikan harga ke $39.75"
       }
     },
     {
       "simbol": "WTRG",
       "nama": "Essential Utilities, Inc.",
-      "analisa_di": "2026-10-21 23:52:22",
       "harga_sekarang": 40.74,
       "harga_52minggu": {
         "terendah": 35.71,
         "tertinggi": 42.51
       },
       "indikator": {
-        "ma20": 39.5,
-        "ma50": 40.39,
-        "ma200": 38.8,
         "rsi": 69.1,
-        "macd": 0.0947,
-        "signal_line": -0.1592,
-        "bollinger_bawah": 37.95,
-        "bollinger_tengah": 39.5,
-        "bollinger_atas": 41.04
+        "ma20": 39.5,
+        "ma50": 40.39
       },
-      "dividen": {
+      "dividen_info": {
         "yield_persen": 352.0,
-        "kategori": "SANGAT TINGGI ⚠️ (periksa keberlanjutan)",
-        "payout_ratio_persen": 69.9,
         "ex_div_date": "2026-08-11"
       },
-      "rekomendasi": {
-        "zona_entry": 38.33,
-        "zona_aman_bawah": 36.42,
-        "zona_resistance": 40.38,
-        "potensi_gain_persen": 5.35,
-        "kondisi_saat_ini": "NETRAL",
+      "swing": {
+        "zona_entry": 37.95,
+        "target_jual": 39.11,
+        "potensi_gain_persen": 3.06,
+        "kondisi": "NETRAL",
         "alasan": [
-          "Tren naik terkonfirmasi"
+          "Harga di atas MA50 → tren naik"
         ],
-        "saran": "Target beli di $38.33, target jual di $40.38 (+5.35%). Dividen yield: 352.0% — SANGAT TINGGI ⚠️ (periksa keberlanjutan)"
+        "saran": "Beli di $37.95, jual di $39.11 → +3.06%. RSI saat ini: 69.1"
+      },
+      "dividen": {
+        "zona_beli_terbaik": 36.25,
+        "zona_beli_wajar": 32.04,
+        "target_jangka_panjang": 25.51,
+        "yield_saat_ini_persen": 352.0,
+        "yield_maksimal_persen": 395.6,
+        "dividen_tahunan_per_saham": 127.6,
+        "potensi_naik_harga_persen": -29.63,
+        "penilaian": "🌟 SANGAT MENARIK",
+        "alasan": [
+          "Saat ini terlalu mahal. Tunggu turun ~11.0% lagi",
+          "Zona terbaik di $36.25 — dekat terendah 52 minggu",
+          "Target jangka panjang: $25.51 (+-29.63%)"
+        ],
+        "saran": "✅ BELI di $36.25 → Yield ~352.0%. Tahan untuk dividen + kenaikan harga ke $25.51"
       }
     }
   ]
