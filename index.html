@@ -49,7 +49,7 @@
         .lang-option:hover {background:#f1f5f9;}
         .lang-option.active {background:#e0f2fe; color:#1e40af; font-weight:600;}
         
-        .btn-clear-cache {background:#7c3aed; color:white; border:none; padding:6px 12px; border-radius:6px; font-size:0.85rem; font-weight:500; cursor:pointer; display:inline-flex; align-items:center; gap:4px;}
+        .btn-clear-cache {background:#7c3aed; color:white; border:none; padding:6px 14px; border-radius:6px; font-size:0.85rem; font-weight:500; cursor:pointer; display:inline-flex; align-items:center; gap:5px;}
         .btn-clear-cache:hover {background:#6d28d9;}
         .btn-clear-cache.loading {opacity:0.6;}
         
@@ -135,7 +135,7 @@
             </div>
         </div>
         <button class="btn-clear-cache" id="btnCache" onclick="muatUlang()">
-            🔄 <span data-txt="refresh">Refresh</span>
+            🗑️ <span data-txt="clearCache">Clear Cache</span>
         </button>
     </div>
 
@@ -223,7 +223,7 @@
     <script>
     const TEXTS = {
         id: {
-            refresh: 'Perbarui',
+            clearCache: 'Hapus Cache',
             loading: 'Memuat data...',
             adLabel: 'Iklan',
             subtitle: 'Strategi Swing & Dividen — Saham AS',
@@ -254,7 +254,7 @@
             KURANG: '⚠️ TERLALU MAHAL'
         },
         en: {
-            refresh: 'Refresh',
+            clearCache: 'Clear Cache',
             loading: 'Loading data...',
             adLabel: 'Ad',
             subtitle: 'Swing Trading & Dividend Strategy — US Stocks',
@@ -371,7 +371,7 @@
             loading.innerHTML = `<div class="error">❌ ${t('errorLoad')}: ${err.message}</div>`;
         } finally {
             btn.classList.remove('loading');
-            btn.innerHTML = '🔄 <span data-txt="refresh">' + t('refresh') + '</span>';
+            btn.innerHTML = '🗑️ <span data-txt="clearCache">' + t('clearCache') + '</span>';
         }
     }
 
