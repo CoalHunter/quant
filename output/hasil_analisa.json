@@ -1,5 +1,5 @@
 {
-  "dibuat_pada": "2026-10-22 02:10:59",
+  "dibuat_pada": "2026-10-22 05:43:45",
   "jumlah_saham": 4,
   "daftar_saham": [
     {
@@ -16,7 +16,7 @@
         "ma50": 87.66
       },
       "dividen_info": {
-        "yield_persen": 335.0,
+        "yield_persen": 336.0,
         "ex_div_date": "2026-11-16"
       },
       "swing": {
@@ -34,9 +34,9 @@
         "zona_beli_terbaik": 82.92,
         "zona_beli_wajar": 73.65,
         "target_jangka_panjang": 59.07,
-        "yield_saat_ini_persen": 335.0,
-        "yield_maksimal_persen": 365.18,
-        "dividen_tahunan_per_saham": 277.78,
+        "yield_saat_ini_persen": 336.0,
+        "yield_maksimal_persen": 366.27,
+        "dividen_tahunan_per_saham": 278.61,
         "potensi_naik_harga_persen": -28.76,
         "penilaian": "🌟 SANGAT MENARIK",
         "alasan": [
@@ -44,7 +44,7 @@
           "Zona terbaik di $82.92 — dekat terendah 52 minggu",
           "Target jangka panjang: $59.07 (+-28.76%)"
         ],
-        "saran": "✅ BELI di $82.92 → Yield ~335.0%. Tahan untuk dividen + kenaikan harga ke $59.07"
+        "saran": "✅ BELI di $82.92 → Yield ~336.0%. Tahan untuk dividen + kenaikan harga ke $59.07"
       }
     },
     {
@@ -106,7 +106,7 @@
         "ma50": 58.04
       },
       "dividen_info": {
-        "yield_persen": 578.0,
+        "yield_persen": 589.0,
         "ex_div_date": "2026-10-30"
       },
       "swing": {
@@ -121,9 +121,9 @@
         "zona_beli_terbaik": 53.95,
         "zona_beli_wajar": 48.58,
         "target_jangka_panjang": 39.75,
-        "yield_saat_ini_persen": 578.0,
-        "yield_maksimal_persen": 593.0,
-        "dividen_tahunan_per_saham": 311.83,
+        "yield_saat_ini_persen": 589.0,
+        "yield_maksimal_persen": 604.28,
+        "dividen_tahunan_per_saham": 317.77,
         "potensi_naik_harga_persen": -26.32,
         "penilaian": "🌟 SANGAT MENARIK",
         "alasan": [
@@ -131,7 +131,7 @@
           "Zona terbaik di $53.95 — dekat terendah 52 minggu",
           "Target jangka panjang: $39.75 (+-26.32%)"
         ],
-        "saran": "✅ BELI di $53.95 → Yield ~578.0%. Tahan untuk dividen + kenaikan harga ke $39.75"
+        "saran": "✅ BELI di $53.95 → Yield ~589.0%. Tahan untuk dividen + kenaikan harga ke $39.75"
       }
     },
     {
@@ -148,8 +148,8 @@
         "ma50": 40.39
       },
       "dividen_info": {
-        "yield_persen": 352.0,
-        "ex_div_date": "2026-08-11"
+        "yield_persen": 354.0,
+        "ex_div_date": "2026-11-10"
       },
       "swing": {
         "zona_entry": 37.95,
@@ -165,9 +165,9 @@
         "zona_beli_terbaik": 36.25,
         "zona_beli_wajar": 32.04,
         "target_jangka_panjang": 25.51,
-        "yield_saat_ini_persen": 352.0,
-        "yield_maksimal_persen": 395.6,
-        "dividen_tahunan_per_saham": 127.6,
+        "yield_saat_ini_persen": 354.0,
+        "yield_maksimal_persen": 397.85,
+        "dividen_tahunan_per_saham": 128.32,
         "potensi_naik_harga_persen": -29.63,
         "penilaian": "🌟 SANGAT MENARIK",
         "alasan": [
@@ -175,7 +175,7 @@
           "Zona terbaik di $36.25 — dekat terendah 52 minggu",
           "Target jangka panjang: $25.51 (+-29.63%)"
         ],
-        "saran": "✅ BELI di $36.25 → Yield ~352.0%. Tahan untuk dividen + kenaikan harga ke $25.51"
+        "saran": "✅ BELI di $36.25 → Yield ~354.0%. Tahan untuk dividen + kenaikan harga ke $25.51"
       }
     }
   ]
