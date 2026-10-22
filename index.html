@@ -6,83 +6,187 @@
     <title>Analisa Saham Amerika — Swing & Dividen</title>
     <style>
         * {margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI', Roboto, sans-serif;}
-        body {background:#f0f4f8; color:#1e293b; padding:20px; max-width:1200px; margin:0 auto;}
-        h1 {text-align:center; color:#0f172a; margin-bottom:10px; font-size:1.8rem;}
-        .subtitle {text-align:center; color:#64748b; margin-bottom:25px;}
-        .top-bar {display:flex; justify-content:flex-end; margin-bottom:20px;}
+        body {background:#f0f4f8; color:#1e293b; padding:16px; max-width:768px; margin:0 auto;}
+        
+        h1 {text-align:center; color:#0f172a; margin-bottom:6px; font-size:1.5rem;}
+        .subtitle {text-align:center; color:#64748b; margin-bottom:16px; font-size:0.95rem;}
+        
+        .top-bar {display:flex; justify-content:flex-end; margin-bottom:12px;}
         .btn-refresh {
-            background:#2563eb; color:white; border:none; padding:12px 24px; border-radius:8px;
-            font-size:1rem; font-weight:600; cursor:pointer; display:inline-flex; align-items:center;
-            gap:8px; transition:all 0.2s; box-shadow:0 2px 6px rgba(37,99,235,0.25);
+            background:#2563eb; color:white; border:none; padding:8px 16px; border-radius:6px;
+            font-size:0.9rem; font-weight:600; cursor:pointer; display:inline-flex; align-items:center;
+            gap:6px; transition:all 0.2s;
         }
-        .btn-refresh:hover {background:#1d4ed8; transform:translateY(-1px);}
-        .btn-refresh.loading {opacity:0.7; pointer-events:none;}
+        .btn-refresh:hover {background:#1d4ed8;}
+        .btn-refresh.loading {opacity:0.6; pointer-events:none;}
+        
         .info-bar {
-            background:#e0f2fe; border-left:4px solid #0ea5e9; padding:12px 16px;
-            border-radius:6px; margin-bottom:25px; font-size:0.95rem;
+            background:#e0f2fe; border-left:3px solid #0ea5e9; padding:10px 14px;
+            border-radius:6px; margin-bottom:16px; font-size:0.9rem;
         }
+        
+        /* 📋 Daftar Kartu Saham — Lebih Kecil & Rapat */
+        .saham-list {display:grid; gap:10px;}
         .card {
-            background:white; border-radius:10px; box-shadow:0 2px 8px rgba(0,0,0,0.06);
-            padding:22px; margin-bottom:20px; transition:transform 0.2s;
+            background:white; border-radius:10px; padding:14px;
+            box-shadow:0 1px 4px rgba(0,0,0,0.06); cursor:pointer;
+            transition:all 0.2s;
         }
-        .card:hover {transform:translateY(-2px);}
-        .card-header {
-            display:flex; justify-content:space-between; align-items:flex-start;
-            margin-bottom:18px; padding-bottom:12px; border-bottom:1px solid #e2e8f0;
-            flex-wrap:wrap; gap:10px;
-        }
+        .card:hover {transform:translateY(-2px); box-shadow:0 4px 12px rgba(0,0,0,0.08);}
+        
+        .card-header {display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;}
         .simbol {
-            font-size:1rem; background:#dbeafe; color:#1e40af; padding:4px 10px;
-            border-radius:4px; font-weight:600; display:inline-block; margin-bottom:6px;
+            background:#dbeafe; color:#1e40af; padding:4px 10px; border-radius:4px;
+            font-weight:700; font-size:0.95rem;
         }
-        .nama-perusahaan {font-size:1.15rem; color:#0f172a; font-weight:600; line-height:1.4;}
-        .status {padding:6px 12px; border-radius:20px; font-weight:600; font-size:0.85rem; white-space:nowrap;}
+        .nama-perusahaan {font-size:0.9rem; color:#47556b; margin-top:2px;}
+        .status {
+            padding:4px 10px; border-radius:12px; font-size:0.78rem; font-weight:600; white-space:nowrap;
+        }
         .status.KESMPATAN-ENTRY, .status.SANGAT-BAGUS {background:#dcfce7; color:#166534;}
         .status.NETRAL {background:#fef3c7; color:#92400e;}
         .status.HINDARI {background:#fee2e2; color:#991b1b;}
-        .grid {display:grid; grid-template-columns:repeat(auto-fit, minmax(240px,1fr)); gap:16px; margin-bottom:15px;}
-        .box h4 {font-size:0.8rem; color:#94a3b8; text-transform:uppercase; margin-bottom:6px;}
-        .box p {font-size:1rem; font-weight:500;}
-        .harga-beli {color:#16a34a; font-weight:bold; font-size:1.1rem;}
-        .harga-jual {color:#2563eb;}
-        .gain {color:#16a34a; font-weight:bold;}
-        .dividen-badge {
-            display:inline-block; background:#ede9fe; color:#4338ca; padding:4px 10px;
-            border-radius:15px; font-size:0.85rem; font-weight:500;
+        
+        .card-body {display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px; margin-top:10px;}
+        .item {font-size:0.82rem;}
+        .item label {color:#94a3b8; font-size:0.75rem; display:block; margin-bottom:2px;}
+        .item .harga {font-weight:600;}
+        .item .gain {color:#16a34a; font-weight:600;}
+        .dividen-tag {
+            display:inline-block; background:#ede9fe; color:#4338ca;
+            padding:2px 8px; border-radius:10px; font-size:0.78rem; font-weight:500;
         }
-        .alasan {
-            background:#f8fafc; padding:12px; border-radius:6px; border-left:3px solid #94a3b8;
-            font-size:0.9rem; color:#47556b;
+        .click-hint {text-align:center; font-size:0.75rem; color:#94a3b8; margin-top:6px;}
+        
+        /* 🔲 POPUP Detail */
+        .popup-overlay {
+            position:fixed; inset:0; background:rgba(0,0,0,0.5); display:none;
+            align-items:center; justify-content:center; padding:20px; z-index:100;
         }
-        .loading {text-align:center; padding:60px 20px; font-size:1.1rem; color:#64748b;}
+        .popup-overlay.show {display:flex;}
+        .popup {
+            background:white; border-radius:12px; width:100%; max-width:500px;
+            max-height:85vh; overflow-y:auto; padding:24px;
+            animation:popupIn 0.25s ease;
+        }
+        @keyframes popupIn {
+            from {opacity:0; transform:scale(0.95);}
+            to {opacity:1; transform:scale(1);}
+        }
+        .popup-header {display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:16px;}
+        .popup-close {
+            background:#f1f5f9; border:none; width:32px; height:32px; border-radius:50%;
+            font-size:1.1rem; cursor:pointer; display:flex; align-items:center; justify-content:center;
+            color:#64748b; transition:all 0.2s;
+        }
+        .popup-close:hover {background:#e2e8f0; color:#1e293b;}
+        .popup h2 {font-size:1.25rem; margin-bottom:4px;}
+        .popup h2 span {font-size:1rem; color:#2563eb; margin-right:8px;}
+        .popup-subtitle {color:#64748b; font-size:0.9rem; margin-bottom:16px;}
+        
+        .detail-grid {display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:16px;}
+        .detail-block {background:#f8fafc; padding:12px; border-radius:8px;}
+        .detail-block h4 {font-size:0.78rem; color:#94a3b8; text-transform:uppercase; margin-bottom:6px;}
+        .detail-block p {font-size:0.95rem; font-weight:500;}
+        .detail-block.full {grid-column:1 / -1;}
+        
+        .alasan-box {
+            background:#f0fdf4; border-left:3px solid #22c55e; padding:12px; border-radius:6px;
+            font-size:0.9rem; line-height:1.6;
+        }
+        
+        .loading {text-align:center; padding:60px 20px; color:#64748b;}
         .spinner {
             display:inline-block; width:24px; height:24px; border:3px solid #bfdbfe;
             border-top-color:#2563eb; border-radius:50%; animation:spin 0.8s linear infinite;
-            margin-right:10px; vertical-align:middle;
+            margin-right:8px; vertical-align:middle;
         }
         @keyframes spin {to {transform:rotate(360deg);}}
-        .error {background:#fee2e2; border-left:4px solid #dc2626; padding:15px; border-radius:6px; color:#991b1b;}
-        footer {text-align:center; margin-top:40px; font-size:0.85rem; color:#94a3b8;}
+        .error {background:#fee2e2; border-left:4px solid #dc2626; padding:16px; border-radius:6px; color:#991b1b;}
+        
+        footer {text-align:center; margin-top:30px; font-size:0.8rem; color:#94a3b8;}
     </style>
 </head>
 <body>
 
-    <h1>📈 Analisa Saham Amerika — Swing & Dividen</h1>
+    <h1>📈 Analisa Saham Amerika</h1>
     <p class="subtitle">Ticker: SO • ED • O • WTRG</p>
 
     <div class="top-bar">
         <button class="btn-refresh" id="btnRefresh" onclick="muatData(true)">
-            🔄 Refresh Data
+            🔄 Refresh
         </button>
     </div>
 
     <div id="loading" class="loading">⏳ Memuat data...</div>
     <div id="content" style="display:none;"></div>
 
+    <!-- 🔲 POPUP Detail -->
+    <div class="popup-overlay" id="popupOverlay" onclick="tutupPopupDariLuar(event)">
+        <div class="popup" onclick="event.stopPropagation()">
+            <div class="popup-header">
+                <div>
+                    <h2><span id="popSimbol"></span> <span id="popNama"></span></h2>
+                    <p class="popup-subtitle" id="popStatus"></p>
+                </div>
+                <button class="popup-close" onclick="tutupPopup()">✕</button>
+            </div>
+            
+            <div class="detail-grid">
+                <div class="detail-block">
+                    <h4>Harga Sekarang</h4>
+                    <p id="popHarga"></p>
+                </div>
+                <div class="detail-block">
+                    <h4>Potensi Gain</h4>
+                    <p id="popGain"></p>
+                </div>
+                <div class="detail-block">
+                    <h4>Zona Entry Beli</h4>
+                    <p id="popEntry"></p>
+                </div>
+                <div class="detail-block">
+                    <h4>Target Resistance</h4>
+                    <p id="popResistance"></p>
+                </div>
+                <div class="detail-block">
+                    <h4>Dividen Yield</h4>
+                    <p id="popDividen"></p>
+                </div>
+                <div class="detail-block">
+                    <h4>RSI Saat Ini</h4>
+                    <p id="popRsi"></p>
+                </div>
+                <div class="detail-block">
+                    <h4>52W Terendah</h4>
+                    <p id="popLow52"></p>
+                </div>
+                <div class="detail-block">
+                    <h4>52W Tertinggi</h4>
+                    <p id="popHigh52"></p>
+                </div>
+                <div class="detail-block">
+                    <h4>MA20 / MA50</h4>
+                    <p id="popMa"></p>
+                </div>
+                <div class="detail-block">
+                    <h4>Ex-Dividen Date</h4>
+                    <p id="popExDiv"></p>
+                </div>
+            </div>
+            
+            <div class="detail-block full">
+                <h4>📝 Analisa & Saran</h4>
+                <div class="alasan-box" id="popAlasan"></div>
+            </div>
+        </div>
+    </div>
+
     <footer>⚠️ Bukan saran investasi — hanya alat bantu analisis.</footer>
 
 <script>
 let sedangMemuat = false;
+let dataSaham = []; // Simpan semua data untuk popup
 
 async function muatData(lewatCache = false) {
     if (sedangMemuat) return;
@@ -93,13 +197,12 @@ async function muatData(lewatCache = false) {
     const content = document.getElementById('content');
     
     btn.classList.add('loading');
-    btn.innerHTML = '<span class="spinner"></span> Memuat...';
+    btn.innerHTML = '<span class="spinner"></span>';
     loading.style.display = 'block';
     content.style.display = 'none';
-    loading.innerHTML = '<span class="spinner"></span> Sedang mengambil data...';
+    loading.innerHTML = '<span class="spinner"></span> Memuat data...';
 
     try {
-        // ✅ Path sudah disesuaikan untuk repositori "quant" di GitHub Pages
         const basePath = '/quant/';
         const url = lewatCache 
             ? `${basePath}output/hasil_analisa.json?t=${Date.now()}` 
@@ -107,27 +210,25 @@ async function muatData(lewatCache = false) {
         
         const res = await fetch(url, { cache: 'no-store' });
         
-        if (!res.ok) throw new Error('File data belum tersedia di GitHub<br>Jalankan script py-engine/analisa_saham.py lalu push file output/hasil_analisa.json ke GitHub');
+        if (!res.ok) throw new Error('File belum tersedia');
         const data = await res.json();
-        tampilkanData(data);
+        dataSaham = data.daftar_saham;
+        tampilkanRingkas(data);
     } catch (err) {
         loading.innerHTML = `
             <div class="error">
-                ❌ Gagal memuat data: ${err.message}<br><br>
-                <strong>Langkah yang harus dilakukan:</strong><br>
-                1. Jalankan: <code>cd py-engine && python analisa_saham.py</code><br>
-                2. File <code>output/hasil_analisa.json</code> akan dibuat<br>
-                3. Push semua file ke GitHub, lalu halaman akan terbaca
+                ❌ ${err.message}<br>
+                Pastikan file <code>output/hasil_analisa.json</code> sudah di-push ke GitHub
             </div>
         `;
     } finally {
         sedangMemuat = false;
         btn.classList.remove('loading');
-        btn.innerHTML = '🔄 Refresh Data';
+        btn.innerHTML = '🔄 Refresh';
     }
 }
 
-function tampilkanData(data) {
+function tampilkanRingkas(data) {
     document.getElementById('loading').style.display = 'none';
     const konten = document.getElementById('content');
     konten.style.display = 'block';
@@ -135,24 +236,23 @@ function tampilkanData(data) {
     konten.innerHTML = `
         <div class="info-bar">
             📅 Diperbarui: <strong>${data.dibuat_pada}</strong> &nbsp;|&nbsp; 
-            📊 Total saham dianalisa: <strong>${data.jumlah_saham}</strong>
+            📊 Total: <strong>${data.jumlah_saham}</strong>
         </div>
-        ${data.daftar_saham.map(saham => buatKartu(saham)).join('')}
+        <div class="saham-list">
+            ${data.daftar_saham.map((s, idx) => buatKartuRingkas(s, idx)).join('')}
+        </div>
+        <p class="click-hint">👆 Klik kartu untuk melihat detail lengkap</p>
     `;
 }
 
-function buatKartu(s) {
+function buatKartuRingkas(s, index) {
     let statusClass = 'NETRAL';
     if (s.rekomendasi.kondisi_saat_ini.includes('ENTRY')) statusClass = 'KESMPATAN-ENTRY';
     if (s.rekomendasi.kondisi_saat_ini.includes('SANGAT')) statusClass = 'SANGAT-BAGUS';
     if (s.rekomendasi.kondisi_saat_ini.includes('HINDARI')) statusClass = 'HINDARI';
 
-    const alasanList = s.rekomendasi.alasan.length > 0
-        ? s.rekomendasi.alasan.map(a => `✅ ${a}`).join('<br>')
-        : '—';
-
     return `
-    <div class="card">
+    <div class="card" onclick="bukaPopup(${index})">
         <div class="card-header">
             <div>
                 <span class="simbol">${s.simbol}</span>
@@ -160,27 +260,67 @@ function buatKartu(s) {
             </div>
             <span class="status ${statusClass}">${s.rekomendasi.kondisi_saat_ini}</span>
         </div>
-
-        <div class="grid">
-            <div class="box"><h4>Harga Sekarang</h4><p>$${s.harga_sekarang}</p></div>
-            <div class="box"><h4>Zona Entry Beli ✅</h4><p class="harga-beli">$${s.rekomendasi.zona_entry}</p></div>
-            <div class="box"><h4>Target Resistance</h4><p class="harga-jual">$${s.rekomendasi.zona_resistance}</p></div>
-            <div class="box"><h4>Potensi Gain</h4><p class="gain">${s.rekomendasi.potensi_gain_persen}%</p></div>
-        </div>
-
-        <div class="grid">
-            <div class="box"><h4>Dividen Yield</h4><p><span class="dividen-badge">${s.dividen.yield_persen}% &nbsp; ${s.dividen.kategori}</span></p></div>
-            <div class="box"><h4>RSI Saat Ini</h4><p>${s.indikator.rsi}</p></div>
-            <div class="box"><h4>52W Terendah / Tertinggi</h4><p>$${s.harga_52minggu.terendah} — $${s.harga_52minggu.tertinggi}</p></div>
-            <div class="box"><h4>Ex-Dividen Date</h4><p>${s.dividen.ex_div_date || '—'}</p></div>
-        </div>
-
-        <div class="alasan">
-            <strong>📝 Catatan:</strong><br>${alasanList}<br><br>
-            ${s.rekomendasi.saran}
+        <div class="card-body">
+            <div class="item">
+                <label>Harga</label>
+                <span class="harga">$${s.harga_sekarang}</span>
+            </div>
+            <div class="item">
+                <label>Entry</label>
+                <span class="harga" style="color:#16a34a">$${s.rekomendasi.zona_entry}</span>
+            </div>
+            <div class="item">
+                <label>Gain</label>
+                <span class="gain">${s.rekomendasi.potensi_gain_persen}%</span>
+            </div>
+            <div class="item">
+                <label>Dividen</label>
+                <span class="dividen-tag">${s.dividen.yield_persen}%</span>
+            </div>
+            <div class="item">
+                <label>RSI</label>
+                <span class="harga">${s.indikator.rsi}</span>
+            </div>
         </div>
     </div>
     `;
+}
+
+// 🔲 Fungsi Popup
+function bukaPopup(index) {
+    const s = dataSaham[index];
+    
+    document.getElementById('popSimbol').textContent = s.simbol;
+    document.getElementById('popNama').textContent = s.nama;
+    document.getElementById('popStatus').textContent = s.rekomendasi.kondisi_saat_ini;
+    
+    document.getElementById('popHarga').textContent = `$${s.harga_sekarang}`;
+    document.getElementById('popGain').textContent = `${s.rekomendasi.potensi_gain_persen}%`;
+    document.getElementById('popEntry').textContent = `$${s.rekomendasi.zona_entry}`;
+    document.getElementById('popResistance').textContent = `$${s.rekomendasi.zona_resistance}`;
+    document.getElementById('popDividen').textContent = `${s.dividen.yield_persen}% — ${s.dividen.kategori}`;
+    document.getElementById('popRsi').textContent = s.indikator.rsi;
+    document.getElementById('popLow52').textContent = `$${s.harga_52minggu.terendah}`;
+    document.getElementById('popHigh52').textContent = `$${s.harga_52minggu.tertinggi}`;
+    document.getElementById('popMa').textContent = `${s.indikator.ma20} / ${s.indikator.ma50}`;
+    document.getElementById('popExDiv').textContent = s.dividen.ex_div_date || '—';
+    
+    const alasanList = s.rekomendasi.alasan.length > 0
+        ? s.rekomendasi.alasan.map(a => `✅ ${a}`).join('<br>')
+        : '';
+    document.getElementById('popAlasan').innerHTML = `${alasanList}<br><br><strong>${s.rekomendasi.saran}</strong>`;
+    
+    document.getElementById('popupOverlay').classList.add('show');
+    document.body.style.overflow = 'hidden';
+}
+
+function tutupPopup() {
+    document.getElementById('popupOverlay').classList.remove('show');
+    document.body.style.overflow = '';
+}
+
+function tutupPopupDariLuar(event) {
+    if (event.target.id === 'popupOverlay') tutupPopup();
 }
 
 document.addEventListener('DOMContentLoaded', () => muatData(false));
