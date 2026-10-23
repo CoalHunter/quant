@@ -180,16 +180,16 @@
             return translations[key] || key;
         }
 
-        function terjemahkanStatusSwing(kondisi) {
-            if (kondisi.includes('KUAT')) return t('statusStrongBuy');
-            if (kondisi.includes('ENTRY')) return t('statusEntry');
+        function terjemahkanStatusSwing(condition) {
+            if (condition.includes('STRONG BUY')) return t('statusStrongBuy');
+            if (condition.includes('BUY ZONE')) return t('statusEntry');
             return t('statusWait');
         }
 
-        function terjemahkanStatusDividen(penilaian) {
-            if (penilaian.includes('TERBAIK')) return t('statusBest');
-            if (penilaian.includes('MENARIK')) return t('statusGood');
-            if (penilaian.includes('MAHAL')) return t('statusExpensive');
+        function terjemahkanStatusDividen(rating) {
+            if (rating.includes('BEST BUY')) return t('statusBest');
+            if (rating.includes('ATTRACTIVE')) return t('statusGood');
+            if (rating.includes('EXPENSIVE')) return t('statusExpensive');
             return t('statusWait');
         }
 
@@ -269,53 +269,53 @@
         // === RENDER CARDS ===
         function renderSwingCard(s) {
             const sw = s.swing;
-            const statusText = terjemahkanStatusSwing(sw.kondisi);
+            const statusText = terjemahkanStatusSwing(sw.condition);
             let statusClass = 'WAIT';
-            if (sw.kondisi.includes('KUAT') || sw.kondisi.includes('ENTRY')) statusClass = 'ENTRY';
+            if (sw.condition.includes('STRONG BUY') || sw.condition.includes('BUY ZONE')) statusClass = 'ENTRY';
             
             return `
             <div class="stock-card" onclick="openSwingPopup(${JSON.stringify(s).replace(/"/g, '&quot;')})">
                 <div class="card-head">
                     <div>
-                        <span class="symbol">${s.simbol}</span>
-                        <div class="comp-name">${s.nama}</div>
+                        <span class="symbol">${s.symbol}</span>
+                        <div class="comp-name">${s.name}</div>
                     </div>
                     <span class="status ${statusClass}">${statusText}</span>
                 </div>
                 <div class="card-grid">
-                    <div><label>${t('lblPrice')}</label><strong>$${s.harga_sekarang}</strong></div>
-                    <div><label>${t('lblRSI')}</label><strong>${s.indikator.rsi}</strong></div>
-                    <div><label>${t('lblEntry')}</label><strong>$${sw.zona_entry}</strong></div>
-                    <div><label>${t('lblTarget')}</label><strong>$${sw.target_jual}</strong></div>
-                    <div><label>${t('lblGain')}</label><strong class="positive">${sw.potensi_gain_persen}%</strong></div>
-                    <div><label>${t('lblMA20')}</label><strong>$${s.indikator.ma20}</strong></div>
+                    <div><label>${t('lblPrice')}</label><strong>$${s.current_price}</strong></div>
+                    <div><label>${t('lblRSI')}</label><strong>${s.indicators.rsi}</strong></div>
+                    <div><label>${t('lblEntry')}</label><strong>$${sw.entry_zone}</strong></div>
+                    <div><label>${t('lblTarget')}</label><strong>$${sw.target_price}</strong></div>
+                    <div><label>${t('lblGain')}</label><strong class="positive">${sw.potential_gain_percent}%</strong></div>
+                    <div><label>${t('lblMA20')}</label><strong>$${s.indicators.ma20}</strong></div>
                 </div>
             </div>`;
         }
 
         function renderDivCard(s) {
-            const dv = s.dividen;
-            const statusText = terjemahkanStatusDividen(dv.penilaian);
+            const dv = s.dividend;
+            const statusText = terjemahkanStatusDividen(dv.rating);
             let statusClass = 'WAIT';
-            if (dv.penilaian.includes('MENARIK') || dv.penilaian.includes('TERBAIK')) statusClass = 'GOOD';
-            else if (dv.penilaian.includes('MAHAL')) statusClass = 'EXPENSIVE';
+            if (dv.rating.includes('BEST BUY') || dv.rating.includes('ATTRACTIVE')) statusClass = 'GOOD';
+            else if (dv.rating.includes('EXPENSIVE')) statusClass = 'EXPENSIVE';
             
             return `
             <div class="stock-card" onclick="openDivPopup(${JSON.stringify(s).replace(/"/g, '&quot;')})">
                 <div class="card-head">
                     <div>
-                        <span class="symbol">${s.simbol}</span>
-                        <div class="comp-name">${s.nama}</div>
+                        <span class="symbol">${s.symbol}</span>
+                        <div class="comp-name">${s.name}</div>
                     </div>
                     <span class="status ${statusClass}">${statusText}</span>
                 </div>
                 <div class="card-grid">
-                    <div><label>${t('lblPrice')}</label><strong>$${s.harga_sekarang}</strong></div>
-                    <div><label>${t('lblYield')}</label><strong class="positive">${dv.yield_saat_ini_persen}%</strong></div>
-                    <div><label>${t('lblBestBuy')}</label><strong>$${dv.zona_beli_terbaik}</strong></div>
-                    <div><label>${t('lblMaxYield')}</label><strong>${dv.yield_maksimal_persen}%</strong></div>
-                    <div><label>${t('lbl52Low')}</label><strong>$${s.harga_52minggu.terendah}</strong></div>
-                    <div><label>${t('lblUpside')}</label><strong class="positive">${dv.potensi_naik_harga_persen}%</strong></div>
+                    <div><label>${t('lblPrice')}</label><strong>$${s.current_price}</strong></div>
+                    <div><label>${t('lblYield')}</label><strong class="positive">${dv.current_yield_percent}%</strong></div>
+                    <div><label>${t('lblBestBuy')}</label><strong>$${dv.best_buy_zone}</strong></div>
+                    <div><label>${t('lblMaxYield')}</label><strong>${dv.max_yield_percent}%</strong></div>
+                    <div><label>${t('lbl52Low')}</label><strong>$${s.price_52week.low}</strong></div>
+                    <div><label>${t('lblUpside')}</label><strong class="positive">${dv.price_upside_percent}%</strong></div>
                 </div>
             </div>`;
         }
@@ -327,16 +327,16 @@
 
         // === POPUP ===
         function openSwingPopup(s) {
-            document.getElementById('popupSym').textContent = `${s.simbol} — ${s.swing.kondisi}`;
-            document.getElementById('popupName').textContent = s.nama;
-            document.getElementById('swingPrice').textContent = `$${s.harga_sekarang}`;
-            document.getElementById('swingRsi').textContent = s.indikator.rsi;
-            document.getElementById('swingMa20').textContent = `$${s.indikator.ma20}`;
-            document.getElementById('swingMa50').textContent = `$${s.indikator.ma50}`;
-            document.getElementById('swingEntry').textContent = `$${s.swing.zona_entry}`;
-            document.getElementById('swingTarget').textContent = `$${s.swing.target_jual} (${s.swing.potensi_gain_persen}%)`;
-            document.getElementById('swingReason').innerHTML = s.swing.alasan.join('<br>');
-            document.getElementById('swingAdvice').textContent = s.swing.saran;
+            document.getElementById('popupSym').textContent = `${s.symbol} — ${s.swing.condition}`;
+            document.getElementById('popupName').textContent = s.name;
+            document.getElementById('swingPrice').textContent = `$${s.current_price}`;
+            document.getElementById('swingRsi').textContent = s.indicators.rsi;
+            document.getElementById('swingMa20').textContent = `$${s.indicators.ma20}`;
+            document.getElementById('swingMa50').textContent = `$${s.indicators.ma50}`;
+            document.getElementById('swingEntry').textContent = `$${s.swing.entry_zone}`;
+            document.getElementById('swingTarget').textContent = `$${s.swing.target_price} (${s.swing.potential_gain_percent}%)`;
+            document.getElementById('swingReason').innerHTML = s.swing.reasons.join('<br>');
+            document.getElementById('swingAdvice').textContent = s.swing.advice;
             document.getElementById('swingDetail').style.display = 'block';
             document.getElementById('divDetail').style.display = 'none';
             document.getElementById('popupOverlay').classList.add('show');
@@ -344,16 +344,16 @@
         }
 
         function openDivPopup(s) {
-            document.getElementById('popupSym').textContent = `${s.simbol} — ${s.dividen.penilaian}`;
-            document.getElementById('popupName').textContent = s.nama;
-            document.getElementById('divPrice').textContent = `$${s.harga_sekarang}`;
-            document.getElementById('divYield').textContent = `${s.dividen.yield_saat_ini_persen}%`;
-            document.getElementById('divZone').textContent = `$${s.dividen.zona_beli_terbaik}`;
-            document.getElementById('divMaxYield').textContent = `${s.dividen.yield_maksimal_persen}%`;
-            document.getElementById('divLow').textContent = `$${s.harga_52minggu.terendah}`;
-            document.getElementById('divHigh').textContent = `$${s.harga_52minggu.tertinggi}`;
-            document.getElementById('divReason').innerHTML = s.dividen.alasan.join('<br>');
-            document.getElementById('divAdvice').textContent = s.dividen.saran;
+            document.getElementById('popupSym').textContent = `${s.symbol} — ${s.dividend.rating}`;
+            document.getElementById('popupName').textContent = s.name;
+            document.getElementById('divPrice').textContent = `$${s.current_price}`;
+            document.getElementById('divYield').textContent = `${s.dividend.current_yield_percent}%`;
+            document.getElementById('divZone').textContent = `$${s.dividend.best_buy_zone}`;
+            document.getElementById('divMaxYield').textContent = `${s.dividend.max_yield_percent}%`;
+            document.getElementById('divLow').textContent = `$${s.price_52week.low}`;
+            document.getElementById('divHigh').textContent = `$${s.price_52week.high}`;
+            document.getElementById('divReason').innerHTML = s.dividend.reasons.join('<br>');
+            document.getElementById('divAdvice').textContent = s.dividend.advice;
             document.getElementById('swingDetail').style.display = 'none';
             document.getElementById('divDetail').style.display = 'block';
             document.getElementById('popupOverlay').classList.add('show');
@@ -391,11 +391,11 @@
                 if (!res.ok) throw new Error(`HTTP Error: ${res.status}`);
                 
                 const data = await res.json();
-                stocks = data.daftar_saham || [];
+                stocks = data.stock_list || [];
                 
                 loading.style.display = 'none';
                 infoBar.style.display = 'block';
-                infoBar.innerHTML = `✅ ${t('lastUpdate')}: <strong>${data.dibuat_pada || '—'}</strong> | ${t('totalStocks')}: <strong>${stocks.length}</strong>`;
+                infoBar.innerHTML = `✅ ${t('lastUpdate')}: <strong>${data.generated_at || '—'}</strong> | ${t('totalStocks')}: <strong>${stocks.length}</strong>`;
                 
                 renderAll();
                 document.getElementById('clickHint').style.display = 'block';
