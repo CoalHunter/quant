@@ -1,0 +1,14 @@
+{
+    "enabled": true,
+    "google_adsense": {
+        "client_id": "ca-pub-XXXXXXXXXXXXXXXX",
+        "slot_top_banner": "1234567890",
+        "slot_in_content": "2345678901",
+        "slot_bottom_banner": "3456789012"
+    },
+    "placements": {
+        "show_top_banner": true,
+        "show_in_content": true,
+        "show_bottom_banner": true
+    }
+}
