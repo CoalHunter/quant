@@ -1,197 +1,160 @@
 #!/usr/bin/env python3
-"""
-Analisa Saham — SWING TRADING vs STRATEGI DIVIDEN
-Ticker: SO, ED, O, WTRG
-Output: ../output/hasil_analisa.json
-"""
-
 import yfinance as yf
-import pandas as pd
-import numpy as np
 import json
-import time
-from datetime import datetime, timedelta
-from pathlib import Path
+import os
+from datetime import datetime
 
-TICKERS = ["SO", "ED", "O", "WTRG"]
-OUTPUT_FILE = Path(__file__).parent.parent / "output" / "hasil_analisa.json"
-OUTPUT_FILE.parent.mkdir(parents=True, exist_ok=True)
+# Stock list
+SAHAM = {
+    "SO": "Southern Company",
+    "ED": "Consolidated Edison",
+    "O": "Realty Income Corporation",
+    "WTRG": "Waterstone Financial Inc"
+}
 
-
-# ═══════════════════════════════════════════════
-# INDICATORS
-# ═══════════════════════════════════════════════
-def hitung_rsi(data, periode=14):
-    delta = data['Close'].diff()
-    gain = delta.where(delta > 0, 0).rolling(window=periode).mean()
-    loss = (-delta.where(delta < 0, 0)).rolling(window=periode).mean()
-    rs = gain / loss
-    return 100 - (100 / (1 + rs))
-
-
-def hitung_bollinger(data, periode=20):
-    sma = data['Close'].rolling(window=periode).mean()
-    std = data['Close'].rolling(window=periode).std()
-    return sma.iloc[-1], (sma + 2*std).iloc[-1], (sma - 2*std).iloc[-1]
-
-
-# ═══════════════════════════════════════════════
-# ANALISIS SWING TRADING — Fokus Teknikal
-# ═══════════════════════════════════════════════
-def analisa_swing(harga_sekarang, bb_bawah, bb_tengah, bb_atas, rsi, ma20, ma50, terendah_52w, tertinggi_52w):
-    zona_entry = round(max(bb_bawah, terendah_52w * 1.03), 2)
-    resistance = round(min(bb_tengah, ma20), 2) if harga_sekarang < ma20 else round(min(bb_atas, tertinggi_52w * 0.92), 2)
-    potensi_gain = round(((resistance - zona_entry) / zona_entry) * 100, 2)
-
-    kondisi = "NETRAL"
-    alasan = []
-    if rsi < 35 and harga_sekarang <= bb_tengah:
-        kondisi = "✅ ENTRY SWING"
-        alasan.append("RSI rendah → potensi pantul ke atas")
-    elif rsi < 30:
-        kondisi = "🔥 ENTRY KUAT"
-        alasan.append("RSI < 30, zona jenuh jual kuat")
-    elif rsi > 70:
-        kondisi = "⏳ TUNGGU TURUN"
-        alasan.append("RSI tinggi, jangan kejar")
-
-    if harga_sekarang > ma50:
-        alasan.append("Harga di atas MA50 → tren naik")
-    elif harga_sekarang < ma20 and harga_sekarang < ma50:
-        alasan.append("Di bawah MA20/50 → hati-hati")
-
-    return {
-        "zona_entry": zona_entry,
-        "target_jual": resistance,
-        "potensi_gain_persen": potensi_gain,
-        "kondisi": kondisi,
-        "alasan": alasan,
-        "saran": f"Beli di ${zona_entry}, jual di ${resistance} → +{potensi_gain}%. RSI saat ini: {rsi}"
-    }
-
-
-# ═══════════════════════════════════════════════
-# ANALISIS DIVIDEN — Harga Terendah + Yield Maksimal
-# ═══════════════════════════════════════════════
-def analisa_dividen(harga_sekarang, terendah_52w, tertinggi_52w, dividen_yield):
-    # Zona beli terbaik = sedikit di atas terendah 52 minggu → YIELD MAKSIMAL
-    zona_beli_terbaik = round(terendah_52w * 1.015, 2)
-    zona_beli_wajar = round(((terendah_52w * 1.08) + (tertinggi_52w * 0.60)) / 2, 2)
-
-    dividen_tahunan = round((dividen_yield / 100) * zona_beli_terbaik, 2) if dividen_yield > 0 else 0
-    yield_terbaik = round((dividen_yield / zona_beli_terbaik) * harga_sekarang, 2) if zona_beli_terbaik > 0 else dividen_yield
-
-    target_jangka_panjang = round(tertinggi_52w * 0.60, 2)
-    potensi_naik = round(((target_jangka_panjang - zona_beli_terbaik) / zona_beli_terbaik) * 100, 2)
-
-    penilaian = "CUKUP"
-    if yield_terbaik >= 5.5:
-        penilaian = "🌟 SANGAT MENARIK"
-    elif 4.0 <= yield_terbaik < 5.5:
-        penilaian = "✅ BAGUS"
-    elif 3.0 <= yield_terbaik < 4.0:
-        penilaian = "⚠️ CUKUP"
-    elif yield_terbaik < 2.5:
-        penilaian = "⏳ KURANG MENARIK"
-
-    alasan = []
-    if zona_beli_terbaik < harga_sekarang:
-        diskon = round(((harga_sekarang - zona_beli_terbaik) / harga_sekarang) * 100, 1)
-        alasan.append(f"Saat ini terlalu mahal. Tunggu turun ~{diskon}% lagi")
+def get_stock_data(symbol, name):
+    ticker = yf.Ticker(symbol)
+    info = ticker.info
+    
+    current_price = round(info.get('regularMarketPrice', 0), 2)
+    week52_low = round(info.get('fiftyTwoWeekLow', 0), 2)
+    week52_high = round(info.get('fiftyTwoWeekHigh', 0), 2)
+    
+    # Historical data for indicators
+    hist = ticker.history(period='3mo')
+    if len(hist) < 50:
+        ma20 = current_price
+        ma50 = current_price
+        rsi = 50.0
     else:
-        alasan.append(f"Sudah di zona bagus, yield bisa mencapai {round(dividen_yield,2)}%+")
-
-    alasan.append(f"Zona terbaik di ${zona_beli_terbaik} — dekat terendah 52 minggu")
-    alasan.append(f"Target jangka panjang: ${target_jangka_panjang} (+{potensi_naik}%)")
-
+        ma20 = round(hist['Close'].tail(20).mean(), 2)
+        ma50 = round(hist['Close'].tail(50).mean(), 2)
+        
+        # Simple RSI calculation
+        delta = hist['Close'].diff()
+        gain = delta.where(delta > 0, 0).rolling(window=14).mean()
+        loss = -delta.where(delta < 0, 0).rolling(window=14).mean()
+        rs = gain / loss
+        rsi = round(100 - (100 / (1 + rs.iloc[-1])), 1)
+    
+    # Dividend data
+    div_yield = info.get('dividendYield', 0) * 100
+    div_rate = info.get('dividendRate', 0)
+    
+    # === SWING ANALYSIS ===
+    zone_low = round(ma20 * 0.98, 2)
+    zone_high = round(ma20 * 1.01, 2)
+    entry_zone = f"{zone_low} - {zone_high}"
+    
+    target_price = round(week52_high * 0.95, 2)
+    potential_gain = round(((target_price - current_price) / current_price) * 100, 1)
+    
+    if rsi < 35 and current_price <= zone_high:
+        swing_condition = "STRONG BUY ZONE"
+        swing_advice = "Excellent entry zone — accumulate now"
+    elif rsi < 50 and current_price <= zone_high:
+        swing_condition = "BUY ZONE"
+        swing_advice = "Buy gradually at this price level"
+    else:
+        swing_condition = "WAIT"
+        swing_advice = "Wait for price to drop into the entry zone"
+    
+    swing_reasons = []
+    if rsi < 40:
+        swing_reasons.append(f"RSI is low ({rsi}) — price may be oversold")
+    elif rsi > 70:
+        swing_reasons.append(f"RSI is high ({rsi}) — avoid chasing price")
+    else:
+        swing_reasons.append(f"RSI is neutral at {rsi}")
+    
+    if current_price < ma20:
+        swing_reasons.append(f"Price below MA20 — near support at ${ma20}")
+    elif current_price > ma20:
+        swing_reasons.append(f"Price above MA20 — short-term uptrend")
+    
+    # === DIVIDEND ANALYSIS ===
+    max_yield = round(div_yield * 1.1, 1) if div_yield > 0 else 0
+    buy_zone_min = round(week52_high / (1 + (max_yield / 100)), 2) if max_yield > 0 else week52_low
+    buy_zone_max = round(week52_low * 1.03, 2)
+    best_buy_zone = f"{buy_zone_min} - {buy_zone_max}"
+    
+    price_upside = round(((week52_high - current_price) / current_price) * 100, 1)
+    
+    if div_yield >= 4.5 and current_price <= buy_zone_max:
+        div_rating = "BEST BUY"
+        div_advice = "Excellent yield — strong long-term holding candidate"
+    elif div_yield >= 3.5:
+        div_rating = "ATTRACTIVE"
+        div_advice = "Good yield — consider gradual accumulation"
+    elif div_yield < 3.0:
+        div_rating = "EXPENSIVE"
+        div_advice = "Price is too high for this yield — wait for pullback"
+    else:
+        div_rating = "FAIR"
+        div_advice = "Reasonable, but better entry may appear later"
+    
+    div_reasons = []
+    div_reasons.append(f"Current yield: {round(div_yield, 2)}%")
+    div_reasons.append("Consistent dividend payer historically")
+    if price_upside > 10:
+        div_reasons.append(f"Potential price appreciation: {price_upside}%")
+    
     return {
-        "zona_beli_terbaik": zona_beli_terbaik,
-        "zona_beli_wajar": zona_beli_wajar,
-        "target_jangka_panjang": target_jangka_panjang,
-        "yield_saat_ini_persen": round(dividen_yield, 2),
-        "yield_maksimal_persen": round(yield_terbaik, 2),
-        "dividen_tahunan_per_saham": dividen_tahunan,
-        "potensi_naik_harga_persen": potensi_naik,
-        "penilaian": penilaian,
-        "alasan": alasan,
-        "saran": f"✅ BELI di ${zona_beli_terbaik} → Yield ~{round(dividen_yield,2)}%. Tahan untuk dividen + kenaikan harga ke ${target_jangka_panjang}"
-    }
-
-
-# ═══════════════════════════════════════════════
-# PROSES PER SAHAM
-# ═══════════════════════════════════════════════
-def proses_saham(simbol):
-    print(f"🔍 Memproses {simbol}...")
-    time.sleep(0.3)
-
-    try:
-        ticker = yf.Ticker(simbol)
-        end_date = datetime.now()
-        start_date = end_date - timedelta(days=365)
-        hist = ticker.history(start=start_date, end=end_date, auto_adjust=True, timeout=20)
-
-        if len(hist) < 60:
-            print(f"⚠️ Data tidak cukup untuk {simbol}")
-            return None
-
-        info = ticker.info
-        nama = info.get('longName', simbol)
-
-        harga_sekarang = round(hist['Close'].iloc[-1], 2)
-        terendah_52w = round(hist['Low'].min(), 2)
-        tertinggi_52w = round(hist['High'].max(), 2)
-
-        ma20 = round(hist['Close'].rolling(20).mean().iloc[-1], 2)
-        ma50 = round(hist['Close'].rolling(50).mean().iloc[-1], 2)
-        rsi = round(hitung_rsi(hist).iloc[-1], 1)
-        bb_tengah, bb_atas, bb_bawah = hitung_bollinger(hist)
-
-        dividen_yield = info.get('dividendYield', 0) * 100
-        ex_div_date = info.get('exDividendDate', '')
-        if isinstance(ex_div_date, (int, float)):
-            ex_div_date = datetime.fromtimestamp(ex_div_date).strftime('%Y-%m-%d')
-
-        swing = analisa_swing(harga_sekarang, bb_bawah, bb_tengah, bb_atas, rsi, ma20, ma50, terendah_52w, tertinggi_52w)
-        dividen = analisa_dividen(harga_sekarang, terendah_52w, tertinggi_52w, dividen_yield)
-
-        return {
-            "simbol": simbol,
-            "nama": nama,
-            "harga_sekarang": harga_sekarang,
-            "harga_52minggu": {"terendah": terendah_52w, "tertinggi": tertinggi_52w},
-            "indikator": {"rsi": rsi, "ma20": ma20, "ma50": ma50},
-            "dividen_info": {"yield_persen": round(dividen_yield, 2), "ex_div_date": ex_div_date},
-            "swing": swing,
-            "dividen": dividen
+        "symbol": symbol,
+        "name": name,
+        "current_price": f"{current_price:.2f}",
+        "price_52week": {
+            "low": f"{week52_low:.2f}",
+            "high": f"{week52_high:.2f}"
+        },
+        "indicators": {
+            "rsi": f"{rsi:.1f}",
+            "ma20": f"{ma20:.2f}",
+            "ma50": f"{ma50:.2f}"
+        },
+        "swing": {
+            "condition": swing_condition,
+            "entry_zone": entry_zone,
+            "target_price": f"{target_price:.2f}",
+            "potential_gain_percent": f"{potential_gain:.1f}",
+            "reasons": swing_reasons,
+            "advice": swing_advice
+        },
+        "dividend": {
+            "rating": div_rating,
+            "current_yield_percent": f"{div_yield:.2f}",
+            "max_yield_percent": f"{max_yield:.2f}",
+            "best_buy_zone": best_buy_zone,
+            "price_upside_percent": f"{price_upside:.1f}",
+            "reasons": div_reasons,
+            "advice": div_advice
         }
-    except Exception as e:
-        print(f"❌ Error {simbol}: {e}")
-        return None
-
-
-# ═══════════════════════════════════════════════
-# MAIN
-# ═══════════════════════════════════════════════
-def main():
-    print("=" * 60)
-    print("📊 SWING TRADING vs STRATEGI DIVIDEN")
-    print("=" * 60)
-
-    hasil = [ps for t in TICKERS if (ps := proses_saham(t))]
-
-    output = {
-        "dibuat_pada": datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
-        "jumlah_saham": len(hasil),
-        "daftar_saham": hasil
     }
 
-    with open(OUTPUT_FILE, 'w', encoding='utf-8') as f:
-        json.dump(output, f, ensure_ascii=False, indent=2)
-
-    print(f"\n✅ Selesai! → {OUTPUT_FILE.resolve()}")
-    print(f"📋 Total: {len(hasil)} saham")
-
+def main():
+    print("🔄 Starting stock analysis...")
+    results = []
+    
+    for symbol, name in SAHAM.items():
+        print(f"  → Processing {symbol}: {name}")
+        try:
+            data = get_stock_data(symbol, name)
+            results.append(data)
+        except Exception as e:
+            print(f"  ⚠️ Failed to fetch {symbol}: {e}")
+    
+    output = {
+        "generated_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S UTC"),
+        "total_stocks": len(results),
+        "stock_list": results
+    }
+    
+    os.makedirs("output", exist_ok=True)
+    with open("output/hasil_analisa.json", "w", encoding="utf-8") as f:
+        json.dump(output, f, indent=2, ensure_ascii=False)
+    
+    print(f"✅ Done! Data saved to: output/hasil_analisa.json")
+    print(f"📊 Total stocks processed: {len(results)}")
 
 if __name__ == "__main__":
     main()
