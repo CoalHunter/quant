@@ -3,29 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quant. — Stock Analysis Tool</title>
+    
+    <!-- SEO: Default = English -->
+    <title>Quant. — Stock Analysis Tool | Swing Trading & Dividend Strategy</title>
+    <meta name="description" content="Professional US stock analysis tool. Find good entry prices for swing trading and dividend investing. Data updated daily.">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="English, Indonesian">
+    
+    <!-- SEO: Hreflang -->
+    <link rel="alternate" hreflang="en" href="https://coalhunter.github.io/quant/index.html" />
+    <link rel="alternate" hreflang="id" href="https://coalhunter.github.io/quant/index.html" />
+    <link rel="alternate" hreflang="x-default" href="https://coalhunter.github.io/quant/index.html" />
+    
     <style>
-        * {margin:0; padding:0; box-sizing:border-box; font-family:Arial, sans-serif;}
+        * {margin:0; padding:0; box-sizing:border-box; font-family: 'Segoe UI', Roboto, Arial, sans-serif;}
         body {background:#f0f4f8; color:#1e293b; padding:16px; max-width:768px; margin:0 auto;}
         
-        .top-bar {display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;}
-        .lang-btn {border:1px solid #cbd5e1; border-radius:6px; padding:6px 12px; cursor:pointer;}
-        .btn-cache {background:#7c3aed; color:white; border:none; padding:8px 16px; border-radius:6px; font-weight:600; cursor:pointer;}
-        .btn-cache:hover {background:#6d28d9;}
-        .btn-cache.loading {opacity:0.6;}
+        .top-bar {display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; flex-wrap:wrap; gap:10px;}
+        .lang-selector {display:flex; gap:6px;}
+        .lang-btn {border:1px solid #cbd5e1; border-radius:6px; padding:6px 12px; cursor:pointer; background:white; font-weight:500; transition:all 0.2s;}
+        .lang-btn.active {background:#7c3aed; color:white; border-color:#7c3aed;}
+        .lang-btn:hover {border-color:#7c3aed;}
         
-        h1 {text-align:center; font-size:1.8rem; margin-bottom:4px;}
-        .subtitle {text-align:center; color:#64748b; margin-bottom:20px;}
+        .btn-cache {background:#7c3aed; color:white; border:none; padding:8px 16px; border-radius:6px; font-weight:600; cursor:pointer; transition:background 0.2s;}
+        .btn-cache:hover {background:#6d28d9;}
+        .btn-cache.loading {opacity:0.6; pointer-events:none;}
+        
+        h1 {text-align:center; font-size:1.8rem; margin-bottom:4px; color:#1e293b;}
+        .subtitle {text-align:center; color:#64748b; margin-bottom:20px; font-size:0.95rem;}
         
         .tabs {display:flex; background:#e2e8f0; border-radius:8px; padding:4px; margin-bottom:16px;}
-        .tab {flex:1; padding:10px; border:none; background:transparent; font-size:0.95rem; font-weight:600; color:#64748b; border-radius:6px; cursor:pointer;}
+        .tab {flex:1; padding:10px; border:none; background:transparent; font-size:0.95rem; font-weight:600; color:#64748b; border-radius:6px; cursor:pointer; transition:all 0.2s;}
         .tab.active {background:white; color:#1e293b; box-shadow:0 1px 3px rgba(0,0,0,0.06);}
         
-        .loading {text-align:center; padding:40px; color:#64748b;}
-        .spinner {display:inline-block; width:24px; height:24px; border:3px solid #ddd6fe; border-top-color:#7c3aed; border-radius:50%; animation:spin 0.8s linear infinite; margin-right:10px; vertical-align:middle;}
+        .loading {text-align:center; padding:40px 20px; color:#64748b;}
+        .spinner {display:inline-block; width:22px; height:22px; border:3px solid #ddd6fe; border-top-color:#7c3aed; border-radius:50%; animation:spin 0.8s linear infinite; margin-right:10px; vertical-align:middle;}
         @keyframes spin {to {transform:rotate(360deg);}}
         
-        .error {background:#fee2e2; border-left:3px solid #dc2626; padding:12px; border-radius:6px; color:#991b1b; margin:16px 0;}
+        .error {background:#fee2e2; border-left:3px solid #dc2626; padding:14px; border-radius:6px; color:#991b1b; margin:16px 0; line-height:1.6;}
         .info-bar {background:#e0f2fe; border-left:3px solid #0ea5e9; padding:10px 14px; border-radius:6px; margin-bottom:16px; font-size:0.9rem; display:none;}
         
         .stock-list {display:grid; gap:10px;}
@@ -35,7 +50,7 @@
         .card-head {display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;}
         .symbol {background:#dbeafe; color:#1d4ed8; padding:3px 8px; border-radius:4px; font-weight:700; font-size:0.9rem;}
         .comp-name {font-size:0.75rem; color:#64748b; margin-top:2px;}
-        .status {padding:2px 6px; border-radius:4px; font-size:0.7rem; font-weight:600;}
+        .status {padding:2px 8px; border-radius:4px; font-size:0.7rem; font-weight:600; white-space:nowrap;}
         .status.ENTRY {background:#dcfce7; color:#166534;}
         .status.WAIT {background:#fef3c7; color:#92400e;}
         .status.GOOD {background:#dcfce7; color:#166534;}
@@ -48,19 +63,21 @@
         
         .popup-bg {position:fixed; inset:0; background:rgba(0,0,0,0.5); display:none; align-items:center; justify-content:center; padding:16px; z-index:100;}
         .popup-bg.show {display:flex;}
-        .popup {background:white; border-radius:12px; width:100%; max-width:480px; max-height:85vh; overflow-y:auto; padding:20px;}
+        .popup {background:white; border-radius:12px; width:100%; max-width:480px; max-height:85vh; overflow-y:auto; padding:20px; animation:popupIn 0.2s ease;}
+        @keyframes popupIn {from {opacity:0; transform:scale(0.95);} to {opacity:1; transform:scale(1);}}
         .popup-head {display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:16px;}
-        .close-btn {width:32px; height:32px; border-radius:50%; border:none; background:#f1f5f9; font-size:1.2rem; cursor:pointer; color:#64748b;}
+        .close-btn {width:32px; height:32px; border-radius:50%; border:none; background:#f1f5f9; font-size:1.2rem; cursor:pointer; color:#64748b; transition:background 0.2s;}
+        .close-btn:hover {background:#e2e8f0;}
         .grid-2 {display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:10px 0;}
         .box {background:#f8fafc; padding:12px; border-radius:6px; font-size:0.9rem;}
         .box label {display:block; font-size:0.75rem; color:#94a3b8; margin-bottom:4px;}
-        .note-box {background:#f0fdf4; padding:12px; border-radius:6px; font-size:0.9rem; line-height:1.6; margin-top:12px;}
-        .section-title {font-size:0.9rem; font-weight:700; margin:16px 0 8px; padding-bottom:4px; border-bottom-width:2px; border-bottom-style:solid;}
+        .note-box {background:#f0fdf4; padding:14px; border-radius:6px; font-size:0.9rem; line-height:1.7; margin-top:12px;}
+        .section-title {font-size:0.9rem; font-weight:700; margin:16px 0 8px; padding-bottom:6px; border-bottom-width:2px; border-bottom-style:solid;}
         .swing-title {color:#2563eb; border-bottom-color:#bfdbfe;}
         .div-title {color:#16a34a; border-bottom-color:#bbf7d0;}
         
         footer {margin-top:40px; padding-top:20px; border-top:1px solid #e2e8f0; text-align:center; font-size:0.8rem; color:#64748b;}
-        footer a {color:#475569; text-decoration:none; margin:0 6px;}
+        footer a {color:#475569; text-decoration:none; margin:0 6px; transition:color 0.2s;}
         footer a:hover {color:#7c3aed; text-decoration:underline;}
         
         @media (max-width: 480px) {
@@ -71,34 +88,37 @@
 </head>
 <body>
     <div class="top-bar">
-        <button class="lang-btn" id="langBtn" onclick="toggleLang()">🇬🇧 EN</button>
-        <button class="btn-cache" id="cacheBtn" onclick="loadData()">🗑️ Clear Cache</button>
+        <div class="lang-selector">
+            <button class="lang-btn active" id="btnEn" onclick="setLanguage('en')">🇬🇧 EN</button>
+            <button class="lang-btn" id="btnId" onclick="setLanguage('id')">🇮🇩 ID</button>
+        </div>
+        <button class="btn-cache" id="cacheBtn" onclick="loadData()">🗑️ <span id="txtClearCache">Refresh Data</span></button>
     </div>
 
     <h1>📈 Quant.</h1>
-    <p class="subtitle" id="pageSubtitle">Swing Trading & Dividend Strategy — US Stocks</p>
+    <p class="subtitle" id="txtSubtitle">Swing Trading & Dividend Strategy — US Stocks</p>
 
     <div class="tabs">
-        <button class="tab active" id="tabSwing" onclick="switchTab('swing')">📊 Swing Trading</button>
-        <button class="tab" id="tabDiv" onclick="switchTab('dividen')">💰 Dividend Strategy</button>
+        <button class="tab active" id="tabSwing" onclick="switchTab('swing')">📊 <span id="txtSwingTab">Swing Trading</span></button>
+        <button class="tab" id="tabDiv" onclick="switchTab('dividen')">💰 <span id="txtDivTab">Dividend Strategy</span></button>
     </div>
 
     <div class="info-bar" id="infoBar"></div>
-    <div class="loading" id="loadingDiv"><span class="spinner"></span> Loading data...</div>
+    <div class="loading" id="loadingDiv"><span class="spinner"></span> <span id="txtLoading">Loading data...</span></div>
 
     <div id="swingContent"></div>
     <div id="dividenContent" style="display:none;"></div>
-    <p class="click-hint" id="clickHint" style="display:none;">Click card for full details</p>
+    <p class="click-hint" id="clickHint" style="display:none;"></p>
 
     <footer>
         <p><strong>Quant.</strong> — Professional Stock Analysis Tool</p>
-        <p style="margin:8px 0; font-size:0.75rem; color:#94a3b8;">⚠️ Not investment advice — for educational purposes only.</p>
+        <p style="margin:8px 0; font-size:0.75rem; color:#94a3b8;" id="txtDisclaimer">⚠️ Not investment advice — for educational purposes only.</p>
         <p style="margin:12px 0;">
-            <a href="privacy.html">Privacy Policy</a> ·
-            <a href="terms.html">Terms of Use</a> ·
-            <a href="contact.html">Contact</a>
+            <a href="privacy.html" id="txtPrivacy">Privacy Policy</a> ·
+            <a href="terms.html" id="txtTerms">Terms of Use</a> ·
+            <a href="contact.html" id="txtContact">Contact</a>
         </p>
-        <p>© 2026 Quant. All rights reserved.</p>
+        <p>© 2026 Quant. <span id="txtAllRights">All rights reserved.</span></p>
     </footer>
 
     <div class="popup-bg" id="popupOverlay" onclick="closePopupOutside(event)">
@@ -112,93 +132,131 @@
             </div>
             
             <div id="swingDetail">
-                <p class="section-title swing-title">📈 SWING TRADING — Analysis</p>
+                <p class="section-title swing-title" id="txtSwingTitle">📈 SWING TRADING — Analysis</p>
                 <div class="grid-2">
-                    <div class="box"><label>Current Price</label><strong id="swingPrice"></strong></div>
+                    <div class="box"><label id="lblCurrentPrice">Current Price</label><strong id="swingPrice"></strong></div>
                     <div class="box"><label>RSI</label><strong id="swingRsi"></strong></div>
                     <div class="box"><label>MA20</label><strong id="swingMa20"></strong></div>
-                    <div class="box"><label>MA50</label><strong id="swingMa50"></strong></div>
-                    <div class="box" style="background:#dbeafe;"><label>Entry Zone</label><strong id="swingEntry"></strong></div>
-                    <div class="box" style="background:#dcfce7;"><label>Target Price</label><strong id="swingTarget"></strong></div>
+                    <div class="box"><label id="lblMA50">MA50</label><strong id="swingMa50"></strong></div>
+                    <div class="box" style="background:#dbeafe;"><label id="lblEntry">Entry Zone</label><strong id="swingEntry"></strong></div>
+                    <div class="box" style="background:#dcfce7;"><label id="lblTargetPrice">Target Price</label><strong id="swingTarget"></strong></div>
                 </div>
                 <div class="note-box">
-                    <strong>Analysis:</strong><br><span id="swingReason"></span><br><br>
-                    <strong>Suggestion:</strong><br><span id="swingAdvice"></span>
+                    <strong id="txtAnalysis">Analysis:</strong><br><span id="swingReason"></span><br><br>
+                    <strong id="txtSuggestion">Suggestion:</strong><br><span id="swingAdvice"></span>
                 </div>
             </div>
             
             <div id="divDetail" style="display:none;">
-                <p class="section-title div-title">💰 DIVIDEND STRATEGY — Analysis</p>
+                <p class="section-title div-title" id="txtDivTitle">💰 DIVIDEND STRATEGY — Analysis</p>
                 <div class="grid-2">
-                    <div class="box"><label>Current Price</label><strong id="divPrice"></strong></div>
-                    <div class="box"><label>Current Yield</label><strong id="divYield"></strong></div>
-                    <div class="box" style="background:#bbf7d0;"><label>Best Buy Zone</label><strong id="divZone"></strong></div>
-                    <div class="box" style="background:#bbf7d0;"><label>Max Yield</label><strong id="divMaxYield"></strong></div>
-                    <div class="box"><label>52W Low</label><strong id="divLow"></strong></div>
-                    <div class="box"><label>52W High</label><strong id="divHigh"></strong></div>
+                    <div class="box"><label id="lblCurrentPrice">Current Price</label><strong id="divPrice"></strong></div>
+                    <div class="box"><label id="lblCurrentYield">Current Yield</label><strong id="divYield"></strong></div>
+                    <div class="box" style="background:#bbf7d0;"><label id="lblBestBuyZone">Best Buy Zone</label><strong id="divZone"></strong></div>
+                    <div class="box" style="background:#bbf7d0;"><label id="lblMaxYield">Max Yield</label><strong id="divMaxYield"></strong></div>
+                    <div class="box"><label id="lbl52WeekLow">52W Low</label><strong id="divLow"></strong></div>
+                    <div class="box"><label id="lbl52WeekHigh">52W High</label><strong id="divHigh"></strong></div>
                 </div>
                 <div class="note-box">
-                    <strong>Analysis:</strong><br><span id="divReason"></span><br><br>
-                    <strong>Suggestion:</strong><br><span id="divAdvice"></span>
+                    <strong id="txtAnalysis">Analysis:</strong><br><span id="divReason"></span><br><br>
+                    <strong id="txtSuggestion">Suggestion:</strong><br><span id="divAdvice"></span>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        const TEXTS = {
-            en: {
-                subtitle: 'Swing Trading & Dividend Strategy — US Stocks',
-                loading: 'Loading data...',
-                clickHint: 'Click card for full details',
-                lastUpdate: 'Last Updated',
-                totalStocks: 'Total Stocks',
-                errorTitle: 'Failed to load data',
-                errorHint: 'Make sure file exists at: output/hasil_analisa.json',
-                checkHere: 'Click here to check file',
-                statusEntry: '✅ BUY',
-                statusWait: '⏳ WAIT',
-                statusGood: '✅ GOOD',
-                statusExpensive: '⚠️ EXPENSIVE'
-            },
-            id: {
-                subtitle: 'Strategi Swing & Dividen — Saham AS',
-                loading: 'Memuat data...',
-                clickHint: 'Klik kartu untuk detail lengkap',
-                lastUpdate: 'Terakhir Diperbarui',
-                totalStocks: 'Jumlah Saham',
-                errorTitle: 'Gagal memuat data',
-                errorHint: 'Pastikan file ada di: output/hasil_analisa.json',
-                checkHere: 'Klik di sini untuk cek file',
-                statusEntry: '✅ BELI',
-                statusWait: '⏳ TUNGGU',
-                statusGood: '✅ BAGUS',
-                statusExpensive: '⚠️ MAHAL'
-            }
-        };
-
-        let lang = localStorage.getItem('quant_lang') || 'en';
+        // === CONFIG ===
+        const JSON_URL = './output/hasil_analisa.json';
+        
+        // === STATE ===
+        let currentLang = localStorage.getItem('quant_lang') || 'en'; // Default: EN
+        let translations = {};
         let stocks = [];
         let activeTab = 'swing';
-        const JSON_URL = './output/hasil_analisa.json';
 
+        // === HELPERS ===
         function t(key) {
-            return TEXTS[lang][key] || key;
+            return translations[key] || key;
         }
 
-        function updateLangUI() {
-            document.getElementById('langBtn').textContent = lang === 'id' ? '🇮🇩 ID' : '🇬🇧 EN';
-            document.getElementById('pageSubtitle').textContent = t('subtitle');
-            document.getElementById('clickHint').textContent = t('clickHint');
+        function terjemahkanStatusSwing(kondisi) {
+            if (kondisi.includes('KUAT')) return t('statusStrongBuy');
+            if (kondisi.includes('ENTRY')) return t('statusEntry');
+            return t('statusWait');
         }
 
-        function toggleLang() {
-            lang = lang === 'en' ? 'id' : 'en';
+        function terjemahkanStatusDividen(penilaian) {
+            if (penilaian.includes('TERBAIK')) return t('statusBest');
+            if (penilaian.includes('MENARIK')) return t('statusGood');
+            if (penilaian.includes('MAHAL')) return t('statusExpensive');
+            return t('statusWait');
+        }
+
+        // === LANGUAGE SYSTEM ===
+        async function loadLanguage(lang) {
+            try {
+                const res = await fetch(`lang/${lang}.json`, { cache: 'no-store' });
+                if (!res.ok) throw new Error(`Cannot load lang file: ${lang}`);
+                translations = await res.json();
+                applyTranslations();
+                updateLangButtons();
+                
+                // SEO: Update page language & meta
+                document.documentElement.lang = lang;
+                document.title = translations.pageTitle;
+                const metaDesc = document.querySelector('meta[name="description"]');
+                if (metaDesc && translations.metaDescription) {
+                    metaDesc.content = translations.metaDescription;
+                }
+            } catch (err) {
+                console.error('❌ Language error:', err);
+            }
+        }
+
+        function applyTranslations() {
+            document.getElementById('txtClearCache').textContent = t('clearCache');
+            document.getElementById('txtSubtitle').textContent = t('subtitle');
+            document.getElementById('txtLoading').textContent = t('loading');
+            document.getElementById('txtSwingTab').textContent = t('swingTab');
+            document.getElementById('txtDivTab').textContent = t('divTab');
+            document.getElementById('clickHint').textContent = stocks.length ? t('clickHint') : '';
+            document.getElementById('txtDisclaimer').textContent = t('disclaimer');
+            document.getElementById('txtPrivacy').textContent = t('privacy');
+            document.getElementById('txtTerms').textContent = t('terms');
+            document.getElementById('txtContact').textContent = t('contact');
+            document.getElementById('txtAllRights').textContent = t('allRights');
+            
+            // Popup labels
+            document.getElementById('txtSwingTitle').textContent = t('swingTitle');
+            document.getElementById('txtDivTitle').textContent = t('divTitle');
+            document.getElementById('lblCurrentPrice').textContent = t('lblCurrentPrice');
+            document.getElementById('lblMA50').textContent = t('lblMA50');
+            document.getElementById('lblEntry').textContent = t('lblEntry');
+            document.getElementById('lblTargetPrice').textContent = t('lblTargetPrice');
+            document.getElementById('txtAnalysis').textContent = t('analysis');
+            document.getElementById('txtSuggestion').textContent = t('suggestion');
+            document.getElementById('lblCurrentYield').textContent = t('lblCurrentYield');
+            document.getElementById('lblBestBuyZone').textContent = t('lblBestBuyZone');
+            document.getElementById('lblMaxYield').textContent = t('lblMaxYield');
+            document.getElementById('lbl52WeekLow').textContent = t('lbl52WeekLow');
+            document.getElementById('lbl52WeekHigh').textContent = t('lbl52WeekHigh');
+        }
+
+        function updateLangButtons() {
+            document.getElementById('btnEn').classList.toggle('active', currentLang === 'en');
+            document.getElementById('btnId').classList.toggle('active', currentLang === 'id');
+        }
+
+        async function setLanguage(lang) {
+            if (lang === currentLang) return;
+            currentLang = lang;
             localStorage.setItem('quant_lang', lang);
-            updateLangUI();
+            await loadLanguage(lang);
             if (stocks.length > 0) renderAll();
         }
 
+        // === TAB SWITCH ===
         function switchTab(tab) {
             activeTab = tab;
             document.getElementById('tabSwing').classList.toggle('active', tab === 'swing');
@@ -208,6 +266,110 @@
             document.getElementById('clickHint').style.display = stocks.length > 0 ? 'block' : 'none';
         }
 
+        // === RENDER CARDS ===
+        function renderSwingCard(s) {
+            const sw = s.swing;
+            const statusText = terjemahkanStatusSwing(sw.kondisi);
+            let statusClass = 'WAIT';
+            if (sw.kondisi.includes('KUAT') || sw.kondisi.includes('ENTRY')) statusClass = 'ENTRY';
+            
+            return `
+            <div class="stock-card" onclick="openSwingPopup(${JSON.stringify(s).replace(/"/g, '&quot;')})">
+                <div class="card-head">
+                    <div>
+                        <span class="symbol">${s.simbol}</span>
+                        <div class="comp-name">${s.nama}</div>
+                    </div>
+                    <span class="status ${statusClass}">${statusText}</span>
+                </div>
+                <div class="card-grid">
+                    <div><label>${t('lblPrice')}</label><strong>$${s.harga_sekarang}</strong></div>
+                    <div><label>${t('lblRSI')}</label><strong>${s.indikator.rsi}</strong></div>
+                    <div><label>${t('lblEntry')}</label><strong>$${sw.zona_entry}</strong></div>
+                    <div><label>${t('lblTarget')}</label><strong>$${sw.target_jual}</strong></div>
+                    <div><label>${t('lblGain')}</label><strong class="positive">${sw.potensi_gain_persen}%</strong></div>
+                    <div><label>${t('lblMA20')}</label><strong>$${s.indikator.ma20}</strong></div>
+                </div>
+            </div>`;
+        }
+
+        function renderDivCard(s) {
+            const dv = s.dividen;
+            const statusText = terjemahkanStatusDividen(dv.penilaian);
+            let statusClass = 'WAIT';
+            if (dv.penilaian.includes('MENARIK') || dv.penilaian.includes('TERBAIK')) statusClass = 'GOOD';
+            else if (dv.penilaian.includes('MAHAL')) statusClass = 'EXPENSIVE';
+            
+            return `
+            <div class="stock-card" onclick="openDivPopup(${JSON.stringify(s).replace(/"/g, '&quot;')})">
+                <div class="card-head">
+                    <div>
+                        <span class="symbol">${s.simbol}</span>
+                        <div class="comp-name">${s.nama}</div>
+                    </div>
+                    <span class="status ${statusClass}">${statusText}</span>
+                </div>
+                <div class="card-grid">
+                    <div><label>${t('lblPrice')}</label><strong>$${s.harga_sekarang}</strong></div>
+                    <div><label>${t('lblYield')}</label><strong class="positive">${dv.yield_saat_ini_persen}%</strong></div>
+                    <div><label>${t('lblBestBuy')}</label><strong>$${dv.zona_beli_terbaik}</strong></div>
+                    <div><label>${t('lblMaxYield')}</label><strong>${dv.yield_maksimal_persen}%</strong></div>
+                    <div><label>${t('lbl52Low')}</label><strong>$${s.harga_52minggu.terendah}</strong></div>
+                    <div><label>${t('lblUpside')}</label><strong class="positive">${dv.potensi_naik_harga_persen}%</strong></div>
+                </div>
+            </div>`;
+        }
+
+        function renderAll() {
+            document.getElementById('swingContent').innerHTML = '<div class="stock-list">' + stocks.map(s => renderSwingCard(s)).join('') + '</div>';
+            document.getElementById('dividenContent').innerHTML = '<div class="stock-list">' + stocks.map(s => renderDivCard(s)).join('') + '</div>';
+        }
+
+        // === POPUP ===
+        function openSwingPopup(s) {
+            document.getElementById('popupSym').textContent = `${s.simbol} — ${s.swing.kondisi}`;
+            document.getElementById('popupName').textContent = s.nama;
+            document.getElementById('swingPrice').textContent = `$${s.harga_sekarang}`;
+            document.getElementById('swingRsi').textContent = s.indikator.rsi;
+            document.getElementById('swingMa20').textContent = `$${s.indikator.ma20}`;
+            document.getElementById('swingMa50').textContent = `$${s.indikator.ma50}`;
+            document.getElementById('swingEntry').textContent = `$${s.swing.zona_entry}`;
+            document.getElementById('swingTarget').textContent = `$${s.swing.target_jual} (${s.swing.potensi_gain_persen}%)`;
+            document.getElementById('swingReason').innerHTML = s.swing.alasan.join('<br>');
+            document.getElementById('swingAdvice').textContent = s.swing.saran;
+            document.getElementById('swingDetail').style.display = 'block';
+            document.getElementById('divDetail').style.display = 'none';
+            document.getElementById('popupOverlay').classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function openDivPopup(s) {
+            document.getElementById('popupSym').textContent = `${s.simbol} — ${s.dividen.penilaian}`;
+            document.getElementById('popupName').textContent = s.nama;
+            document.getElementById('divPrice').textContent = `$${s.harga_sekarang}`;
+            document.getElementById('divYield').textContent = `${s.dividen.yield_saat_ini_persen}%`;
+            document.getElementById('divZone').textContent = `$${s.dividen.zona_beli_terbaik}`;
+            document.getElementById('divMaxYield').textContent = `${s.dividen.yield_maksimal_persen}%`;
+            document.getElementById('divLow').textContent = `$${s.harga_52minggu.terendah}`;
+            document.getElementById('divHigh').textContent = `$${s.harga_52minggu.tertinggi}`;
+            document.getElementById('divReason').innerHTML = s.dividen.alasan.join('<br>');
+            document.getElementById('divAdvice').textContent = s.dividen.saran;
+            document.getElementById('swingDetail').style.display = 'none';
+            document.getElementById('divDetail').style.display = 'block';
+            document.getElementById('popupOverlay').classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closePopup() {
+            document.getElementById('popupOverlay').classList.remove('show');
+            document.body.style.overflow = '';
+        }
+
+        function closePopupOutside(e) {
+            if (e.target.id === 'popupOverlay') closePopup();
+        }
+
+        // === LOAD DATA ===
         async function loadData() {
             const btn = document.getElementById('cacheBtn');
             const loading = document.getElementById('loadingDiv');
@@ -216,7 +378,7 @@
             btn.classList.add('loading');
             btn.innerHTML = '<span class="spinner" style="width:14px;height:14px;border-width:2px;"></span>';
             loading.style.display = 'block';
-            loading.innerHTML = '<span class="spinner"></span> ' + t('loading');
+            loading.innerHTML = `<span class="spinner"></span> ${t('loading')}`;
             infoBar.style.display = 'none';
             document.getElementById('swingContent').innerHTML = '';
             document.getElementById('dividenContent').innerHTML = '';
@@ -224,8 +386,6 @@
 
             try {
                 const url = `${JSON_URL}?v=${Date.now()}`;
-                console.log('Fetching:', url);
-                
                 const res = await fetch(url, { cache: 'no-store' });
                 
                 if (!res.ok) throw new Error(`HTTP Error: ${res.status}`);
@@ -246,113 +406,17 @@
                         ❌ <strong>${t('errorTitle')}</strong><br>
                         ${err.message}<br><br>
                         💡 ${t('errorHint')}<br>
-                        <a href="${JSON_URL}" target="_blank" style="color:#dc2626; font-weight:bold;">👉 ${t('checkHere')}</a>
+                        <a href="${JSON_URL}" target="_blank" style="color:#dc2626; font-weight:bold; text-decoration:underline;">👉 ${t('checkHere')}</a>
                     </div>`;
             } finally {
                 btn.classList.remove('loading');
-                btn.innerHTML = '🗑️ Clear Cache';
+                btn.innerHTML = '🗑️ ' + t('clearCache');
             }
         }
 
-        function renderAll() {
-            document.getElementById('swingContent').innerHTML = '<div class="stock-list">' + stocks.map(s => renderSwingCard(s)).join('') + '</div>';
-            document.getElementById('dividenContent').innerHTML = '<div class="stock-list">' + stocks.map(s => renderDivCard(s)).join('') + '</div>';
-        }
-
-        function renderSwingCard(s) {
-            const sw = s.swing;
-            let status = 'WAIT', statusClass = 'WAIT';
-            if (sw.kondisi.includes('ENTRY')) { status = t('statusEntry'); statusClass = 'ENTRY'; }
-            else if (sw.kondisi.includes('KUAT')) { status = t('statusEntry'); statusClass = 'ENTRY'; }
-            
-            return `
-            <div class="stock-card" onclick="openSwingPopup(${JSON.stringify(s).replace(/"/g, '&quot;')})">
-                <div class="card-head">
-                    <div>
-                        <span class="symbol">${s.simbol}</span>
-                        <div class="comp-name">${s.nama}</div>
-                    </div>
-                    <span class="status ${statusClass}">${status}</span>
-                </div>
-                <div class="card-grid">
-                    <div><label>Price</label><strong>$${s.harga_sekarang}</strong></div>
-                    <div><label>RSI</label><strong>${s.indikator.rsi}</strong></div>
-                    <div><label>Entry</label><strong>$${sw.zona_entry}</strong></div>
-                    <div><label>Target</label><strong>$${sw.target_jual}</strong></div>
-                    <div><label>Gain</label><strong class="positive">${sw.potensi_gain_persen}%</strong></div>
-                    <div><label>MA20</label><strong>$${s.indikator.ma20}</strong></div>
-                </div>
-            </div>`;
-        }
-
-        function renderDivCard(s) {
-            const dv = s.dividen;
-            let status = t('statusWait'), statusClass = 'WAIT';
-            if (dv.penilaian.includes('MENARIK') || dv.penilaian.includes('TERBAIK')) { status = t('statusGood'); statusClass = 'GOOD'; }
-            else if (dv.penilaian.includes('MAHAL')) { status = t('statusExpensive'); statusClass = 'EXPENSIVE'; }
-            
-            return `
-            <div class="stock-card" onclick="openDivPopup(${JSON.stringify(s).replace(/"/g, '&quot;')})">
-                <div class="card-head">
-                    <div>
-                        <span class="symbol">${s.simbol}</span>
-                        <div class="comp-name">${s.nama}</div>
-                    </div>
-                    <span class="status ${statusClass}">${status}</span>
-                </div>
-                <div class="card-grid">
-                    <div><label>Price</label><strong>$${s.harga_sekarang}</strong></div>
-                    <div><label>Yield</label><strong class="positive">${dv.yield_saat_ini_persen}%</strong></div>
-                    <div><label>Best Buy</label><strong>$${dv.zona_beli_terbaik}</strong></div>
-                    <div><label>Max Yield</label><strong>${dv.yield_maksimal_persen}%</strong></div>
-                    <div><label>52W Low</label><strong>$${s.harga_52minggu.terendah}</strong></div>
-                    <div><label>Upside</label><strong class="positive">${dv.potensi_naik_harga_persen}%</strong></div>
-                </div>
-            </div>`;
-        }
-
-        function openSwingPopup(s) {
-            document.getElementById('popupSym').textContent = `${s.simbol} — ${s.swing.kondisi}`;
-            document.getElementById('popupName').textContent = s.nama;
-            document.getElementById('swingPrice').textContent = `$${s.harga_sekarang}`;
-            document.getElementById('swingRsi').textContent = s.indikator.rsi;
-            document.getElementById('swingMa20').textContent = `$${s.indikator.ma20}`;
-            document.getElementById('swingMa50').textContent = `$${s.indikator.ma50}`;
-            document.getElementById('swingEntry').textContent = `$${s.swing.zona_entry}`;
-            document.getElementById('swingTarget').textContent = `$${s.swing.target_jual} (${s.swing.potensi_gain_persen}%)`;
-            document.getElementById('swingReason').innerHTML = s.swing.alasan.join('<br>');
-            document.getElementById('swingAdvice').textContent = s.swing.saran;
-            document.getElementById('swingDetail').style.display = 'block';
-            document.getElementById('divDetail').style.display = 'none';
-            document.getElementById('popupOverlay').classList.add('show');
-        }
-
-        function openDivPopup(s) {
-            document.getElementById('popupSym').textContent = `${s.simbol} — ${s.dividen.penilaian}`;
-            document.getElementById('popupName').textContent = s.nama;
-            document.getElementById('divPrice').textContent = `$${s.harga_sekarang}`;
-            document.getElementById('divYield').textContent = `${s.dividen.yield_saat_ini_persen}%`;
-            document.getElementById('divZone').textContent = `$${s.dividen.zona_beli_terbaik}`;
-            document.getElementById('divMaxYield').textContent = `${s.dividen.yield_maksimal_persen}%`;
-            document.getElementById('divLow').textContent = `$${s.harga_52minggu.terendah}`;
-            document.getElementById('divHigh').textContent = `$${s.harga_52minggu.tertinggi}`;
-            document.getElementById('divReason').innerHTML = s.dividen.alasan.join('<br>');
-            document.getElementById('divAdvice').textContent = s.dividen.saran;
-            document.getElementById('swingDetail').style.display = 'none';
-            document.getElementById('divDetail').style.display = 'block';
-            document.getElementById('popupOverlay').classList.add('show');
-        }
-
-        function closePopup() {
-            document.getElementById('popupOverlay').classList.remove('show');
-        }
-
-        function closePopupOutside(e) {
-            if (e.target.id === 'popupOverlay') closePopup();
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            updateLangUI();
+        // === INITIALIZE ===
+        document.addEventListener('DOMContentLoaded', async () => {
+            await loadLanguage(currentLang);
             loadData();
         });
     </script>
