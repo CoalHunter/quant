@@ -4,30 +4,46 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <!-- SEO: Default = English -->
-    <title>Quant. — Stock Analysis Tool | Swing Trading & Dividend Strategy</title>
-    <meta name="description" content="Professional US stock analysis tool. Find good entry prices for swing trading and dividend investing. Data updated daily.">
+    <!-- SEO Primary -->
+    <title id="pageTitle">Quant. — US Stock Analysis | Swing Trading & Dividend Strategy</title>
+    <meta name="description" id="metaDesc" content="Professional US stock analysis tool. Find best entry prices for swing trading and dividend investing. Data updated daily.">
+    <meta name="keywords" id="metaKeys" content="stock analysis, swing trading, dividend investing, US stocks, Southern Company, Consolidated Edison, Realty Income">
+    <meta name="author" content="Quant.">
     <meta name="robots" content="index, follow">
-    <meta name="language" content="English, Indonesian">
+    <meta name="googlebot" content="index, follow">
     
-    <!-- SEO: Hreflang -->
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://coalhunter.github.io/quant/index.html" />
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://coalhunter.github.io/quant/index.html">
+    <meta property="og:title" content="Quant. — US Stock Analysis">
+    <meta property="og:description" content="Professional US stock analysis tool — Swing Trading & Dividend Strategy">
+    
+    <!-- Hreflang -->
     <link rel="alternate" hreflang="en" href="https://coalhunter.github.io/quant/index.html" />
-    <link rel="alternate" hreflang="id" href="https://coalhunter.github.io/quant/index.html" />
+    <link rel="alternate" hreflang="id" href="https://coalhunter.github.io/quant/index.html?lang=id" />
     <link rel="alternate" hreflang="x-default" href="https://coalhunter.github.io/quant/index.html" />
     
     <style>
         * {margin:0; padding:0; box-sizing:border-box; font-family: 'Segoe UI', Roboto, Arial, sans-serif;}
         body {background:#f0f4f8; color:#1e293b; padding:16px; max-width:768px; margin:0 auto;}
         
+        /* === AD CONTAINERS — Aman AdSense === */
+        .ad-container {background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; padding:10px; text-align:center; margin:12px 0; min-height:60px; display:none;}
+        .ad-container.active {display:block;}
+        .ad-label {font-size:0.65rem; color:#94a3b8; text-transform:uppercase; letter-spacing:1px; margin-bottom:6px;}
+        .ad-placeholder {color:#cbd5e1; font-size:0.8rem;}
+        
         .top-bar {display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; flex-wrap:wrap; gap:10px;}
         .lang-selector {display:flex; gap:6px;}
         .lang-btn {border:1px solid #cbd5e1; border-radius:6px; padding:6px 12px; cursor:pointer; background:white; font-weight:500; transition:all 0.2s;}
         .lang-btn.active {background:#7c3aed; color:white; border-color:#7c3aed;}
-        .lang-btn:hover {border-color:#7c3aed;}
         
-        .btn-cache {background:#7c3aed; color:white; border:none; padding:8px 16px; border-radius:6px; font-weight:600; cursor:pointer; transition:background 0.2s;}
-        .btn-cache:hover {background:#6d28d9;}
-        .btn-cache.loading {opacity:0.6; pointer-events:none;}
+        .refresh-btn {background:#7c3aed; color:white; border:none; padding:8px 16px; border-radius:6px; font-weight:600; cursor:pointer; transition:background 0.2s;}
+        .refresh-btn:hover {background:#6d28d9;}
+        .refresh-btn:disabled {opacity:0.6; cursor:not-allowed;}
         
         h1 {text-align:center; font-size:1.8rem; margin-bottom:4px; color:#1e293b;}
         .subtitle {text-align:center; color:#64748b; margin-bottom:20px; font-size:0.95rem;}
@@ -51,9 +67,11 @@
         .symbol {background:#dbeafe; color:#1d4ed8; padding:3px 8px; border-radius:4px; font-weight:700; font-size:0.9rem;}
         .comp-name {font-size:0.75rem; color:#64748b; margin-top:2px;}
         .status {padding:2px 8px; border-radius:4px; font-size:0.7rem; font-weight:600; white-space:nowrap;}
-        .status.ENTRY {background:#dcfce7; color:#166534;}
+        .status.STRONG_BUY {background:#fee2f2; color:#9f1239;}
+        .status.BUY_ZONE {background:#dcfce7; color:#166534;}
         .status.WAIT {background:#fef3c7; color:#92400e;}
-        .status.GOOD {background:#dcfce7; color:#166534;}
+        .status.BEST_BUY {background:#fef9c3; color:#854d0e;}
+        .status.ATTRACTIVE {background:#dcfce7; color:#166534;}
         .status.EXPENSIVE {background:#fee2e2; color:#991b1b;}
         
         .card-grid {display:grid; grid-template-columns:repeat(3, 1fr); gap:8px; font-size:0.8rem;}
@@ -63,21 +81,20 @@
         
         .popup-bg {position:fixed; inset:0; background:rgba(0,0,0,0.5); display:none; align-items:center; justify-content:center; padding:16px; z-index:100;}
         .popup-bg.show {display:flex;}
-        .popup {background:white; border-radius:12px; width:100%; max-width:480px; max-height:85vh; overflow-y:auto; padding:20px; animation:popupIn 0.2s ease;}
-        @keyframes popupIn {from {opacity:0; transform:scale(0.95);} to {opacity:1; transform:scale(1);}}
+        .popup {background:white; border-radius:12px; width:100%; max-width:480px; max-height:85vh; overflow-y:auto; padding:20px;}
         .popup-head {display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:16px;}
-        .close-btn {width:32px; height:32px; border-radius:50%; border:none; background:#f1f5f9; font-size:1.2rem; cursor:pointer; color:#64748b; transition:background 0.2s;}
-        .close-btn:hover {background:#e2e8f0;}
+        .close-btn {width:32px; height:32px; border-radius:50%; border:none; background:#f1f5f9; font-size:1.2rem; cursor:pointer; color:#64748b;}
+        
         .grid-2 {display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:10px 0;}
         .box {background:#f8fafc; padding:12px; border-radius:6px; font-size:0.9rem;}
         .box label {display:block; font-size:0.75rem; color:#94a3b8; margin-bottom:4px;}
         .note-box {background:#f0fdf4; padding:14px; border-radius:6px; font-size:0.9rem; line-height:1.7; margin-top:12px;}
-        .section-title {font-size:0.9rem; font-weight:700; margin:16px 0 8px; padding-bottom:6px; border-bottom-width:2px; border-bottom-style:solid;}
+        .section-title {font-size:0.9rem; font-weight:700; margin:16px 0 8px; padding-bottom:6px; border-bottom:2px solid;}
         .swing-title {color:#2563eb; border-bottom-color:#bfdbfe;}
         .div-title {color:#16a34a; border-bottom-color:#bbf7d0;}
         
         footer {margin-top:40px; padding-top:20px; border-top:1px solid #e2e8f0; text-align:center; font-size:0.8rem; color:#64748b;}
-        footer a {color:#475569; text-decoration:none; margin:0 6px; transition:color 0.2s;}
+        footer a {color:#475569; text-decoration:none; margin:0 6px;}
         footer a:hover {color:#7c3aed; text-decoration:underline;}
         
         @media (max-width: 480px) {
@@ -87,12 +104,19 @@
     </style>
 </head>
 <body>
+
+    <!-- TOP AD SLOT -->
+    <div class="ad-container" id="adTop">
+        <div class="ad-label" id="adTopLabel">Sponsored</div>
+        <div id="adTopContent" class="ad-placeholder"><!-- Ad loads from config/money.json --></div>
+    </div>
+
     <div class="top-bar">
         <div class="lang-selector">
             <button class="lang-btn active" id="btnEn" onclick="setLanguage('en')">🇬🇧 EN</button>
             <button class="lang-btn" id="btnId" onclick="setLanguage('id')">🇮🇩 ID</button>
         </div>
-        <button class="btn-cache" id="cacheBtn" onclick="loadData()">🗑️ <span id="txtClearCache">Refresh Data</span></button>
+        <button class="refresh-btn" id="refreshBtn" onclick="loadData()">🔄 <span id="txtRefresh">Refresh Data</span></button>
     </div>
 
     <h1>📈 Quant.</h1>
@@ -104,21 +128,36 @@
     </div>
 
     <div class="info-bar" id="infoBar"></div>
+    <div class="error" id="errorBox" style="display:none;"></div>
     <div class="loading" id="loadingDiv"><span class="spinner"></span> <span id="txtLoading">Loading data...</span></div>
 
     <div id="swingContent"></div>
+    
+    <!-- MIDDLE AD SLOT -->
+    <div class="ad-container" id="adMiddle">
+        <div class="ad-label" id="adMiddleLabel">Sponsored</div>
+        <div id="adMiddleContent" class="ad-placeholder"><!-- Ad loads from config/money.json --></div>
+    </div>
+    
     <div id="dividenContent" style="display:none;"></div>
     <p class="click-hint" id="clickHint" style="display:none;"></p>
 
+    <!-- BOTTOM AD SLOT -->
+    <div class="ad-container" id="adBottom">
+        <div class="ad-label" id="adBottomLabel">Sponsored</div>
+        <div id="adBottomContent" class="ad-placeholder"><!-- Ad loads from config/money.json --></div>
+    </div>
+
     <footer>
-        <p><strong>Quant.</strong> — Professional Stock Analysis Tool</p>
-        <p style="margin:8px 0; font-size:0.75rem; color:#94a3b8;" id="txtDisclaimer">⚠️ Not investment advice — for educational purposes only.</p>
+        <p><strong>Quant.</strong> — Professional US Stock Analysis Tool</p>
+        <p style="margin:8px 0; font-size:0.75rem;" id="txtDisclaimer">⚠️ Not investment advice — for educational purposes only.</p>
         <p style="margin:12px 0;">
+            <a href="index.html" id="txtHome">Home</a> ·
             <a href="privacy.html" id="txtPrivacy">Privacy Policy</a> ·
             <a href="terms.html" id="txtTerms">Terms of Use</a> ·
             <a href="contact.html" id="txtContact">Contact</a>
         </p>
-        <p>© 2026 Quant. <span id="txtAllRights">All rights reserved.</span></p>
+        <p>© 2026 Quant.</p>
     </footer>
 
     <div class="popup-bg" id="popupOverlay" onclick="closePopupOutside(event)">
@@ -134,12 +173,12 @@
             <div id="swingDetail">
                 <p class="section-title swing-title" id="txtSwingTitle">📈 SWING TRADING — Analysis</p>
                 <div class="grid-2">
-                    <div class="box"><label id="lblCurrentPrice">Current Price</label><strong id="swingPrice"></strong></div>
+                    <div class="box"><label id="lblPrice">Price</label><strong id="swingPrice"></strong></div>
                     <div class="box"><label>RSI</label><strong id="swingRsi"></strong></div>
                     <div class="box"><label>MA20</label><strong id="swingMa20"></strong></div>
-                    <div class="box"><label id="lblMA50">MA50</label><strong id="swingMa50"></strong></div>
+                    <div class="box"><label>MA50</label><strong id="swingMa50"></strong></div>
                     <div class="box" style="background:#dbeafe;"><label id="lblEntry">Entry Zone</label><strong id="swingEntry"></strong></div>
-                    <div class="box" style="background:#dcfce7;"><label id="lblTargetPrice">Target Price</label><strong id="swingTarget"></strong></div>
+                    <div class="box" style="background:#dcfce7;"><label id="lblTarget">Target Price</label><strong id="swingTarget"></strong></div>
                 </div>
                 <div class="note-box">
                     <strong id="txtAnalysis">Analysis:</strong><br><span id="swingReason"></span><br><br>
@@ -150,12 +189,12 @@
             <div id="divDetail" style="display:none;">
                 <p class="section-title div-title" id="txtDivTitle">💰 DIVIDEND STRATEGY — Analysis</p>
                 <div class="grid-2">
-                    <div class="box"><label id="lblCurrentPrice">Current Price</label><strong id="divPrice"></strong></div>
-                    <div class="box"><label id="lblCurrentYield">Current Yield</label><strong id="divYield"></strong></div>
-                    <div class="box" style="background:#bbf7d0;"><label id="lblBestBuyZone">Best Buy Zone</label><strong id="divZone"></strong></div>
-                    <div class="box" style="background:#bbf7d0;"><label id="lblMaxYield">Max Yield</label><strong id="divMaxYield"></strong></div>
-                    <div class="box"><label id="lbl52WeekLow">52W Low</label><strong id="divLow"></strong></div>
-                    <div class="box"><label id="lbl52WeekHigh">52W High</label><strong id="divHigh"></strong></div>
+                    <div class="box"><label id="lblPrice">Price</label><strong id="divPrice"></strong></div>
+                    <div class="box"><label id="lblYield">Current Yield</label><strong id="divYield"></strong></div>
+                    <div class="box" style="background:#bbf7d0;"><label id="lblBestZone">Best Buy Zone</label><strong id="divZone"></strong></div>
+                    <div class="box"><label id="lblMaxYield">Max Yield</label><strong id="divMaxYield"></strong></div>
+                    <div class="box"><label id="lbl52Low">52W Low</label><strong id="divLow"></strong></div>
+                    <div class="box"><label id="lbl52High">52W High</label><strong id="divHigh"></strong></div>
                 </div>
                 <div class="note-box">
                     <strong id="txtAnalysis">Analysis:</strong><br><span id="divReason"></span><br><br>
@@ -166,81 +205,129 @@
     </div>
 
     <script>
-        // === CONFIG ===
+        // === CONFIG PATHS ===
         const JSON_URL = './output/hasil_analisa.json';
+        const ADS_URL = './config/money.json';
         
         // === STATE ===
-        let currentLang = localStorage.getItem('quant_lang') || 'en'; // Default: EN
+        let currentLang = localStorage.getItem('quant_lang') || 'en';
         let translations = {};
+        let adConfig = null;
         let stocks = [];
         let activeTab = 'swing';
 
         // === HELPERS ===
-        function t(key) {
-            return translations[key] || key;
-        }
+        function t(key) { return translations[key] || key; }
 
-        function terjemahkanStatusSwing(condition) {
-            if (condition.includes('STRONG BUY')) return t('statusStrongBuy');
-            if (condition.includes('BUY ZONE')) return t('statusEntry');
-            return t('statusWait');
-        }
-
-        function terjemahkanStatusDividen(rating) {
-            if (rating.includes('BEST BUY')) return t('statusBest');
-            if (rating.includes('ATTRACTIVE')) return t('statusGood');
-            if (rating.includes('EXPENSIVE')) return t('statusExpensive');
-            return t('statusWait');
+        // === AD SYSTEM — Aman AdSense ===
+        async function loadAds() {
+            try {
+                const res = await fetch(ADS_URL, { cache: 'no-store' });
+                if (!res.ok) {
+                    console.log('money.json not found — ads disabled');
+                    return;
+                }
+                adConfig = await res.json();
+                
+                if (!adConfig.ads_enabled) return;
+                
+                const publisherId = adConfig.google_adsense.publisher_id;
+                const safetyHide = adConfig.safety.hide_on_empty_publisher;
+                
+                // ⚠️ JANGAN TAMPILKAN IKLAN JIKA ID MASIH DEFAULT
+                if (safetyHide && publisherId === "ca-pub-XXXXXXXXXXXXXXXX") {
+                    console.log('AdSense: Publisher ID not set yet — ads hidden (safe mode ON)');
+                    return;
+                }
+                
+                const adLabel = adConfig.safety.ad_label_text || "Sponsored";
+                document.getElementById('adTopLabel').textContent = adLabel;
+                document.getElementById('adMiddleLabel').textContent = adLabel;
+                document.getElementById('adBottomLabel').textContent = adLabel;
+                
+                // Top Banner
+                if (adConfig.display.show_top_banner) {
+                    document.getElementById('adTop').classList.add('active');
+                    document.getElementById('adTopContent').innerHTML = `
+                        <ins class="adsbygoogle"
+                             style="display:block"
+                             data-ad-client="${publisherId}"
+                             data-ad-slot="${adConfig.google_adsense.ad_slot_top}"
+                             data-ad-format="auto"
+                             data-full-width-responsive="true"></ins>
+                    `;
+                }
+                
+                // Middle Content
+                if (adConfig.display.show_in_content) {
+                    document.getElementById('adMiddle').classList.add('active');
+                    document.getElementById('adMiddleContent').innerHTML = `
+                        <ins class="adsbygoogle"
+                             style="display:block"
+                             data-ad-client="${publisherId}"
+                             data-ad-slot="${adConfig.google_adsense.ad_slot_middle}"
+                             data-ad-format="auto"></ins>
+                    `;
+                }
+                
+                // Bottom Banner
+                if (adConfig.display.show_bottom_banner) {
+                    document.getElementById('adBottom').classList.add('active');
+                    document.getElementById('adBottomContent').innerHTML = `
+                        <ins class="adsbygoogle"
+                             style="display:block"
+                             data-ad-client="${publisherId}"
+                             data-ad-slot="${adConfig.google_adsense.ad_slot_bottom}"
+                             data-ad-format="auto"
+                             data-full-width-responsive="true"></ins>
+                    `;
+                }
+                
+                // Load AdSense script
+                if (publisherId !== "ca-pub-XXXXXXXXXXXXXXXX") {
+                    const script = document.createElement('script');
+                    script.src = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${publisherId}`;
+                    script.crossOrigin = "anonymous";
+                    script.async = true;
+                    document.head.appendChild(script);
+                    setTimeout(() => { (adsbygoogle = window.adsbygoogle || []).push({}); }, 150);
+                }
+            } catch (e) {
+                console.log('Ads system skipped:', e.message);
+            }
         }
 
         // === LANGUAGE SYSTEM ===
         async function loadLanguage(lang) {
             try {
                 const res = await fetch(`lang/${lang}.json`, { cache: 'no-store' });
-                if (!res.ok) throw new Error(`Cannot load lang file: ${lang}`);
+                if (!res.ok) throw new Error('Lang file missing');
                 translations = await res.json();
                 applyTranslations();
                 updateLangButtons();
-                
-                // SEO: Update page language & meta
                 document.documentElement.lang = lang;
-                document.title = translations.pageTitle;
+                document.title = translations.pageTitle || 'Quant.';
                 const metaDesc = document.querySelector('meta[name="description"]');
-                if (metaDesc && translations.metaDescription) {
-                    metaDesc.content = translations.metaDescription;
-                }
-            } catch (err) {
-                console.error('❌ Language error:', err);
+                if (metaDesc && translations.metaDescription) metaDesc.content = translations.metaDescription;
+                const metaKeys = document.querySelector('meta[name="keywords"]');
+                if (metaKeys && translations.metaKeywords) metaKeys.content = translations.metaKeywords;
+            } catch (e) {
+                console.error('Lang load error:', e);
             }
         }
 
         function applyTranslations() {
-            document.getElementById('txtClearCache').textContent = t('clearCache');
+            document.getElementById('txtRefresh').textContent = t('refresh');
             document.getElementById('txtSubtitle').textContent = t('subtitle');
             document.getElementById('txtLoading').textContent = t('loading');
             document.getElementById('txtSwingTab').textContent = t('swingTab');
             document.getElementById('txtDivTab').textContent = t('divTab');
             document.getElementById('clickHint').textContent = stocks.length ? t('clickHint') : '';
             document.getElementById('txtDisclaimer').textContent = t('disclaimer');
+            document.getElementById('txtHome').textContent = t('home');
             document.getElementById('txtPrivacy').textContent = t('privacy');
             document.getElementById('txtTerms').textContent = t('terms');
             document.getElementById('txtContact').textContent = t('contact');
-            document.getElementById('txtAllRights').textContent = t('allRights');
-            
-            // Popup labels
-            document.getElementById('txtSwingTitle').textContent = t('swingTitle');
-            document.getElementById('txtDivTitle').textContent = t('divTitle');
-            document.getElementById('lblCurrentPrice').textContent = t('lblCurrentPrice');
-            document.getElementById('lblMA50').textContent = t('lblMA50');
-            document.getElementById('lblEntry').textContent = t('lblEntry');
-            document.getElementById('lblTargetPrice').textContent = t('lblTargetPrice');
-            document.getElementById('txtAnalysis').textContent = t('analysis');
-            document.getElementById('txtSuggestion').textContent = t('suggestion');
-            document.getElementById('lblCurrentYield').textContent = t('lblCurrentYield');
-            document.getElementById('lblBestBuyZone').textContent = t('lblBestBuyZone');
-            document.getElementById('lblMaxYield').textContent = t('lblMaxYield');
-            document.getElementById('lbl52WeekLow').textContent = t('lbl52WeekLow');
-            document.getElementById('lbl52WeekHigh').textContent = t('lbl52WeekHigh');
         }
 
         function updateLangButtons() {
@@ -253,7 +340,7 @@
             currentLang = lang;
             localStorage.setItem('quant_lang', lang);
             await loadLanguage(lang);
-            if (stocks.length > 0) renderAll();
+            if (stocks.length) renderAll();
         }
 
         // === TAB SWITCH ===
@@ -266,15 +353,36 @@
             document.getElementById('clickHint').style.display = stocks.length > 0 ? 'block' : 'none';
         }
 
+        // === STATUS HELPERS ===
+        function getSwingStatusClass(cond) {
+            if (cond.includes('STRONG BUY')) return 'STRONG_BUY';
+            if (cond.includes('BUY ZONE')) return 'BUY_ZONE';
+            return 'WAIT';
+        }
+        function getSwingStatusText(cond) {
+            if (cond.includes('STRONG BUY')) return t('statusStrongBuy');
+            if (cond.includes('BUY ZONE')) return t('statusBuy');
+            return t('statusWait');
+        }
+        function getDivStatusClass(rating) {
+            if (rating.includes('BEST BUY')) return 'BEST_BUY';
+            if (rating.includes('ATTRACTIVE')) return 'ATTRACTIVE';
+            if (rating.includes('EXPENSIVE')) return 'EXPENSIVE';
+            return 'WAIT';
+        }
+        function getDivStatusText(rating) {
+            if (rating.includes('BEST BUY')) return t('statusBest');
+            if (rating.includes('ATTRACTIVE')) return t('statusGood');
+            if (rating.includes('EXPENSIVE')) return t('statusExpensive');
+            return t('statusWait');
+        }
+
         // === RENDER CARDS ===
         function renderSwingCard(s) {
-            const sw = s.swing;
-            const statusText = terjemahkanStatusSwing(sw.condition);
-            let statusClass = 'WAIT';
-            if (sw.condition.includes('STRONG BUY') || sw.condition.includes('BUY ZONE')) statusClass = 'ENTRY';
-            
+            const statusClass = getSwingStatusClass(s.swing.condition);
+            const statusText = getSwingStatusText(s.swing.condition);
             return `
-            <div class="stock-card" onclick="openSwingPopup(${JSON.stringify(s).replace(/"/g, '&quot;')})">
+            <div class="stock-card" onclick='openSwingPopup(${JSON.stringify(s)})'>
                 <div class="card-head">
                     <div>
                         <span class="symbol">${s.symbol}</span>
@@ -285,23 +393,19 @@
                 <div class="card-grid">
                     <div><label>${t('lblPrice')}</label><strong>$${s.current_price}</strong></div>
                     <div><label>${t('lblRSI')}</label><strong>${s.indicators.rsi}</strong></div>
-                    <div><label>${t('lblEntry')}</label><strong>$${sw.entry_zone}</strong></div>
-                    <div><label>${t('lblTarget')}</label><strong>$${sw.target_price}</strong></div>
-                    <div><label>${t('lblGain')}</label><strong class="positive">${sw.potential_gain_percent}%</strong></div>
+                    <div><label>${t('lblEntry')}</label><strong>$${s.swing.entry_zone}</strong></div>
+                    <div><label>${t('lblTarget')}</label><strong>$${s.swing.target_price}</strong></div>
+                    <div><label>${t('lblGain')}</label><strong class="positive">${s.swing.potential_gain_percent}%</strong></div>
                     <div><label>${t('lblMA20')}</label><strong>$${s.indicators.ma20}</strong></div>
                 </div>
             </div>`;
         }
 
         function renderDivCard(s) {
-            const dv = s.dividend;
-            const statusText = terjemahkanStatusDividen(dv.rating);
-            let statusClass = 'WAIT';
-            if (dv.rating.includes('BEST BUY') || dv.rating.includes('ATTRACTIVE')) statusClass = 'GOOD';
-            else if (dv.rating.includes('EXPENSIVE')) statusClass = 'EXPENSIVE';
-            
+            const statusClass = getDivStatusClass(s.dividend.rating);
+            const statusText = getDivStatusText(s.dividend.rating);
             return `
-            <div class="stock-card" onclick="openDivPopup(${JSON.stringify(s).replace(/"/g, '&quot;')})">
+            <div class="stock-card" onclick='openDivPopup(${JSON.stringify(s)})'>
                 <div class="card-head">
                     <div>
                         <span class="symbol">${s.symbol}</span>
@@ -311,113 +415,106 @@
                 </div>
                 <div class="card-grid">
                     <div><label>${t('lblPrice')}</label><strong>$${s.current_price}</strong></div>
-                    <div><label>${t('lblYield')}</label><strong class="positive">${dv.current_yield_percent}%</strong></div>
-                    <div><label>${t('lblBestBuy')}</label><strong>$${dv.best_buy_zone}</strong></div>
-                    <div><label>${t('lblMaxYield')}</label><strong>${dv.max_yield_percent}%</strong></div>
+                    <div><label>${t('lblYield')}</label><strong class="positive">${s.dividend.current_yield_percent}%</strong></div>
+                    <div><label>${t('lblBestZone')}</label><strong>$${s.dividend.best_buy_zone}</strong></div>
                     <div><label>${t('lbl52Low')}</label><strong>$${s.price_52week.low}</strong></div>
-                    <div><label>${t('lblUpside')}</label><strong class="positive">${dv.price_upside_percent}%</strong></div>
+                    <div><label>${t('lbl52High')}</label><strong>$${s.price_52week.high}</strong></div>
+                    <div><label>${t('lblUpside')}</label><strong class="positive">${s.dividend.price_upside_percent}%</strong></div>
                 </div>
             </div>`;
         }
 
         function renderAll() {
-            document.getElementById('swingContent').innerHTML = '<div class="stock-list">' + stocks.map(s => renderSwingCard(s)).join('') + '</div>';
-            document.getElementById('dividenContent').innerHTML = '<div class="stock-list">' + stocks.map(s => renderDivCard(s)).join('') + '</div>';
+            document.getElementById('swingContent').innerHTML = '<div class="stock-list">' + stocks.map(renderSwingCard).join('') + '</div>';
+            document.getElementById('dividenContent').innerHTML = '<div class="stock-list">' + stocks.map(renderDivCard).join('') + '</div>';
+            document.getElementById('clickHint').textContent = t('clickHint');
+            document.getElementById('clickHint').style.display = 'block';
         }
 
-        // === POPUP ===
+        // === POPUP FUNCTIONS ===
         function openSwingPopup(s) {
-            document.getElementById('popupSym').textContent = `${s.symbol} — ${s.swing.condition}`;
+            document.getElementById('popupSym').textContent = s.symbol;
             document.getElementById('popupName').textContent = s.name;
-            document.getElementById('swingPrice').textContent = `$${s.current_price}`;
-            document.getElementById('swingRsi').textContent = s.indicators.rsi;
-            document.getElementById('swingMa20').textContent = `$${s.indicators.ma20}`;
-            document.getElementById('swingMa50').textContent = `$${s.indicators.ma50}`;
-            document.getElementById('swingEntry').textContent = `$${s.swing.entry_zone}`;
-            document.getElementById('swingTarget').textContent = `$${s.swing.target_price} (${s.swing.potential_gain_percent}%)`;
-            document.getElementById('swingReason').innerHTML = s.swing.reasons.join('<br>');
-            document.getElementById('swingAdvice').textContent = s.swing.advice;
             document.getElementById('swingDetail').style.display = 'block';
             document.getElementById('divDetail').style.display = 'none';
+            
+            document.getElementById('swingPrice').textContent = '$' + s.current_price;
+            document.getElementById('swingRsi').textContent = s.indicators.rsi;
+            document.getElementById('swingMa20').textContent = '$' + s.indicators.ma20;
+            document.getElementById('swingMa50').textContent = '$' + s.indicators.ma50;
+            document.getElementById('swingEntry').textContent = '$' + s.swing.entry_zone;
+            document.getElementById('swingTarget').textContent = '$' + s.swing.target_price;
+            document.getElementById('swingReason').textContent = s.swing.reasons.join(' ');
+            document.getElementById('swingAdvice').textContent = s.swing.advice;
+            
             document.getElementById('popupOverlay').classList.add('show');
-            document.body.style.overflow = 'hidden';
         }
 
         function openDivPopup(s) {
-            document.getElementById('popupSym').textContent = `${s.symbol} — ${s.dividend.rating}`;
+            document.getElementById('popupSym').textContent = s.symbol;
             document.getElementById('popupName').textContent = s.name;
-            document.getElementById('divPrice').textContent = `$${s.current_price}`;
-            document.getElementById('divYield').textContent = `${s.dividend.current_yield_percent}%`;
-            document.getElementById('divZone').textContent = `$${s.dividend.best_buy_zone}`;
-            document.getElementById('divMaxYield').textContent = `${s.dividend.max_yield_percent}%`;
-            document.getElementById('divLow').textContent = `$${s.price_52week.low}`;
-            document.getElementById('divHigh').textContent = `$${s.price_52week.high}`;
-            document.getElementById('divReason').innerHTML = s.dividend.reasons.join('<br>');
-            document.getElementById('divAdvice').textContent = s.dividend.advice;
             document.getElementById('swingDetail').style.display = 'none';
             document.getElementById('divDetail').style.display = 'block';
+            
+            document.getElementById('divPrice').textContent = '$' + s.current_price;
+            document.getElementById('divYield').textContent = s.dividend.current_yield_percent + '%';
+            document.getElementById('divZone').textContent = '$' + s.dividend.best_buy_zone;
+            document.getElementById('divMaxYield').textContent = s.dividend.max_yield_percent + '%';
+            document.getElementById('divLow').textContent = '$' + s.price_52week.low;
+            document.getElementById('divHigh').textContent = '$' + s.price_52week.high;
+            document.getElementById('divReason').textContent = s.dividend.reasons.join(' ');
+            document.getElementById('divAdvice').textContent = s.dividend.advice;
+            
             document.getElementById('popupOverlay').classList.add('show');
-            document.body.style.overflow = 'hidden';
         }
 
         function closePopup() {
             document.getElementById('popupOverlay').classList.remove('show');
-            document.body.style.overflow = '';
         }
-
         function closePopupOutside(e) {
-            if (e.target.id === 'popupOverlay') closePopup();
+            if (e.target === document.getElementById('popupOverlay')) closePopup();
         }
 
         // === LOAD DATA ===
         async function loadData() {
-            const btn = document.getElementById('cacheBtn');
             const loading = document.getElementById('loadingDiv');
+            const errorBox = document.getElementById('errorBox');
+            const refreshBtn = document.getElementById('refreshBtn');
             const infoBar = document.getElementById('infoBar');
             
-            btn.classList.add('loading');
-            btn.innerHTML = '<span class="spinner" style="width:14px;height:14px;border-width:2px;"></span>';
             loading.style.display = 'block';
-            loading.innerHTML = `<span class="spinner"></span> ${t('loading')}`;
+            errorBox.style.display = 'none';
             infoBar.style.display = 'none';
             document.getElementById('swingContent').innerHTML = '';
             document.getElementById('dividenContent').innerHTML = '';
             document.getElementById('clickHint').style.display = 'none';
-
+            refreshBtn.disabled = true;
+            
             try {
-                const url = `${JSON_URL}?v=${Date.now()}`;
-                const res = await fetch(url, { cache: 'no-store' });
-                
-                if (!res.ok) throw new Error(`HTTP Error: ${res.status}`);
+                const res = await fetch(JSON_URL, { cache: 'no-store' });
+                if (!res.ok) throw new Error(`File not found at ${JSON_URL}`);
                 
                 const data = await res.json();
                 stocks = data.stock_list || [];
                 
-                loading.style.display = 'none';
+                infoBar.innerHTML = `✅ ${t('lastUpdate')}: ${data.generated_at} — ${t('totalStocks')}: ${data.total_stocks}`;
                 infoBar.style.display = 'block';
-                infoBar.innerHTML = `✅ ${t('lastUpdate')}: <strong>${data.generated_at || '—'}</strong> | ${t('totalStocks')}: <strong>${stocks.length}</strong>`;
                 
                 renderAll();
-                document.getElementById('clickHint').style.display = 'block';
-                
             } catch (err) {
-                loading.innerHTML = `
-                    <div class="error">
-                        ❌ <strong>${t('errorTitle')}</strong><br>
-                        ${err.message}<br><br>
-                        💡 ${t('errorHint')}<br>
-                        <a href="${JSON_URL}" target="_blank" style="color:#dc2626; font-weight:bold; text-decoration:underline;">👉 ${t('checkHere')}</a>
-                    </div>`;
+                errorBox.innerHTML = `<strong>${t('errorTitle')}</strong><br>${t('errorHint')}<br><small>${err.message}</small>`;
+                errorBox.style.display = 'block';
             } finally {
-                btn.classList.remove('loading');
-                btn.innerHTML = '🗑️ ' + t('clearCache');
+                loading.style.display = 'none';
+                refreshBtn.disabled = false;
             }
         }
 
-        // === INITIALIZE ===
+        // === INIT ===
         document.addEventListener('DOMContentLoaded', async () => {
             await loadLanguage(currentLang);
-            loadData();
+            await loadAds();
+            await loadData();
         });
     </script>
 </body>
