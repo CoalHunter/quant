@@ -3,66 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!-- SEO Primary -->
-    <title id="pageTitle">Quant. — US Stock Analysis | Swing Trading & Dividend Strategy</title>
-    <meta name="description" id="metaDesc" content="Professional US stock analysis tool. Find best entry prices for swing trading and dividend investing. Data updated daily.">
-    <meta name="keywords" id="metaKeys" content="stock analysis, swing trading, dividend investing, US stocks, Southern Company, Consolidated Edison, Realty Income">
-    <meta name="author" content="Quant.">
+    <title id="pageTitle">Quant. — US Stock Analysis</title>
+    <meta name="description" id="metaDesc" content="Professional US stock analysis tool.">
+    <meta name="keywords" id="metaKeys" content="stock analysis, swing trading, dividend investing, US stocks">
     <meta name="robots" content="index, follow">
-    <meta name="googlebot" content="index, follow">
-    
-    <!-- Canonical URL -->
     <link rel="canonical" href="https://coalhunter.github.io/quant/index.html" />
-    
-    <!-- Open Graph -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://coalhunter.github.io/quant/index.html">
-    <meta property="og:title" content="Quant. — US Stock Analysis">
-    <meta property="og:description" content="Professional US stock analysis tool — Swing Trading & Dividend Strategy">
-    
-    <!-- Hreflang -->
     <link rel="alternate" hreflang="en" href="https://coalhunter.github.io/quant/index.html" />
     <link rel="alternate" hreflang="id" href="https://coalhunter.github.io/quant/index.html?lang=id" />
     <link rel="alternate" hreflang="x-default" href="https://coalhunter.github.io/quant/index.html" />
     
+    <script src="./config/setup.js"></script>
+    <style>.slot{display:none;margin:20px 0;padding:12px;background:#f8fafc;border-radius:8px;text-align:center;}</style>
+    
     <style>
         * {margin:0; padding:0; box-sizing:border-box; font-family: 'Segoe UI', Roboto, Arial, sans-serif;}
         body {background:#f0f4f8; color:#1e293b; padding:16px; max-width:768px; margin:0 auto;}
-        
-        /* === AD CONTAINERS — Aman AdSense === */
-        .ad-container {background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; padding:10px; text-align:center; margin:12px 0; min-height:60px; display:none;}
-        .ad-container.active {display:block;}
-        .ad-label {font-size:0.65rem; color:#94a3b8; text-transform:uppercase; letter-spacing:1px; margin-bottom:6px;}
-        .ad-placeholder {color:#cbd5e1; font-size:0.8rem;}
-        
         .top-bar {display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; flex-wrap:wrap; gap:10px;}
         .lang-selector {display:flex; gap:6px;}
-        .lang-btn {border:1px solid #cbd5e1; border-radius:6px; padding:6px 12px; cursor:pointer; background:white; font-weight:500; transition:all 0.2s;}
+        .lang-btn {border:1px solid #cbd5e1; border-radius:6px; padding:6px 12px; cursor:pointer; background:white; font-weight:500;}
         .lang-btn.active {background:#7c3aed; color:white; border-color:#7c3aed;}
-        
-        .refresh-btn {background:#7c3aed; color:white; border:none; padding:8px 16px; border-radius:6px; font-weight:600; cursor:pointer; transition:background 0.2s;}
-        .refresh-btn:hover {background:#6d28d9;}
-        .refresh-btn:disabled {opacity:0.6; cursor:not-allowed;}
-        
-        h1 {text-align:center; font-size:1.8rem; margin-bottom:4px; color:#1e293b;}
-        .subtitle {text-align:center; color:#64748b; margin-bottom:20px; font-size:0.95rem;}
-        
+        .refresh-btn {background:#7c3aed; color:white; border:none; padding:8px 16px; border-radius:6px; font-weight:600; cursor:pointer;}
+        .refresh-btn:disabled {opacity:0.6;}
+        h1 {text-align:center; font-size:1.8rem; margin-bottom:4px;}
+        .subtitle {text-align:center; color:#64748b; margin-bottom:20px;}
         .tabs {display:flex; background:#e2e8f0; border-radius:8px; padding:4px; margin-bottom:16px;}
-        .tab {flex:1; padding:10px; border:none; background:transparent; font-size:0.95rem; font-weight:600; color:#64748b; border-radius:6px; cursor:pointer; transition:all 0.2s;}
-        .tab.active {background:white; color:#1e293b; box-shadow:0 1px 3px rgba(0,0,0,0.06);}
-        
+        .tab {flex:1; padding:10px; border:none; background:transparent; font-size:0.95rem; font-weight:600; color:#64748b; border-radius:6px; cursor:pointer;}
+        .tab.active {background:white; color:#1e293b;}
         .loading {text-align:center; padding:40px 20px; color:#64748b;}
         .spinner {display:inline-block; width:22px; height:22px; border:3px solid #ddd6fe; border-top-color:#7c3aed; border-radius:50%; animation:spin 0.8s linear infinite; margin-right:10px; vertical-align:middle;}
         @keyframes spin {to {transform:rotate(360deg);}}
-        
-        .error {background:#fee2e2; border-left:3px solid #dc2626; padding:14px; border-radius:6px; color:#991b1b; margin:16px 0; line-height:1.6;}
+        .error {background:#fee2e2; border-left:3px solid #dc2626; padding:14px; border-radius:6px; color:#991b1b; margin:16px 0; line-height:1.6; display:none;}
         .info-bar {background:#e0f2fe; border-left:3px solid #0ea5e9; padding:10px 14px; border-radius:6px; margin-bottom:16px; font-size:0.9rem; display:none;}
-        
         .stock-list {display:grid; gap:10px;}
-        .stock-card {background:white; border-radius:10px; padding:12px; box-shadow:0 1px 4px rgba(0,0,0,0.05); cursor:pointer; transition:all 0.2s;}
+        .stock-card {background:white; border-radius:10px; padding:12px; cursor:pointer; transition:all 0.2s;}
         .stock-card:hover {transform:translateY(-2px); box-shadow:0 4px 8px rgba(0,0,0,0.08);}
-        
         .card-head {display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;}
         .symbol {background:#dbeafe; color:#1d4ed8; padding:3px 8px; border-radius:4px; font-weight:700; font-size:0.9rem;}
         .comp-name {font-size:0.75rem; color:#64748b; margin-top:2px;}
@@ -73,18 +47,15 @@
         .status.BEST_BUY {background:#fef9c3; color:#854d0e;}
         .status.ATTRACTIVE {background:#dcfce7; color:#166534;}
         .status.EXPENSIVE {background:#fee2e2; color:#991b1b;}
-        
         .card-grid {display:grid; grid-template-columns:repeat(3, 1fr); gap:8px; font-size:0.8rem;}
         .card-grid label {display:block; font-size:0.7rem; color:#94a3b8; margin-bottom:2px;}
         .positive {color:#16a34a; font-weight:600;}
-        .click-hint {text-align:center; font-size:0.75rem; color:#94a3b8; margin-top:12px;}
-        
+        .click-hint {text-align:center; font-size:0.75rem; color:#94a3b8; margin-top:12px; display:none;}
         .popup-bg {position:fixed; inset:0; background:rgba(0,0,0,0.5); display:none; align-items:center; justify-content:center; padding:16px; z-index:100;}
         .popup-bg.show {display:flex;}
         .popup {background:white; border-radius:12px; width:100%; max-width:480px; max-height:85vh; overflow-y:auto; padding:20px;}
         .popup-head {display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:16px;}
         .close-btn {width:32px; height:32px; border-radius:50%; border:none; background:#f1f5f9; font-size:1.2rem; cursor:pointer; color:#64748b;}
-        
         .grid-2 {display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:10px 0;}
         .box {background:#f8fafc; padding:12px; border-radius:6px; font-size:0.9rem;}
         .box label {display:block; font-size:0.75rem; color:#94a3b8; margin-bottom:4px;}
@@ -92,11 +63,9 @@
         .section-title {font-size:0.9rem; font-weight:700; margin:16px 0 8px; padding-bottom:6px; border-bottom:2px solid;}
         .swing-title {color:#2563eb; border-bottom-color:#bfdbfe;}
         .div-title {color:#16a34a; border-bottom-color:#bbf7d0;}
-        
         footer {margin-top:40px; padding-top:20px; border-top:1px solid #e2e8f0; text-align:center; font-size:0.8rem; color:#64748b;}
         footer a {color:#475569; text-decoration:none; margin:0 6px;}
         footer a:hover {color:#7c3aed; text-decoration:underline;}
-        
         @media (max-width: 480px) {
             .card-grid {grid-template-columns:repeat(2, 1fr);}
             .grid-2 {grid-template-columns:1fr;}
@@ -105,11 +74,8 @@
 </head>
 <body>
 
-    <!-- TOP AD SLOT -->
-    <div class="ad-container" id="adTop">
-        <div class="ad-label" id="adTopLabel">Sponsored</div>
-        <div id="adTopContent" class="ad-placeholder"><!-- Ad loads from config/money.json --></div>
-    </div>
+    <!-- IKLAN ATAS -->
+    <div class="slot" data-pos="top"></div>
 
     <div class="top-bar">
         <div class="lang-selector">
@@ -128,25 +94,19 @@
     </div>
 
     <div class="info-bar" id="infoBar"></div>
-    <div class="error" id="errorBox" style="display:none;"></div>
+    <div class="error" id="errorBox"></div>
     <div class="loading" id="loadingDiv"><span class="spinner"></span> <span id="txtLoading">Loading data...</span></div>
 
     <div id="swingContent"></div>
     
-    <!-- MIDDLE AD SLOT -->
-    <div class="ad-container" id="adMiddle">
-        <div class="ad-label" id="adMiddleLabel">Sponsored</div>
-        <div id="adMiddleContent" class="ad-placeholder"><!-- Ad loads from config/money.json --></div>
-    </div>
+    <!-- IKLAN TENGAH -->
+    <div class="slot" data-pos="middle"></div>
     
     <div id="dividenContent" style="display:none;"></div>
-    <p class="click-hint" id="clickHint" style="display:none;"></p>
+    <p class="click-hint" id="clickHint"></p>
 
-    <!-- BOTTOM AD SLOT -->
-    <div class="ad-container" id="adBottom">
-        <div class="ad-label" id="adBottomLabel">Sponsored</div>
-        <div id="adBottomContent" class="ad-placeholder"><!-- Ad loads from config/money.json --></div>
-    </div>
+    <!-- IKLAN BAWAH -->
+    <div class="slot" data-pos="bottom"></div>
 
     <footer>
         <p><strong>Quant.</strong> — Professional US Stock Analysis Tool</p>
@@ -169,7 +129,6 @@
                 </div>
                 <button class="close-btn" onclick="closePopup()">×</button>
             </div>
-            
             <div id="swingDetail">
                 <p class="section-title swing-title" id="txtSwingTitle">📈 SWING TRADING — Analysis</p>
                 <div class="grid-2">
@@ -185,7 +144,6 @@
                     <strong id="txtSuggestion">Suggestion:</strong><br><span id="swingAdvice"></span>
                 </div>
             </div>
-            
             <div id="divDetail" style="display:none;">
                 <p class="section-title div-title" id="txtDivTitle">💰 DIVIDEND STRATEGY — Analysis</p>
                 <div class="grid-2">
@@ -205,103 +163,15 @@
     </div>
 
     <script>
-        // === CONFIG PATHS ===
         const JSON_URL = './output/hasil_analisa.json';
-        const ADS_URL = './config/money.json';
-        
-        // === STATE ===
         let currentLang = localStorage.getItem('quant_lang') || 'en';
         let translations = {};
-        let adConfig = null;
         let stocks = [];
         let activeTab = 'swing';
 
-        // === HELPERS ===
-        function t(key) { return translations[key] || key; }
-
-        // === AD SYSTEM — Aman AdSense ===
-        async function loadAds() {
-            try {
-                const res = await fetch(ADS_URL, { cache: 'no-store' });
-                if (!res.ok) {
-                    console.log('money.json not found — ads disabled');
-                    return;
-                }
-                adConfig = await res.json();
-                
-                if (!adConfig.ads_enabled) return;
-                
-                const publisherId = adConfig.google_adsense.publisher_id;
-                const safetyHide = adConfig.safety.hide_on_empty_publisher;
-                
-                // ⚠️ JANGAN TAMPILKAN IKLAN JIKA ID MASIH DEFAULT
-                if (safetyHide && publisherId === "ca-pub-XXXXXXXXXXXXXXXX") {
-                    console.log('AdSense: Publisher ID not set yet — ads hidden (safe mode ON)');
-                    return;
-                }
-                
-                const adLabel = adConfig.safety.ad_label_text || "Sponsored";
-                document.getElementById('adTopLabel').textContent = adLabel;
-                document.getElementById('adMiddleLabel').textContent = adLabel;
-                document.getElementById('adBottomLabel').textContent = adLabel;
-                
-                // Top Banner
-                if (adConfig.display.show_top_banner) {
-                    document.getElementById('adTop').classList.add('active');
-                    document.getElementById('adTopContent').innerHTML = `
-                        <ins class="adsbygoogle"
-                             style="display:block"
-                             data-ad-client="${publisherId}"
-                             data-ad-slot="${adConfig.google_adsense.ad_slot_top}"
-                             data-ad-format="auto"
-                             data-full-width-responsive="true"></ins>
-                    `;
-                }
-                
-                // Middle Content
-                if (adConfig.display.show_in_content) {
-                    document.getElementById('adMiddle').classList.add('active');
-                    document.getElementById('adMiddleContent').innerHTML = `
-                        <ins class="adsbygoogle"
-                             style="display:block"
-                             data-ad-client="${publisherId}"
-                             data-ad-slot="${adConfig.google_adsense.ad_slot_middle}"
-                             data-ad-format="auto"></ins>
-                    `;
-                }
-                
-                // Bottom Banner
-                if (adConfig.display.show_bottom_banner) {
-                    document.getElementById('adBottom').classList.add('active');
-                    document.getElementById('adBottomContent').innerHTML = `
-                        <ins class="adsbygoogle"
-                             style="display:block"
-                             data-ad-client="${publisherId}"
-                             data-ad-slot="${adConfig.google_adsense.ad_slot_bottom}"
-                             data-ad-format="auto"
-                             data-full-width-responsive="true"></ins>
-                    `;
-                }
-                
-                // Load AdSense script
-                if (publisherId !== "ca-pub-XXXXXXXXXXXXXXXX") {
-                    const script = document.createElement('script');
-                    script.src = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${publisherId}`;
-                    script.crossOrigin = "anonymous";
-                    script.async = true;
-                    document.head.appendChild(script);
-                    setTimeout(() => { (adsbygoogle = window.adsbygoogle || []).push({}); }, 150);
-                }
-            } catch (e) {
-                console.log('Ads system skipped:', e.message);
-            }
-        }
-
-        // === LANGUAGE SYSTEM ===
         async function loadLanguage(lang) {
             try {
                 const res = await fetch(`lang/${lang}.json`, { cache: 'no-store' });
-                if (!res.ok) throw new Error('Lang file missing');
                 translations = await res.json();
                 applyTranslations();
                 updateLangButtons();
@@ -311,11 +181,10 @@
                 if (metaDesc && translations.metaDescription) metaDesc.content = translations.metaDescription;
                 const metaKeys = document.querySelector('meta[name="keywords"]');
                 if (metaKeys && translations.metaKeywords) metaKeys.content = translations.metaKeywords;
-            } catch (e) {
-                console.error('Lang load error:', e);
-            }
+            } catch (e) { console.error('Lang error:', e); }
         }
 
+        function t(key) { return translations[key] || key; }
         function applyTranslations() {
             document.getElementById('txtRefresh').textContent = t('refresh');
             document.getElementById('txtSubtitle').textContent = t('subtitle');
@@ -329,12 +198,10 @@
             document.getElementById('txtTerms').textContent = t('terms');
             document.getElementById('txtContact').textContent = t('contact');
         }
-
         function updateLangButtons() {
             document.getElementById('btnEn').classList.toggle('active', currentLang === 'en');
             document.getElementById('btnId').classList.toggle('active', currentLang === 'id');
         }
-
         async function setLanguage(lang) {
             if (lang === currentLang) return;
             currentLang = lang;
@@ -342,102 +209,56 @@
             await loadLanguage(lang);
             if (stocks.length) renderAll();
         }
-
-        // === TAB SWITCH ===
         function switchTab(tab) {
             activeTab = tab;
             document.getElementById('tabSwing').classList.toggle('active', tab === 'swing');
             document.getElementById('tabDiv').classList.toggle('active', tab === 'dividen');
             document.getElementById('swingContent').style.display = tab === 'swing' ? 'block' : 'none';
             document.getElementById('dividenContent').style.display = tab === 'dividen' ? 'block' : 'none';
-            document.getElementById('clickHint').style.display = stocks.length > 0 ? 'block' : 'none';
         }
-
-        // === STATUS HELPERS ===
-        function getSwingStatusClass(cond) {
-            if (cond.includes('STRONG BUY')) return 'STRONG_BUY';
-            if (cond.includes('BUY ZONE')) return 'BUY_ZONE';
+        function getSwingStatusClass(c) {
+            if (c.includes('STRONG BUY')) return 'STRONG_BUY';
+            if (c.includes('BUY ZONE')) return 'BUY_ZONE';
             return 'WAIT';
         }
-        function getSwingStatusText(cond) {
-            if (cond.includes('STRONG BUY')) return t('statusStrongBuy');
-            if (cond.includes('BUY ZONE')) return t('statusBuy');
+        function getSwingStatusText(c) {
+            if (c.includes('STRONG BUY')) return t('statusStrongBuy');
+            if (c.includes('BUY ZONE')) return t('statusBuy');
             return t('statusWait');
         }
-        function getDivStatusClass(rating) {
-            if (rating.includes('BEST BUY')) return 'BEST_BUY';
-            if (rating.includes('ATTRACTIVE')) return 'ATTRACTIVE';
-            if (rating.includes('EXPENSIVE')) return 'EXPENSIVE';
+        function getDivStatusClass(r) {
+            if (r.includes('BEST BUY')) return 'BEST_BUY';
+            if (r.includes('ATTRACTIVE')) return 'ATTRACTIVE';
+            if (r.includes('EXPENSIVE')) return 'EXPENSIVE';
             return 'WAIT';
         }
-        function getDivStatusText(rating) {
-            if (rating.includes('BEST BUY')) return t('statusBest');
-            if (rating.includes('ATTRACTIVE')) return t('statusGood');
-            if (rating.includes('EXPENSIVE')) return t('statusExpensive');
+        function getDivStatusText(r) {
+            if (r.includes('BEST BUY')) return t('statusBest');
+            if (r.includes('ATTRACTIVE')) return t('statusGood');
+            if (r.includes('EXPENSIVE')) return t('statusExpensive');
             return t('statusWait');
         }
-
-        // === RENDER CARDS ===
         function renderSwingCard(s) {
-            const statusClass = getSwingStatusClass(s.swing.condition);
-            const statusText = getSwingStatusText(s.swing.condition);
-            return `
-            <div class="stock-card" onclick='openSwingPopup(${JSON.stringify(s)})'>
-                <div class="card-head">
-                    <div>
-                        <span class="symbol">${s.symbol}</span>
-                        <div class="comp-name">${s.name}</div>
-                    </div>
-                    <span class="status ${statusClass}">${statusText}</span>
-                </div>
-                <div class="card-grid">
-                    <div><label>${t('lblPrice')}</label><strong>$${s.current_price}</strong></div>
-                    <div><label>${t('lblRSI')}</label><strong>${s.indicators.rsi}</strong></div>
-                    <div><label>${t('lblEntry')}</label><strong>$${s.swing.entry_zone}</strong></div>
-                    <div><label>${t('lblTarget')}</label><strong>$${s.swing.target_price}</strong></div>
-                    <div><label>${t('lblGain')}</label><strong class="positive">${s.swing.potential_gain_percent}%</strong></div>
-                    <div><label>${t('lblMA20')}</label><strong>$${s.indicators.ma20}</strong></div>
-                </div>
-            </div>`;
+            const sc = getSwingStatusClass(s.swing.condition);
+            const st = getSwingStatusText(s.swing.condition);
+            return `<div class="stock-card" onclick='openSwingPopup(${JSON.stringify(s)})'><div class="card-head"><div><span class="symbol">${s.symbol}</span><div class="comp-name">${s.name}</div></div><span class="status ${sc}">${st}</span></div><div class="card-grid"><div><label>${t('lblPrice')}</label><strong>$${s.current_price}</strong></div><div><label>${t('lblRSI')}</label><strong>${s.indicators.rsi}</strong></div><div><label>${t('lblEntry')}</label><strong>$${s.swing.entry_zone}</strong></div><div><label>${t('lblTarget')}</label><strong>$${s.swing.target_price}</strong></div><div><label>${t('lblGain')}</label><strong class="positive">${s.swing.potential_gain_percent}%</strong></div><div><label>${t('lblMA20')}</label><strong>$${s.indicators.ma20}</strong></div></div></div>`;
         }
-
         function renderDivCard(s) {
-            const statusClass = getDivStatusClass(s.dividend.rating);
-            const statusText = getDivStatusText(s.dividend.rating);
-            return `
-            <div class="stock-card" onclick='openDivPopup(${JSON.stringify(s)})'>
-                <div class="card-head">
-                    <div>
-                        <span class="symbol">${s.symbol}</span>
-                        <div class="comp-name">${s.name}</div>
-                    </div>
-                    <span class="status ${statusClass}">${statusText}</span>
-                </div>
-                <div class="card-grid">
-                    <div><label>${t('lblPrice')}</label><strong>$${s.current_price}</strong></div>
-                    <div><label>${t('lblYield')}</label><strong class="positive">${s.dividend.current_yield_percent}%</strong></div>
-                    <div><label>${t('lblBestZone')}</label><strong>$${s.dividend.best_buy_zone}</strong></div>
-                    <div><label>${t('lbl52Low')}</label><strong>$${s.price_52week.low}</strong></div>
-                    <div><label>${t('lbl52High')}</label><strong>$${s.price_52week.high}</strong></div>
-                    <div><label>${t('lblUpside')}</label><strong class="positive">${s.dividend.price_upside_percent}%</strong></div>
-                </div>
-            </div>`;
+            const sc = getDivStatusClass(s.dividend.rating);
+            const st = getDivStatusText(s.dividend.rating);
+            return `<div class="stock-card" onclick='openDivPopup(${JSON.stringify(s)})'><div class="card-head"><div><span class="symbol">${s.symbol}</span><div class="comp-name">${s.name}</div></div><span class="status ${sc}">${st}</span></div><div class="card-grid"><div><label>${t('lblPrice')}</label><strong>$${s.current_price}</strong></div><div><label>${t('lblYield')}</label><strong class="positive">${s.dividend.current_yield_percent}%</strong></div><div><label>${t('lblBestZone')}</label><strong>$${s.dividend.best_buy_zone}</strong></div><div><label>${t('lbl52Low')}</label><strong>$${s.price_52week.low}</strong></div><div><label>${t('lbl52High')}</label><strong>$${s.price_52week.high}</strong></div><div><label>${t('lblUpside')}</label><strong class="positive">${s.dividend.price_upside_percent}%</strong></div></div></div>`;
         }
-
         function renderAll() {
             document.getElementById('swingContent').innerHTML = '<div class="stock-list">' + stocks.map(renderSwingCard).join('') + '</div>';
             document.getElementById('dividenContent').innerHTML = '<div class="stock-list">' + stocks.map(renderDivCard).join('') + '</div>';
             document.getElementById('clickHint').textContent = t('clickHint');
             document.getElementById('clickHint').style.display = 'block';
         }
-
-        // === POPUP FUNCTIONS ===
         function openSwingPopup(s) {
             document.getElementById('popupSym').textContent = s.symbol;
             document.getElementById('popupName').textContent = s.name;
             document.getElementById('swingDetail').style.display = 'block';
             document.getElementById('divDetail').style.display = 'none';
-            
             document.getElementById('swingPrice').textContent = '$' + s.current_price;
             document.getElementById('swingRsi').textContent = s.indicators.rsi;
             document.getElementById('swingMa20').textContent = '$' + s.indicators.ma20;
@@ -446,16 +267,13 @@
             document.getElementById('swingTarget').textContent = '$' + s.swing.target_price;
             document.getElementById('swingReason').textContent = s.swing.reasons.join(' ');
             document.getElementById('swingAdvice').textContent = s.swing.advice;
-            
             document.getElementById('popupOverlay').classList.add('show');
         }
-
         function openDivPopup(s) {
             document.getElementById('popupSym').textContent = s.symbol;
             document.getElementById('popupName').textContent = s.name;
             document.getElementById('swingDetail').style.display = 'none';
             document.getElementById('divDetail').style.display = 'block';
-            
             document.getElementById('divPrice').textContent = '$' + s.current_price;
             document.getElementById('divYield').textContent = s.dividend.current_yield_percent + '%';
             document.getElementById('divZone').textContent = '$' + s.dividend.best_buy_zone;
@@ -464,24 +282,16 @@
             document.getElementById('divHigh').textContent = '$' + s.price_52week.high;
             document.getElementById('divReason').textContent = s.dividend.reasons.join(' ');
             document.getElementById('divAdvice').textContent = s.dividend.advice;
-            
             document.getElementById('popupOverlay').classList.add('show');
         }
-
-        function closePopup() {
-            document.getElementById('popupOverlay').classList.remove('show');
-        }
-        function closePopupOutside(e) {
-            if (e.target === document.getElementById('popupOverlay')) closePopup();
-        }
-
-        // === LOAD DATA ===
+        function closePopup() { document.getElementById('popupOverlay').classList.remove('show'); }
+        function closePopupOutside(e) { if (e.target === document.getElementById('popupOverlay')) closePopup(); }
+        
         async function loadData() {
             const loading = document.getElementById('loadingDiv');
             const errorBox = document.getElementById('errorBox');
             const refreshBtn = document.getElementById('refreshBtn');
             const infoBar = document.getElementById('infoBar');
-            
             loading.style.display = 'block';
             errorBox.style.display = 'none';
             infoBar.style.display = 'none';
@@ -489,17 +299,13 @@
             document.getElementById('dividenContent').innerHTML = '';
             document.getElementById('clickHint').style.display = 'none';
             refreshBtn.disabled = true;
-            
             try {
                 const res = await fetch(JSON_URL, { cache: 'no-store' });
-                if (!res.ok) throw new Error(`File not found at ${JSON_URL}`);
-                
+                if (!res.ok) throw new Error(`File not found: ${JSON_URL}`);
                 const data = await res.json();
                 stocks = data.stock_list || [];
-                
                 infoBar.innerHTML = `✅ ${t('lastUpdate')}: ${data.generated_at} — ${t('totalStocks')}: ${data.total_stocks}`;
                 infoBar.style.display = 'block';
-                
                 renderAll();
             } catch (err) {
                 errorBox.innerHTML = `<strong>${t('errorTitle')}</strong><br>${t('errorHint')}<br><small>${err.message}</small>`;
@@ -509,11 +315,8 @@
                 refreshBtn.disabled = false;
             }
         }
-
-        // === INIT ===
         document.addEventListener('DOMContentLoaded', async () => {
             await loadLanguage(currentLang);
-            await loadAds();
             await loadData();
         });
     </script>
