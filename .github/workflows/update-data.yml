@@ -1,38 +1,20 @@
-name: Perbarui Data Saham
-
+name: Update Stock Data
 on:
-  # Jalankan otomatis setiap hari pukul 09.00 WIB (01:00 UTC)
   schedule:
-    - cron: '0 1 * * *'
-  # Izinkan jalankan manual dari halaman GitHub
+    - cron: '0 9 * * *'
   workflow_dispatch:
-
 jobs:
   update:
     runs-on: ubuntu-latest
     steps:
-      - name: 📂 Checkout Kode
-        uses: actions/checkout@v4
-
-      - name: 🐍 Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
-
-      - name: 📦 Install Dependensi
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-
-      - name: 🚀 Jalankan Analisa
-        run: |
-          cd py-engine
-          python analisa_saham.py
-
-      - name: 📝 Commit & Push Hasil
-        run: |
-          git config --local user.name "github-actions[bot]"
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.11'}
+      - run: pip install -r requirements.txt
+      - run: python py-engine/analisa_saham.py
+      - run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
           git add output/hasil_analisa.json
-          git commit -m "🤖 Update data: $(date +'%Y-%m-%d %H:%M:%S')" || echo "Tidak ada perubahan"
+          git commit -m "🤖 Update stock data: $(date +'%Y-%m-%d %H:%M UTC')" || echo "No changes"
           git push
