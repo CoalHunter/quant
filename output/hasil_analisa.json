@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-25 06:59:02 UTC",
+  "generated_at": "2026-10-25 07:16:03 UTC",
   "total_stocks": 4,
   "stock_list": [
     {
@@ -21,22 +21,22 @@
         "target_price": "94.60",
         "potential_gain_percent": "1.8",
         "reasons": [
-          "RSI: 78.8",
-          "Price above MA20: True"
+          "RSI at 78.8 indicates overbought conditions.",
+          "Price above MA20 trend."
         ],
         "advice": "Wait for better price before entering."
       },
       "dividend": {
-        "rating": "ATTRACTIVE",
-        "current_yield_percent": "327.00",
-        "max_yield_percent": "359.70",
+        "rating": "EXPENSIVE",
+        "current_yield_percent": "3.27",
+        "max_yield_percent": "3.60",
         "best_buy_zone": "81.69 - 84.14",
         "price_upside_percent": "7.2",
         "reasons": [
-          "Current yield: 327.0%",
-          "Close to best entry zone: False"
+          "Current yield: 3.27% vs market average.",
+          "Price is above best entry zone."
         ],
-        "advice": "Good yield. Consider accumulating on dips."
+        "advice": "Yield is currently low. Wait for price correction for better entry."
       }
     },
     {
@@ -58,22 +58,22 @@
         "target_price": "110.67",
         "potential_gain_percent": "-4.4",
         "reasons": [
-          "RSI: 81.2",
-          "Price above MA20: True"
+          "RSI at 81.2 indicates overbought conditions.",
+          "Price above MA20 trend."
         ],
         "advice": "Wait for better price before entering."
       },
       "dividend": {
-        "rating": "ATTRACTIVE",
-        "current_yield_percent": "307.00",
-        "max_yield_percent": "337.70",
+        "rating": "EXPENSIVE",
+        "current_yield_percent": "3.07",
+        "max_yield_percent": "3.38",
         "best_buy_zone": "94.96 - 97.81",
         "price_upside_percent": "0.7",
         "reasons": [
-          "Current yield: 307.0%",
-          "Close to best entry zone: False"
+          "Current yield: 3.07% vs market average.",
+          "Price is above best entry zone."
         ],
-        "advice": "Good yield. Consider accumulating on dips."
+        "advice": "Yield is currently low. Wait for price correction for better entry."
       }
     },
     {
@@ -95,22 +95,22 @@
         "target_price": "64.54",
         "potential_gain_percent": "13.4",
         "reasons": [
-          "RSI: 68.6",
-          "Price above MA20: True"
+          "RSI at 68.6 indicates overbought conditions.",
+          "Price above MA20 trend."
         ],
         "advice": "Wait for better price before entering."
       },
       "dividend": {
         "rating": "ATTRACTIVE",
-        "current_yield_percent": "573.00",
-        "max_yield_percent": "630.30",
+        "current_yield_percent": "5.73",
+        "max_yield_percent": "6.30",
         "best_buy_zone": "53.15 - 54.74",
         "price_upside_percent": "19.4",
         "reasons": [
-          "Current yield: 573.0%",
-          "Close to best entry zone: False"
+          "Current yield: 5.73% vs market average.",
+          "Price is above best entry zone."
         ],
-        "advice": "Good yield. Consider accumulating on dips."
+        "advice": "Good yield available. Consider accumulating on price dips."
       }
     },
     {
@@ -132,22 +132,22 @@
         "target_price": "41.43",
         "potential_gain_percent": "-3.9",
         "reasons": [
-          "RSI: 82.8",
-          "Price above MA20: True"
+          "RSI at 82.8 indicates overbought conditions.",
+          "Price above MA20 trend."
         ],
         "advice": "Wait for better price before entering."
       },
       "dividend": {
-        "rating": "ATTRACTIVE",
-        "current_yield_percent": "335.00",
-        "max_yield_percent": "368.50",
+        "rating": "EXPENSIVE",
+        "current_yield_percent": "3.35",
+        "max_yield_percent": "3.69",
         "best_buy_zone": "36.11 - 37.19",
         "price_upside_percent": "1.2",
         "reasons": [
-          "Current yield: 335.0%",
-          "Close to best entry zone: False"
+          "Current yield: 3.35% vs market average.",
+          "Price is above best entry zone."
         ],
-        "advice": "Good yield. Consider accumulating on dips."
+        "advice": "Yield is currently low. Wait for price correction for better entry."
       }
     }
   ]
