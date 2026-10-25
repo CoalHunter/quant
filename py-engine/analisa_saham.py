@@ -11,18 +11,29 @@ STOCKS = {
     "WTRG": "Waterstone Financial Inc"
 }
 
+def get_safe_value(info, *keys, default=0):
+    for key in keys:
+        value = info.get(key)
+        if value is not None and value != 0:
+            return value
+    return default
+
 def analyze_stock(symbol, name):
     ticker = yf.Ticker(symbol)
     info = ticker.info
     
-    current_price = round(info.get('regularMarketPrice', 0), 2)
-    week52_low = round(info.get('fiftyTwoWeekLow', 0), 2)
-    week52_high = round(info.get('fiftyTwoWeekHigh', 0), 2)
+    # Price data — ambil dari beberapa sumber untuk keamanan
+    current_price = round(get_safe_value(info, 'regularMarketPrice', 'currentPrice', 'previousClose'), 2)
+    week52_low = round(get_safe_value(info, 'fiftyTwoWeekLow'), 2)
+    week52_high = round(get_safe_value(info, 'fiftyTwoWeekHigh'), 2)
     
+    # Calculate indicators
     hist = ticker.history(period='3mo')
     if len(hist) >= 50:
         ma20 = round(hist['Close'].tail(20).mean(), 2)
         ma50 = round(hist['Close'].tail(50).mean(), 2)
+        
+        # RSI calculation
         delta = hist['Close'].diff()
         gain = delta.where(delta > 0, 0).rolling(14).mean()
         loss = (-delta.where(delta < 0, 0)).rolling(14).mean()
@@ -33,9 +44,18 @@ def analyze_stock(symbol, name):
         ma50 = current_price
         rsi = 50.0
     
-    dividend_yield = round(info.get('dividendYield', 0) * 100, 2)
+    # ✅ DIPERBAIKI: Dividend yield — cek beberapa sumber dan normalisasi
+    raw_yield = get_safe_value(info, 'dividendYield', 'trailingAnnualDividendYield')
     
-    # Swing Trading
+    # Normalisasi: yfinance bisa return desimal (0.035) atau persen (3.5) tergantung versi
+    if raw_yield > 1:
+        # Sudah dalam bentuk persen, gunakan apa adanya
+        dividend_yield = round(raw_yield, 2)
+    else:
+        # Masih desimal, kalikan 100
+        dividend_yield = round(raw_yield * 100, 2)
+    
+    # Swing Trading Analysis
     zone_low = round(ma20 * 0.98, 2)
     zone_high = round(ma20 * 1.01, 2)
     entry_zone = f"{zone_low} - {zone_high}"
@@ -53,11 +73,11 @@ def analyze_stock(symbol, name):
         swing_advice = "Wait for better price before entering."
     
     swing_reasons = [
-        f"RSI: {rsi}",
-        f"Price above MA20: {current_price > ma20}"
+        f"RSI at {rsi} indicates {'oversold' if rsi < 35 else 'neutral' if rsi < 50 else 'overbought'} conditions.",
+        f"Price {'above' if current_price > ma20 else 'below'} MA20 trend."
     ]
     
-    # Dividend Strategy
+    # Dividend Strategy Analysis
     max_yield_possible = round(dividend_yield * 1.1, 2) if dividend_yield > 0 else 0
     buy_zone_max = round(week52_low * 1.03, 2)
     best_buy_zone = f"{week52_low} - {buy_zone_max}"
@@ -65,17 +85,17 @@ def analyze_stock(symbol, name):
     
     if dividend_yield >= 4.5 and current_price <= buy_zone_max:
         div_rating = "BEST BUY"
-        div_advice = "Excellent yield near 52-week low. Strong long-term hold."
+        div_advice = "Excellent yield near 52-week low. Strong long-term hold candidate."
     elif dividend_yield >= 3.5:
         div_rating = "ATTRACTIVE"
-        div_advice = "Good yield. Consider accumulating on dips."
+        div_advice = "Good yield available. Consider accumulating on price dips."
     else:
         div_rating = "EXPENSIVE"
-        div_advice = "Yield currently low. Wait for price correction."
+        div_advice = "Yield is currently low. Wait for price correction for better entry."
     
     div_reasons = [
-        f"Current yield: {dividend_yield}%",
-        f"Close to best entry zone: {current_price <= buy_zone_max}"
+        f"Current yield: {dividend_yield}% vs market average.",
+        f"Price is {'close to' if current_price <= buy_zone_max else 'above'} best entry zone."
     ]
     
     return {
@@ -111,24 +131,31 @@ def analyze_stock(symbol, name):
     }
 
 def main():
-    print("🔄 Starting analysis...")
+    print("🔄 Starting stock analysis...")
     results = []
+    
     for symbol, name in STOCKS.items():
-        print(f"  → {symbol}")
+        print(f"  → Analyzing {symbol}: {name}")
         try:
-            results.append(analyze_stock(symbol, name))
+            data = analyze_stock(symbol, name)
+            results.append(data)
+            print(f"    ✓ Price: ${data['current_price']} | Yield: {data['dividend']['current_yield_percent']}%")
         except Exception as e:
-            print(f"  ⚠️ Error {symbol}: {e}")
+            print(f"  ⚠️ Error analyzing {symbol}: {e}")
     
     output = {
         "generated_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S UTC"),
         "total_stocks": len(results),
         "stock_list": results
     }
+    
     os.makedirs("output", exist_ok=True)
+    
     with open("output/hasil_analisa.json", "w", encoding="utf-8") as f:
         json.dump(output, f, indent=2, ensure_ascii=False)
-    print(f"✅ Done! Saved to output/hasil_analisa.json")
+    
+    print(f"\n✅ Done! Results saved to: output/hasil_analisa.json")
+    print(f"📊 Total stocks analyzed: {len(results)}")
 
 if __name__ == "__main__":
     main()
