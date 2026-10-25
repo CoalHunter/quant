@@ -4,7 +4,6 @@ import json
 import os
 from datetime import datetime
 
-# Stock list
 STOCKS = {
     "SO": "Southern Company",
     "ED": "Consolidated Edison",
@@ -16,18 +15,14 @@ def analyze_stock(symbol, name):
     ticker = yf.Ticker(symbol)
     info = ticker.info
     
-    # Price data
     current_price = round(info.get('regularMarketPrice', 0), 2)
     week52_low = round(info.get('fiftyTwoWeekLow', 0), 2)
     week52_high = round(info.get('fiftyTwoWeekHigh', 0), 2)
     
-    # Historical data for indicators
     hist = ticker.history(period='3mo')
     if len(hist) >= 50:
         ma20 = round(hist['Close'].tail(20).mean(), 2)
         ma50 = round(hist['Close'].tail(50).mean(), 2)
-        
-        # Calculate RSI(14)
         delta = hist['Close'].diff()
         gain = delta.where(delta > 0, 0).rolling(14).mean()
         loss = (-delta.where(delta < 0, 0)).rolling(14).mean()
@@ -38,10 +33,9 @@ def analyze_stock(symbol, name):
         ma50 = current_price
         rsi = 50.0
     
-    # Dividend data
     dividend_yield = round(info.get('dividendYield', 0) * 100, 2)
     
-    # === SWING TRADING ANALYSIS ===
+    # Swing Trading
     zone_low = round(ma20 * 0.98, 2)
     zone_high = round(ma20 * 1.01, 2)
     entry_zone = f"{zone_low} - {zone_high}"
@@ -50,20 +44,20 @@ def analyze_stock(symbol, name):
     
     if rsi < 35 and current_price <= zone_high:
         swing_condition = "STRONG BUY"
-        swing_advice = "Excellent entry zone — price is oversold and within entry range."
+        swing_advice = "Excellent entry zone — price is oversold."
     elif rsi < 50 and current_price <= zone_high:
         swing_condition = "BUY ZONE"
-        swing_advice = "Price is within reasonable entry range. Consider buying gradually."
+        swing_advice = "Price within reasonable entry range."
     else:
         swing_condition = "WAIT"
-        swing_advice = "Wait for better price or lower RSI before entering."
+        swing_advice = "Wait for better price before entering."
     
     swing_reasons = [
-        f"RSI at {rsi} indicates {'oversold' if rsi < 35 else 'neutral' if rsi < 50 else 'overbought'} conditions.",
-        f"Price {'above' if current_price > ma20 else 'below'} MA20 trend."
+        f"RSI: {rsi}",
+        f"Price above MA20: {current_price > ma20}"
     ]
     
-    # === DIVIDEND STRATEGY ANALYSIS ===
+    # Dividend Strategy
     max_yield_possible = round(dividend_yield * 1.1, 2) if dividend_yield > 0 else 0
     buy_zone_max = round(week52_low * 1.03, 2)
     best_buy_zone = f"{week52_low} - {buy_zone_max}"
@@ -71,17 +65,17 @@ def analyze_stock(symbol, name):
     
     if dividend_yield >= 4.5 and current_price <= buy_zone_max:
         div_rating = "BEST BUY"
-        div_advice = "Excellent yield at a price near 52-week low. Strong long-term hold candidate."
+        div_advice = "Excellent yield near 52-week low. Strong long-term hold."
     elif dividend_yield >= 3.5:
         div_rating = "ATTRACTIVE"
-        div_advice = "Good yield available. Consider accumulating on price dips."
+        div_advice = "Good yield. Consider accumulating on dips."
     else:
         div_rating = "EXPENSIVE"
-        div_advice = "Yield is currently low. Wait for price correction for better entry."
+        div_advice = "Yield currently low. Wait for price correction."
     
     div_reasons = [
-        f"Current yield: {dividend_yield}% vs market average.",
-        f"Price is {'close to' if current_price <= buy_zone_max else 'above'} best entry zone."
+        f"Current yield: {dividend_yield}%",
+        f"Close to best entry zone: {current_price <= buy_zone_max}"
     ]
     
     return {
@@ -117,32 +111,24 @@ def analyze_stock(symbol, name):
     }
 
 def main():
-    print("🔄 Starting stock analysis...")
+    print("🔄 Starting analysis...")
     results = []
-    
     for symbol, name in STOCKS.items():
-        print(f"  → Analyzing {symbol}: {name}")
+        print(f"  → {symbol}")
         try:
-            data = analyze_stock(symbol, name)
-            results.append(data)
+            results.append(analyze_stock(symbol, name))
         except Exception as e:
-            print(f"  ⚠️ Error analyzing {symbol}: {e}")
+            print(f"  ⚠️ Error {symbol}: {e}")
     
     output = {
         "generated_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S UTC"),
         "total_stocks": len(results),
         "stock_list": results
     }
-    
-    # Ensure output folder exists
     os.makedirs("output", exist_ok=True)
-    
-    # Save JSON output
     with open("output/hasil_analisa.json", "w", encoding="utf-8") as f:
         json.dump(output, f, indent=2, ensure_ascii=False)
-    
-    print(f"✅ Done! Results saved to: output/hasil_analisa.json")
-    print(f"📊 Total stocks analyzed: {len(results)}")
+    print(f"✅ Done! Saved to output/hasil_analisa.json")
 
 if __name__ == "__main__":
     main()
