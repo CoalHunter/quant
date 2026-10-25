@@ -1,0 +1,16 @@
+User-agent: *
+Allow: /
+
+Disallow: /py-engine/
+Disallow: /config/
+Disallow: /lang/
+Disallow: /output/
+Disallow: /.github/
+Disallow: /seo/
+
+Allow: /index.html
+Allow: /privacy.html
+Allow: /terms.html
+Allow: /contact.html
+
+Sitemap: https://coalhunter.github.io/quant/sitemap.xml
