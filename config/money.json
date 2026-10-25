@@ -1,18 +1,11 @@
 {
-    "ads_enabled": true,
-    "google_adsense": {
-        "publisher_id": "ca-pub-XXXXXXXXXXXXXXXX",
-        "ad_slot_top": "1234567890",
-        "ad_slot_middle": "2345678901",
-        "ad_slot_bottom": "3456789012"
+    "enabled": true,
+    "client": "ca-pub-XXXXXXXXXXXXXXXX",
+    "label": "Sponsored",
+    "positions": {
+        "top": {"id": "1234567890", "show": true},
+        "middle": {"id": "2345678901", "show": true},
+        "bottom": {"id": "3456789012", "show": true}
     },
-    "display": {
-        "show_top_banner": true,
-        "show_in_content": true,
-        "show_bottom_banner": true
-    },
-    "safety": {
-        "ad_label_text": "Sponsored",
-        "hide_on_empty_publisher": true
-    }
+    "safety": {"hide_empty": true}
 }
