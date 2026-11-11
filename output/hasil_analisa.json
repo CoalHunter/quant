@@ -1,37 +1,37 @@
 {
-  "generated_at": "2026-11-10 16:48:41 UTC",
+  "generated_at": "2026-11-11 16:55:04 UTC",
   "total_stocks": 4,
   "stock_list": [
     {
       "symbol": "SO",
       "name": "Southern Company",
-      "current_price": "93.42",
+      "current_price": "93.31",
       "price_52week": {
         "low": "81.69",
         "high": "99.58"
       },
       "indicators": {
-        "rsi": "61.6",
-        "ma20": "92.22",
-        "ma50": "88.39"
+        "rsi": "47.4",
+        "ma20": "92.43",
+        "ma50": "88.49"
       },
       "swing": {
-        "condition": "WAIT",
-        "entry_zone": "90.38 - 93.14",
+        "condition": "BUY ZONE",
+        "entry_zone": "90.58 - 93.35",
         "target_price": "94.60",
-        "potential_gain_percent": "1.3",
+        "potential_gain_percent": "1.4",
         "reasons": [
-          "RSI at 61.6 indicates overbought conditions.",
+          "RSI at 47.4 indicates neutral conditions.",
           "Price above MA20 trend."
         ],
-        "advice": "Wait for better price before entering."
+        "advice": "Price within reasonable entry range."
       },
       "dividend": {
         "rating": "EXPENSIVE",
         "current_yield_percent": "3.25",
         "max_yield_percent": "3.58",
         "best_buy_zone": "81.69 - 84.14",
-        "price_upside_percent": "6.6",
+        "price_upside_percent": "6.7",
         "reasons": [
           "Current yield: 3.25% vs market average.",
           "Price is above best entry zone."
@@ -42,35 +42,35 @@
     {
       "symbol": "ED",
       "name": "Consolidated Edison",
-      "current_price": "118.91",
+      "current_price": "117.80",
       "price_52week": {
         "low": "94.96",
         "high": "122.75"
       },
       "indicators": {
-        "rsi": "67.1",
-        "ma20": "115.34",
-        "ma50": "109.36"
+        "rsi": "54.2",
+        "ma20": "115.77",
+        "ma50": "109.56"
       },
       "swing": {
         "condition": "WAIT",
-        "entry_zone": "113.03 - 116.49",
+        "entry_zone": "113.45 - 116.93",
         "target_price": "116.61",
-        "potential_gain_percent": "-1.9",
+        "potential_gain_percent": "-1.0",
         "reasons": [
-          "RSI at 67.1 indicates overbought conditions.",
+          "RSI at 54.2 indicates overbought conditions.",
           "Price above MA20 trend."
         ],
         "advice": "Wait for better price before entering."
       },
       "dividend": {
         "rating": "EXPENSIVE",
-        "current_yield_percent": "3.00",
-        "max_yield_percent": "3.30",
+        "current_yield_percent": "2.98",
+        "max_yield_percent": "3.28",
         "best_buy_zone": "94.96 - 97.81",
-        "price_upside_percent": "3.2",
+        "price_upside_percent": "4.2",
         "reasons": [
-          "Current yield: 3.0% vs market average.",
+          "Current yield: 2.98% vs market average.",
           "Price is above best entry zone."
         ],
         "advice": "Yield is currently low. Wait for price correction for better entry."
@@ -79,35 +79,35 @@
     {
       "symbol": "O",
       "name": "Realty Income Corporation",
-      "current_price": "59.37",
+      "current_price": "59.20",
       "price_52week": {
         "low": "53.15",
         "high": "67.94"
       },
       "indicators": {
-        "rsi": "77.4",
-        "ma20": "57.04",
-        "ma50": "56.67"
+        "rsi": "69.0",
+        "ma20": "57.26",
+        "ma50": "56.65"
       },
       "swing": {
         "condition": "WAIT",
-        "entry_zone": "55.9 - 57.61",
+        "entry_zone": "56.11 - 57.83",
         "target_price": "64.54",
-        "potential_gain_percent": "8.7",
+        "potential_gain_percent": "9.0",
         "reasons": [
-          "RSI at 77.4 indicates overbought conditions.",
+          "RSI at 69.0 indicates overbought conditions.",
           "Price above MA20 trend."
         ],
         "advice": "Wait for better price before entering."
       },
       "dividend": {
         "rating": "ATTRACTIVE",
-        "current_yield_percent": "5.48",
-        "max_yield_percent": "6.03",
+        "current_yield_percent": "5.47",
+        "max_yield_percent": "6.02",
         "best_buy_zone": "53.15 - 54.74",
-        "price_upside_percent": "14.4",
+        "price_upside_percent": "14.8",
         "reasons": [
-          "Current yield: 5.48% vs market average.",
+          "Current yield: 5.47% vs market average.",
           "Price is above best entry zone."
         ],
         "advice": "Good yield available. Consider accumulating on price dips."
@@ -116,35 +116,35 @@
     {
       "symbol": "WTRG",
       "name": "Waterstone Financial Inc",
-      "current_price": "44.94",
+      "current_price": "44.59",
       "price_52week": {
         "low": "36.11",
         "high": "46.36"
       },
       "indicators": {
-        "rsi": "72.6",
-        "ma20": "42.93",
-        "ma50": "41.33"
+        "rsi": "60.8",
+        "ma20": "42.87",
+        "ma50": "41.09"
       },
       "swing": {
         "condition": "WAIT",
-        "entry_zone": "42.07 - 43.36",
+        "entry_zone": "42.01 - 43.3",
         "target_price": "44.04",
-        "potential_gain_percent": "-2.0",
+        "potential_gain_percent": "-1.2",
         "reasons": [
-          "RSI at 72.6 indicates overbought conditions.",
+          "RSI at 60.8 indicates overbought conditions.",
           "Price above MA20 trend."
         ],
         "advice": "Wait for better price before entering."
       },
       "dividend": {
         "rating": "EXPENSIVE",
-        "current_yield_percent": "3.20",
-        "max_yield_percent": "3.52",
+        "current_yield_percent": "3.19",
+        "max_yield_percent": "3.51",
         "best_buy_zone": "36.11 - 37.19",
-        "price_upside_percent": "3.2",
+        "price_upside_percent": "4.0",
         "reasons": [
-          "Current yield: 3.2% vs market average.",
+          "Current yield: 3.19% vs market average.",
           "Price is above best entry zone."
         ],
         "advice": "Yield is currently low. Wait for price correction for better entry."
