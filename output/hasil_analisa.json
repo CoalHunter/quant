@@ -1,39 +1,39 @@
 {
-  "generated_at": "2026-11-12 17:23:07 UTC",
+  "generated_at": "2026-11-13 16:58:08 UTC",
   "total_stocks": 4,
   "stock_list": [
     {
       "symbol": "SO",
       "name": "Southern Company",
-      "current_price": "93.60",
+      "current_price": "94.21",
       "price_52week": {
         "low": "81.69",
         "high": "99.58"
       },
       "indicators": {
-        "rsi": "53.9",
-        "ma20": "92.68",
-        "ma50": "88.61"
+        "rsi": "57.1",
+        "ma20": "92.77",
+        "ma50": "88.70"
       },
       "swing": {
         "condition": "WAIT",
-        "entry_zone": "90.83 - 93.61",
+        "entry_zone": "90.91 - 93.7",
         "target_price": "94.60",
-        "potential_gain_percent": "1.1",
+        "potential_gain_percent": "0.4",
         "reasons": [
-          "RSI at 53.9 indicates overbought conditions.",
+          "RSI at 57.1 indicates overbought conditions.",
           "Price above MA20 trend."
         ],
         "advice": "Wait for better price before entering."
       },
       "dividend": {
         "rating": "EXPENSIVE",
-        "current_yield_percent": "3.24",
-        "max_yield_percent": "3.56",
+        "current_yield_percent": "3.29",
+        "max_yield_percent": "3.62",
         "best_buy_zone": "81.69 - 84.14",
-        "price_upside_percent": "6.4",
+        "price_upside_percent": "5.7",
         "reasons": [
-          "Current yield: 3.24% vs market average.",
+          "Current yield: 3.29% vs market average.",
           "Price is above best entry zone."
         ],
         "advice": "Yield is currently low. Wait for price correction for better entry."
@@ -42,95 +42,21 @@
     {
       "symbol": "ED",
       "name": "Consolidated Edison",
-      "current_price": "119.67",
+      "current_price": "121.08",
       "price_52week": {
         "low": "94.96",
         "high": "122.75"
       },
       "indicators": {
-        "rsi": "61.7",
-        "ma20": "116.33",
-        "ma50": "109.83"
-      },
-      "swing": {
-        "condition": "WAIT",
-        "entry_zone": "114.0 - 117.49",
-        "target_price": "116.61",
-        "potential_gain_percent": "-2.6",
-        "reasons": [
-          "RSI at 61.7 indicates overbought conditions.",
-          "Price above MA20 trend."
-        ],
-        "advice": "Wait for better price before entering."
-      },
-      "dividend": {
-        "rating": "EXPENSIVE",
-        "current_yield_percent": "2.98",
-        "max_yield_percent": "3.28",
-        "best_buy_zone": "94.96 - 97.81",
-        "price_upside_percent": "2.6",
-        "reasons": [
-          "Current yield: 2.98% vs market average.",
-          "Price is above best entry zone."
-        ],
-        "advice": "Yield is currently low. Wait for price correction for better entry."
-      }
-    },
-    {
-      "symbol": "O",
-      "name": "Realty Income Corporation",
-      "current_price": "59.52",
-      "price_52week": {
-        "low": "53.15",
-        "high": "67.94"
-      },
-      "indicators": {
-        "rsi": "74.5",
-        "ma20": "57.49",
-        "ma50": "56.63"
-      },
-      "swing": {
-        "condition": "WAIT",
-        "entry_zone": "56.34 - 58.06",
-        "target_price": "64.54",
-        "potential_gain_percent": "8.4",
-        "reasons": [
-          "RSI at 74.5 indicates overbought conditions.",
-          "Price above MA20 trend."
-        ],
-        "advice": "Wait for better price before entering."
-      },
-      "dividend": {
-        "rating": "ATTRACTIVE",
-        "current_yield_percent": "5.52",
-        "max_yield_percent": "6.07",
-        "best_buy_zone": "53.15 - 54.74",
-        "price_upside_percent": "14.1",
-        "reasons": [
-          "Current yield: 5.52% vs market average.",
-          "Price is above best entry zone."
-        ],
-        "advice": "Good yield available. Consider accumulating on price dips."
-      }
-    },
-    {
-      "symbol": "WTRG",
-      "name": "Waterstone Financial Inc",
-      "current_price": "45.00",
-      "price_52week": {
-        "low": "36.11",
-        "high": "46.36"
-      },
-      "indicators": {
         "rsi": "65.9",
-        "ma20": "43.14",
-        "ma50": "41.17"
+        "ma20": "116.76",
+        "ma50": "110.07"
       },
       "swing": {
         "condition": "WAIT",
-        "entry_zone": "42.28 - 43.57",
-        "target_price": "44.04",
-        "potential_gain_percent": "-2.1",
+        "entry_zone": "114.42 - 117.93",
+        "target_price": "116.61",
+        "potential_gain_percent": "-3.7",
         "reasons": [
           "RSI at 65.9 indicates overbought conditions.",
           "Price above MA20 trend."
@@ -139,12 +65,86 @@
       },
       "dividend": {
         "rating": "EXPENSIVE",
-        "current_yield_percent": "3.21",
-        "max_yield_percent": "3.53",
-        "best_buy_zone": "36.11 - 37.19",
-        "price_upside_percent": "3.0",
+        "current_yield_percent": "2.97",
+        "max_yield_percent": "3.27",
+        "best_buy_zone": "94.96 - 97.81",
+        "price_upside_percent": "1.4",
         "reasons": [
-          "Current yield: 3.21% vs market average.",
+          "Current yield: 2.97% vs market average.",
+          "Price is above best entry zone."
+        ],
+        "advice": "Yield is currently low. Wait for price correction for better entry."
+      }
+    },
+    {
+      "symbol": "O",
+      "name": "Realty Income Corporation",
+      "current_price": "58.95",
+      "price_52week": {
+        "low": "53.15",
+        "high": "67.94"
+      },
+      "indicators": {
+        "rsi": "66.6",
+        "ma20": "57.64",
+        "ma50": "56.58"
+      },
+      "swing": {
+        "condition": "WAIT",
+        "entry_zone": "56.49 - 58.22",
+        "target_price": "64.54",
+        "potential_gain_percent": "9.5",
+        "reasons": [
+          "RSI at 66.6 indicates overbought conditions.",
+          "Price above MA20 trend."
+        ],
+        "advice": "Wait for better price before entering."
+      },
+      "dividend": {
+        "rating": "ATTRACTIVE",
+        "current_yield_percent": "5.55",
+        "max_yield_percent": "6.11",
+        "best_buy_zone": "53.15 - 54.74",
+        "price_upside_percent": "15.3",
+        "reasons": [
+          "Current yield: 5.55% vs market average.",
+          "Price is above best entry zone."
+        ],
+        "advice": "Good yield available. Consider accumulating on price dips."
+      }
+    },
+    {
+      "symbol": "WTRG",
+      "name": "Waterstone Financial Inc",
+      "current_price": "45.33",
+      "price_52week": {
+        "low": "36.11",
+        "high": "46.36"
+      },
+      "indicators": {
+        "rsi": "69.2",
+        "ma20": "43.36",
+        "ma50": "41.24"
+      },
+      "swing": {
+        "condition": "WAIT",
+        "entry_zone": "42.49 - 43.79",
+        "target_price": "44.04",
+        "potential_gain_percent": "-2.8",
+        "reasons": [
+          "RSI at 69.2 indicates overbought conditions.",
+          "Price above MA20 trend."
+        ],
+        "advice": "Wait for better price before entering."
+      },
+      "dividend": {
+        "rating": "EXPENSIVE",
+        "current_yield_percent": "3.23",
+        "max_yield_percent": "3.55",
+        "best_buy_zone": "36.11 - 37.19",
+        "price_upside_percent": "2.3",
+        "reasons": [
+          "Current yield: 3.23% vs market average.",
           "Price is above best entry zone."
         ],
         "advice": "Yield is currently low. Wait for price correction for better entry."
